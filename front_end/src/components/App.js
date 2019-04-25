@@ -1,9 +1,13 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { NewsPeedPage } from 'pages';
 
 const App = () => {
   return (
     <div>
-      App
+      <Switch>
+        <Route exact path="/" component={NewsPeedPage}/>
+      </Switch>
     </div>
   );
 };
