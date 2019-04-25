@@ -1,2 +1,8 @@
+# dependencies
 node_modules
 .env
+
+# front end
+/front_end/build
+
+# back end
