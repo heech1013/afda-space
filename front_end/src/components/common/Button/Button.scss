@@ -1,0 +1,51 @@
+.button {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  cursor: pointer;
+  user-select: none;  // 드래그 방지
+  display: inline-flex;
+  text-decoration: none;  // 텍스트 밑줄 제거
+
+  // theme: default
+  &.default {
+    border: 1.5px solid #2C3F77;
+    border-radius: 0.5rem;
+    color: #2C3F77;
+    font-weight: bold;
+    &:hover {
+      background: #2C3F77;
+      color: #FFFFFF;
+    }
+  }
+
+  // theme: menu
+  &.menu {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    color: #707070;
+    border-bottom: solid #FFFFFF;
+    border-bottom-width: 0.4rem;
+    & + & {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      background: #E8E8E8;
+      border-bottom-color: #E8E8E8;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    &.clicked {
+      border-bottom: solid #2C3F77;
+      border-bottom-width: 0.4rem;
+      color: #2C3F77;
+      font-weight: bold;
+    }
+  }
+}

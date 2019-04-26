@@ -1,0 +1,23 @@
+.writer {
+  background: #FFFFFF;
+  border: 1px solid #707070;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+  margin-top: 1rem;
+  margin-left: 23rem;
+  margin-right: 23rem;
+  border-radius: 1.5rem;
+  
+  .input {
+    width: 44.25rem;
+    height: 5rem;
+    outline-style: none;
+    font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
+  }
+  .button {
+    float: right;
+    margin-top: 1rem;
+  }
+}

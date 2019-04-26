@@ -1,0 +1,29 @@
+.post-list {
+  margin-top: 3rem;
+  color: #707070;
+  .post-item {
+    border: 1px solid #707070;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    margin-left: 23rem;
+    margin-right: 23rem;
+    margin-bottom: 2rem;
+    .nick {
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2C3F77;
+    }
+    .date {
+      float: right;
+      margin-right: 2rem;
+      font-size: 0.9rem;
+    }
+    .body {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
