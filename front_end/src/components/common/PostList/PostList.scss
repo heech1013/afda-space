@@ -1,29 +1,65 @@
 .post-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   margin-top: 3rem;
   color: #707070;
-  .post-item {
-    border: 1px solid #707070;
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
-    padding-top: 1rem;
-    padding-left: 2rem;
-    margin-left: 23rem;
-    margin-right: 23rem;
+  .post-wrapper {
     margin-bottom: 2rem;
-    .nick {
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #2C3F77;
-    }
-    .date {
-      float: right;
-      margin-right: 2rem;
-      font-size: 0.9rem;
-    }
-    .body {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
+    .post-item {
+      background-color: #FFFFFF;
+      border: 1px solid #707070;
+      border-top-left-radius: 1.5rem;
+      border-top-right-radius: 1.5rem;
+      padding-top: 1rem;
+      padding-left: 2rem;
+      padding-bottom: 0.5rem;
+      margin-left: 23rem;
+      margin-right: 23rem;
+      .nick {
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #2C3F77;
+      }
+      .date {
+        float: right;
+        margin-right: 2rem;
+        font-size: 0.9rem;
+      }
+      .body {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+      .img {
+        float: left;
+        cursor: pointer;
+      }
+      .support {
+        float: left;
+        margin-left: 0.5rem;
+      }
+      .hr {
+        margin-right: 2rem;
+      }
+      .comment-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        .comment-item {
+          margin-bottom: 1rem;
+          .nick {
+            font-size: 1rem;
+            float: left;
+          }
+          .body {
+            float: left;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: 1rem;
+          }
+        }
+      }
     }
   }
 }
