@@ -14,8 +14,9 @@ const NewsPeedPage = () => {
             nick: '우울한 청룡',
             updatedAt: '2019-04-27 01:43:44',
             body: '테스트 포스트 내용 1. 이러쿵 저러쿵 테스트.',
-            support: 5,
+            theme: 'support',
             checked: true,
+            number: 9,
             onClick: () => console.log('onClick() is activated.'),
             comment: [
               {
@@ -39,8 +40,9 @@ const NewsPeedPage = () => {
             nick: '새벽의 이슬',
             updatedAt: '2019-04-27 01:44:34',
             body: '테스트 포스트 내용 2. 이러쿵 저러쿵 테스트.',
-            support: 1,
+            theme: 'support',
             checked: false,
+            number: 3,
             onClick: () => console.log('onClick() is activated.'),
             comment: [
               {
