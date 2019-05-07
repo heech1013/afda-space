@@ -10,7 +10,7 @@
   display: inline-flex;
   text-decoration: none;  // 텍스트 밑줄 제거
 
-  // theme: default
+  // theme: default (로그인, 회원가입, 글쓰기, 댓글 작성)
   &.default {
     border: 1.5px solid #2C3F77;
     border-radius: 0.5rem;
@@ -46,6 +46,19 @@
       border-bottom-width: 0.4rem;
       color: #2C3F77;
       font-weight: bold;
+    }
+  }
+
+  // theme: addToMyProfile
+  &.addToMyProfile {
+    color: #FFFFFF;
+    background: #2C3F77;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    border: 1.5px solid #2C3F77;
+    &:hover {
+      color: #2C3F77;
+      background: #FFFFFF;
     }
   }
 }

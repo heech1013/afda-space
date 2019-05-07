@@ -4,5 +4,6 @@ node_modules
 
 # front end
 /front_end/build
+/front_end/yarn-error.log
 
 # back end

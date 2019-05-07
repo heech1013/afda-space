@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import {
   NewsPeedPage,
   ProfilePage,
-  DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
+  DiagnosisPage, DiagnosisSummaryPage,// DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
   MedicinePage,
   CenterPage,
   StationPage
