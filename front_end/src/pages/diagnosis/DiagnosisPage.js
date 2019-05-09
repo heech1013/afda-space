@@ -7,6 +7,9 @@ const DiagnosisPage = () => {
   return (
     <PageTemplate>
       <ContentList
+        row_1={'진단명'}
+        row_2={'사람 수'}
+        to={'diagnosis'}
         contents={[
           {
             id: 1,

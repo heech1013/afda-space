@@ -4,6 +4,7 @@
   border-radius: 1.5rem;
   margin-left: 23rem;
   margin-right: 23rem;
+  margin-top: 1rem;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   padding-left: 2rem;
@@ -29,16 +30,23 @@
     .content-item {
       margin-bottom: 1rem;
       .title {
-        text-decoration: none;
-        color: #2C3F77;
         font-weight: bold;
+        &.to {
+          text-decoration: none;
+          color: #2C3F77;
+        }
       }
       .en-title {
         font-size: 0.9rem;
       }
       .number {
         float: right;
-        margin-top: 0.4rem;
+        position: relative;
+        top: -1.2rem;
+        &.to {
+          top: 0;
+          margin-top: 0.4rem;
+        }
       }
     }
     .hr {

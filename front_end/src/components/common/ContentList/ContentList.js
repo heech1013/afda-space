@@ -5,16 +5,21 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const ContentItem = ({title, enTitle, number}) => (
-  <div className={cx('content-item')}>
-    <Link className={cx('title')} to={`/diagnosis/summary?title=${title}`}>{title}</Link>
-    <span className={cx('number')}>{number}</span>
-    <div className={cx('en-title')}>({enTitle})</div>
-    
-  </div>
-);
+const Div = ({children, ...rest}) => <div {...rest}>{children}</div>
 
-const ContentList = ({contents}) => {
+const ContentItem = ({title, enTitle, number, to}) => {
+  const Element = to ? Link : Div;
+  const enTitleHTML = enTitle ? <div className={cx('en-title')}>({enTitle})</div> : [];
+  return (
+    <div className={cx('content-item')}>
+      <Element className={cx('title', { to })} to={`/${to}/summary?title=${title}`}>{title}</Element>
+      <span className={cx('number', { to })}>{number}</span>
+      {enTitleHTML}
+    </div> 
+  )
+};
+
+const ContentList = ({row_1, row_2, to, contents}) => {
   const contentList = contents.map((content) => {
     const {id, title, enTitle, number} = content;
     return (
@@ -23,6 +28,7 @@ const ContentList = ({contents}) => {
           title={title}
           enTitle={enTitle}
           number={number}
+          to={to}
         />
         <hr className={cx('hr')}/>
       </div>
@@ -31,8 +37,8 @@ const ContentList = ({contents}) => {
   return (
     <div className={cx('content-list')}>
       <div className={cx('row')}>
-        <span className={cx('row-1')}>진단명</span>
-        <span className={cx('row-2')}>사람 수</span>
+        <span className={cx('row-1')}>{row_1}</span>
+        <span className={cx('row-2')}>{row_2}</span>
         <hr className={cx('row-hr')}/>
       </div>
       {contentList}
