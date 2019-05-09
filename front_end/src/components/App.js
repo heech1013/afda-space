@@ -4,7 +4,7 @@ import {
   NewsPeedPage,
   ProfilePage,
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
-  MedicinePage,
+  MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
   CenterPage,
   StationPage
 } from 'pages';
@@ -22,7 +22,9 @@ const App = () => {
         <Route exact path="/diagnosis/medicine" component={DiagnosisMedicinePage}/>
         <Route exact path="/diagnosis/newspeed" component={DiagnosisNewsPeedPage}/>
         
-        <Route path="/medicine" component={MedicinePage}/>
+        <Route exact path="/medicine" component={MedicinePage}/>
+        <Route exact path="/medicine/summary" component={MedicineSummaryPage}/>
+        <Route exact path="/medicine/newspeed" component={MedicineNewspeedPage}/>
         
         <Route path="/center" component={CenterPage}/>
         

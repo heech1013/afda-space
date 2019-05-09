@@ -7,6 +7,9 @@ export { default as DiagnosisSymptomPage } from './diagnosis/DiagnosisSymptomPag
 export { default as DiagnosisMedicinePage } from './diagnosis/DiagnosisMedicinePage';
 export { default as DiagnosisNewsPeedPage } from './diagnosis/DiagnosisNewsPeedPage';
 
-export { default as MedicinePage } from './MedicinePage';
+export { default as MedicinePage } from './medicine/MedicinePage';
+export { default as MedicineSummaryPage } from './medicine/MedicineSummaryPage';
+export { default as MedicineNewspeedPage } from './medicine/MedicineNewspeedPage';
+
 export { default as CenterPage } from './CenterPage';
 export { default as StationPage } from './StationPage';

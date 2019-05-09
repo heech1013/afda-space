@@ -15,13 +15,13 @@ const ContentItem = ({title, enTitle, number, to}) => {
       <Element className={cx('title', { to })} to={`/${to}/summary?title=${title}`}>{title}</Element>
       <span className={cx('number', { to })}>{number}</span>
       {enTitleHTML}
-    </div> 
+    </div>
   )
 };
 
 const ContentList = ({row_1, row_2, to, contents}) => {
   const contentList = contents.map((content) => {
-    const {id, title, enTitle, number} = content;
+    const { id, title, enTitle, number } = content;
     return (
       <div className={cx('content-item-wrapper')} key={id}>
         <ContentItem
