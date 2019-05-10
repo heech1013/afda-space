@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styles from './DynamicContentList.scss';
 import classNames from 'classnames/bind';
 import { Link, withRouter } from 'react-router-dom';
@@ -8,51 +8,55 @@ const cx = classNames.bind(styles);
 const ContentItem = ({pathname, id, area, centerName, doctorName, evalCount, subject, helpfulCount, answerCount}) => {
   const row =
     (pathname === '/center') ?
-      <Fragment>
-        <span className={cx('row-area', 'content')}>{area}</span>
-        <span className={cx('row-center-name', 'content')}>{centerName}</span>
-        <span className={cx('row-doctor-name', 'content')}>{doctorName}</span>
-        <span className={cx('row-eval-count', 'content')}>{evalCount}</span>
-      </Fragment>
+      <Link className={cx('content-link')} to={`${pathname}/${id}`}>
+        <span className={cx('area')}>{area}</span>
+        <span className={cx('center-name')}>{centerName}</span>
+        <span className={cx('doctor-name')}>{doctorName}</span>
+        <span className={cx('eval-count')}>{evalCount}</span>
+      </Link>
       : (pathname === '/station') ?
-        <Fragment>
-          <span className={cx('row-subject', 'content')}>{subject}</span>
-          <span className={cx('row-helpful-count', 'content')}>{helpfulCount}</span>
-          <span className={cx('row-answer-count', 'content')}>{answerCount}</span>
-        </Fragment>
+        <Link className={cx('content-link')} to={`${pathname}/${id}`}>
+          <span className={cx('subject')}>{subject}</span>
+          <span className={cx('helpful-count')}>{helpfulCount}</span>
+          <span className={cx('answer-count')}>{answerCount}</span>
+        </Link>
         : null;
   return (
-    <Link className={cx('content-item')} to={`${pathname}/${id}`}>
+    <div className={cx('content-item')} to={`${pathname}/${id}`}>
       {row}
-      <hr/>
-    </Link>
+      <hr className={cx('content-hr')}/>
+    </div>
   )
 }
 
 const DynamicContentList = ({contents, location}) => {
   const row =
     (location.pathname === '/center') ?
-      <Fragment>
+      <div className={cx('row')}>
         <span className={cx('row-area')}>{'지역'}</span>
         <span className={cx('row-center-name')}>{'기관명'}</span>
         <span className={cx('row-doctor-name')}>{'전문의 / 상담사 이름'}</span>
         <span className={cx('row-eval-count')}>{'평가 수'}</span>
-      </Fragment>
+      </div>
       : (location.pathname === '/station') ?
-        <Fragment>
+        <div className={cx('row')}>
           <span className={cx('row-subject')}>{'주제'}</span>
           <span className={cx('row-helpful-count')}>{'유용해요'}</span>
           <span className={cx('row-answer-count')}>{'답변 수'}</span>
-        </Fragment>
+        </div>
         : null;
   
   const contentList = contents.map((content) => {
-    const { id, area, centerName, doctorName, evalCount, subject, helpfulCount, answerCount } = content;
+    const {
+      id,
+      area = null, centerName = null, doctorName = null, evalCount = null,  // center
+      subject = null, helpfulCount = null, answerCount = null  // station
+    } = content;
     return (
-      <div key={id}>
         <ContentItem
-          pathname={location.pathname}
           id={id}
+          key={id}
+          pathname={location.pathname}
           // center
           area={area}
           centerName={centerName}
@@ -62,15 +66,14 @@ const DynamicContentList = ({contents, location}) => {
           subject={subject}
           helpfulCount={helpfulCount}
           answerCount={answerCount}
-          />
-        <hr className={cx('hr')}/>
-      </div>
+        />
     )
   });
   
   return (
     <div className={cx('dynamic-content-list')}>
       {row}
+      <hr className={cx('row-hr')}/>
       {contentList}
     </div>
 

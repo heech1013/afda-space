@@ -1,0 +1,35 @@
+.forum-title {
+  border: 1px solid #707070;
+  border-radius: 1.5rem;
+  margin-left: 23rem;
+  margin-right: 23rem;
+  margin-bottom: 1.5rem;
+  .row {
+    margin-left: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .row-1 {
+      font-weight: bold;
+    }
+    .enroller {
+      margin-left: 27rem;
+    }
+    .nick {
+      text-decoration: none;
+      font-weight: bold;
+      color: #2C3F77;
+    }
+  }
+  .hr {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  .column {
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    .column-1 {
+      font-weight: bold;
+    }
+  }
+}

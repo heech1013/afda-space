@@ -11,5 +11,7 @@ export { default as MedicinePage } from './medicine/MedicinePage';
 export { default as MedicineSummaryPage } from './medicine/MedicineSummaryPage';
 export { default as MedicineNewspeedPage } from './medicine/MedicineNewspeedPage';
 
-export { default as CenterPage } from './CenterPage';
+export { default as CenterPage } from './center/CenterPage';
+export { default as CenterPostPage } from './center/CenterPostPage';
+
 export { default as StationPage } from './StationPage';
