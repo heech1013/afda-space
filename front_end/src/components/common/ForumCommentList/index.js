@@ -1,1 +1,1 @@
-export { default } from './ForumComment';
+export { default } from './ForumCommentList';

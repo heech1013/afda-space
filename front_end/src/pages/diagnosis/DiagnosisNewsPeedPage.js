@@ -8,7 +8,12 @@ import PostList from 'components/common/PostList';
 const DiagnosisNewspeedPage = () => {
   return (
     <PageTemplate>
-      <ContentTitle nameKr={"주요 우울증"} nameEn={"Major Depressive Disorder"} onClick={() => console.log('addToMyProfile')}/>
+      <ContentTitle
+        nameKr={"주요 우울증"}
+        nameEn={"Major Depressive Disorder"}
+        onClick={() => console.log('addToMyProfile')}
+        buttonString={"내 프로필에 추가"}
+      />
       <PostList posts={
         [
           { id: 1,

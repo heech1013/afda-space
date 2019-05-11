@@ -1,10 +1,14 @@
 import React from 'react';
 import PageTemplate from 'components/common/PageTemplate';
+import ContentTitle from 'components/common/ContentTitle';
 import DynamicContentList from 'components/common/DynamicContentList';
 
 const StationPage = () => {
   return (
     <PageTemplate>
+      <ContentTitle
+        onClick={() => console.log('onClick() is activated.')}
+        buttonString={'주제 등록하기'}/>
       <DynamicContentList
         contents={[
           {

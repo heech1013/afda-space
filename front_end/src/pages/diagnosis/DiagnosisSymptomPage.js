@@ -8,7 +8,12 @@ import MiniMenu from 'components/common/MiniMenu';
 const DiagnosisSymptomPage = () => {
   return (
     <PageTemplate>
-      <ContentTitle nameKr={"주요 우울증"} nameEn={"Major Depressive Disorder"} onClick={() => console.log('addToMyProfile')}/>
+      <ContentTitle
+        nameKr={"주요 우울증"}
+        nameEn={"Major Depressive Disorder"}
+        onClick={() => console.log('addToMyProfile')}
+        buttonString={"내 프로필에 추가"}
+      />
       <ContentList
         row_1={'증상명'}
         row_2={'사람 수'}

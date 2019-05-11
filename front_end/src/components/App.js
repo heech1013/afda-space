@@ -6,7 +6,7 @@ import {
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
   MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
   CenterPage, CenterPostPage,
-  StationPage
+  StationPage, StationPostPage
 } from 'pages';
 
 const App = () => {
@@ -29,7 +29,8 @@ const App = () => {
         <Route exact path="/center" component={CenterPage}/>
         <Route exact path="/center/:id" component={CenterPostPage}/>
         
-        <Route path="/station" component={StationPage}/>
+        <Route exact path="/station" component={StationPage}/>
+        <Route exact path="/station/:id" component={StationPostPage}/>
       </Switch>
     </div>
   );

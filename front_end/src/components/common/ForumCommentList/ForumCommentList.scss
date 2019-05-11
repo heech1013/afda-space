@@ -1,0 +1,34 @@
+.forum-comment-list {
+  border: 1px solid #707070;
+  border-radius: 1.5rem;
+  margin-left: 23rem;
+  margin-right: 23rem;
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+  .row {
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+  }
+  .hr {
+    border-bottom: 0;
+  }
+  .comment {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    .nick {
+      text-decoration: none;
+      font-weight: bold;
+      color: #2C3F77;
+    }
+    .updatedAt {
+      font-size: 0.9rem;
+      float: right;
+    }
+    .body {
+      margin-top: 1rem;
+    }
+  }
+}

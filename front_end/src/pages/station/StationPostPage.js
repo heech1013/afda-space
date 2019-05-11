@@ -5,17 +5,16 @@ import ForumTitle from 'components/common/ForumTitle';
 import Writer from 'components/common/Writer';
 import ForumCommentList from 'components/common/ForumCommentList';
 
-const CenterPostPage = () => {
+const StationPostPage = () => {
   return (
     <PageTemplate>
       <ForumTitle
-        area={'서울시 동작구'}
-        centerName={'동작구 심리상담센터'}
-        doctorName={'신희창'}
+        subject={'새로 가입하셨나요? 여러분을 소개해주세요!'}
+        body={'이 곳에 소개를 적어주시면, 여러분이 왔다는 사실을 모두가 알 수 있어요! 이러쿵 저러쿵해서 이러쿵 저러쿵해요. 이러쿵 저러쿵해서 이러쿵 저러쿵 해봐요!'}
         enroller={'우울한 청룡'}/>
       <Writer theme={'post-writer'}/>
       <ForumCommentList
-        row={'후기'}
+        row={'답변'}
         comments={[
           {
             id: 1,
@@ -70,4 +69,4 @@ const CenterPostPage = () => {
   )
 };
 
-export default CenterPostPage;
+export default StationPostPage;

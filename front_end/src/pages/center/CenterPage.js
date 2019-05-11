@@ -1,10 +1,14 @@
 import React from 'react';
 import PageTemplate from 'components/common/PageTemplate';
 import DynamicContentList from 'components/common/DynamicContentList';
+import ContentTitle from 'components/common/ContentTitle';
 
 const CenterPage = () => {
   return (
     <PageTemplate>
+      <ContentTitle
+        onClick={() => console.log('onClick() is activated.')}
+        buttonString={'기관 추가하기'}/>
       <DynamicContentList
         contents={[
           {

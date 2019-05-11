@@ -24,7 +24,7 @@ const ForumTitle = ({area = null, centerName = null, doctorName = null, subject 
         </div>
       </div>
       :
-      <div>{body}</div>;
+      <div className={'column'}>{body}</div>;
       
   return (
     <div className={cx('forum-title')}>

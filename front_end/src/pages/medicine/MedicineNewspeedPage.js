@@ -8,7 +8,12 @@ import PostList from 'components/common/PostList';
 const MedicineNewspeedPage = () => {
   return (
     <PageTemplate>
-      <ContentTitle nameKr={"부프로피온"} nameEn={"Buproprion"} onClick={() => console.log('addToMyProfile')}/>
+      <ContentTitle
+        nameKr={"부프로피온"}
+        nameEn={"Bupropion"}
+        onClick={() => console.log('addToMyProfile')}
+        buttonString={"내 프로필에 추가"}
+      />
       <PostList posts={
         [
           { id: 1,

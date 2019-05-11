@@ -7,6 +7,9 @@
   }
   .nameEn {
     font-size: 1.1rem;
+    &.bracket {
+      color: #FAFAFA;
+    }
   }
   .button {
     float: right;
