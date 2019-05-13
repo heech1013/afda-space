@@ -14,7 +14,7 @@ const Header = () => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
-        <img className={cx('brand')} src={logo} alt='' height='50' width='128.35'/> {/* height : width = 1 : 2.567 */}
+        <img className={cx('brand')} src={logo} alt='' height='60' width='154.02'/> {/* height : width = 1 : 2.567 */}
       </Link>
       <div className={cx('menu')}>
         <Button theme={'menu'} to='/'>뉴스피드</Button>

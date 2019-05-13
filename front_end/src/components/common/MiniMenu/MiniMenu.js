@@ -6,8 +6,10 @@ import { Link, withRouter } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const routeObj = {
+  "프로필": "",
   "개요": "/summary",
-  "증상명": "/symptom",
+  "진단명": "/diagnosis",
+  "증상": "/symptom",
   "처방약": "/medicine",
   "뉴스피드": "/newspeed"
 }
@@ -15,7 +17,11 @@ const routeObj = {
 const MiniMenu = ({buttonArr, location}) => {
   const a = buttonArr.map(
     (button, index) => {
-      const clicked = ('/' + location.pathname.split('/')[2]) === routeObj[button];
+      const clicked =
+        button === '프로필' ?
+          location.pathname === '/profile' ? true : false
+          :
+          ('/' + location.pathname.split('/')[2]) === routeObj[button];
       return (
         <Link className={cx('button', { clicked })} key={index} to={'/' + location.pathname.split('/')[1] + routeObj[button]} >{button}</Link>
       )

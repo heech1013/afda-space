@@ -65,7 +65,7 @@ const DiagnosisNewspeedPage = () => {
           }
         ]
       }/>
-      <MiniMenu buttonArr={["개요", "증상명", "처방약", "뉴스피드"]}/>
+      <MiniMenu buttonArr={["개요", "증상", "처방약", "뉴스피드"]}/>
     </PageTemplate>
 
   );

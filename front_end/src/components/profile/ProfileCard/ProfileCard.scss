@@ -1,0 +1,19 @@
+.profile-card {
+  border: 1px solid #707070;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-top: 3.5rem;
+  margin-left: 23rem;
+  margin-right: 23rem;
+  .nick {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2C3F77;
+  }
+  .age-and-sex {
+    margin-left: 1rem;
+  }
+  .introduction {
+    margin-top: 1.5rem;
+  }
+}
