@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './DynamicContentList.scss';
+import styles from './ForumContentList.scss';
 import classNames from 'classnames/bind';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const ContentItem = ({pathname, id, area, centerName, doctorName, evalCount, sub
   )
 }
 
-const DynamicContentList = ({contents, location}) => {
+const ForumContentList = ({contents, location}) => {
   const row =
     (location.pathname === '/center') ?
       <div className={cx('row')}>
@@ -71,7 +71,7 @@ const DynamicContentList = ({contents, location}) => {
   });
   
   return (
-    <div className={cx('dynamic-content-list')}>
+    <div className={cx('forum-content-list')}>
       {row}
       <hr className={cx('row-hr')}/>
       {contentList}
@@ -81,4 +81,4 @@ const DynamicContentList = ({contents, location}) => {
   )
 };
 
-export default withRouter(DynamicContentList);
+export default withRouter(ForumContentList);

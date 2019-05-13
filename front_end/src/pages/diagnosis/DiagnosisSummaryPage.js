@@ -1,8 +1,8 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ContentTitle from 'components/common/ContentTitle';
-import Description from 'components/common/Description';
+import ContentTitle from 'components/content/ContentTitle';
+import Description from 'components/content/Description';
 import MiniMenu from 'components/common/MiniMenu';
 
 const DiagnosisSummaryPage = () => {

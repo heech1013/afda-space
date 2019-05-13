@@ -1,8 +1,8 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import Writer from 'components/common/Writer';
-import PostList from 'components/common/PostList';
+import Writer from 'components/post/Writer';
+import PostList from 'components/post/PostList';
 
 const NewsPeedPage = () => {
   return (

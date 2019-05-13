@@ -1,7 +1,7 @@
 import React from 'react';
 import PageTemplate from 'components/common/PageTemplate';
-import ContentTitle from 'components/common/ContentTitle';
-import DynamicContentList from 'components/common/DynamicContentList';
+import ContentTitle from 'components/content/ContentTitle';
+import ForumContentList from 'components/forum/ForumContentList';
 
 const StationPage = () => {
   return (
@@ -9,7 +9,7 @@ const StationPage = () => {
       <ContentTitle
         onClick={() => console.log('onClick() is activated.')}
         buttonString={'주제 등록하기'}/>
-      <DynamicContentList
+      <ForumContentList
         contents={[
           {
             id: 1,

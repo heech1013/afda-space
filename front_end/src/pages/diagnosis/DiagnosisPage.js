@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ContentList from 'components/common/ContentList';
+import ContentList from 'components/content/ContentList';
 
 const DiagnosisPage = () => {
   return (

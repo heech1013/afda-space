@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
-import Writer from 'components/common/Writer';
+import Writer from 'components/post/Writer';
 import Badge from 'components/common/Badge';
 
 const cx = classNames.bind(styles);

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ForumTitle from 'components/common/ForumTitle';
-import Writer from 'components/common/Writer';
-import ForumCommentList from 'components/common/ForumCommentList';
+import ForumTitle from 'components/forum/ForumTitle';
+import Writer from 'components/post/Writer';
+import ForumCommentList from 'components/forum/ForumCommentList';
 
 const CenterPostPage = () => {
   return (

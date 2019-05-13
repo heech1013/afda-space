@@ -1,9 +1,9 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ContentTitle from 'components/common/ContentTitle';
+import ContentTitle from 'components/content/ContentTitle';
 import MiniMenu from 'components/common/MiniMenu';
-import PostList from 'components/common/PostList';
+import PostList from 'components/post/PostList';
 
 const DiagnosisNewspeedPage = () => {
   return (
