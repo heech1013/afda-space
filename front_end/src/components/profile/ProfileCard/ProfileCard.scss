@@ -1,10 +1,14 @@
 .profile-card {
   border: 1px solid #707070;
   border-radius: 1.5rem;
+  background: white;
   padding: 2rem;
   margin-top: 3.5rem;
   margin-left: 23rem;
   margin-right: 23rem;
+  &.updatable {
+    padding-bottom: 4rem;
+  }
   .nick {
     font-size: 1.2rem;
     font-weight: bold;
@@ -15,5 +19,9 @@
   }
   .introduction {
     margin-top: 1.5rem;
+  }
+  .button {
+    float: right;
+    margin-top: 1rem;
   }
 }

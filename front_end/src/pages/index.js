@@ -1,6 +1,9 @@
 export { default as NewsPeedPage } from './NewsPeedPage';
 
 export { default as ProfilePage } from './profile/ProfilePage';
+export { default as ProfileDiagnosisPage } from './profile/ProfileDiagnosisPage';
+export { default as ProfileSymptomPage } from './profile/ProfileSymptomPage';
+export { default as ProfileMedicinePage } from './profile/ProfileMedicinePage';
 
 export { default as DiagnosisPage } from './diagnosis/DiagnosisPage';
 export { default as DiagnosisSummaryPage } from './diagnosis/DiagnosisSummaryPage';

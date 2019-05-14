@@ -1,0 +1,29 @@
+.content-list {
+  border: 1px solid #707070;
+  border-radius: 1.5rem;
+  margin-left: 23rem;
+  margin-right: 23rem;
+  padding: 2rem;
+  .content {
+    &.updatable {
+      margin-bottom: 4rem;
+    }
+    .column {
+      margin-bottom: 1rem;
+      .column-1 {
+        font-weight: bold;
+      }
+      .column-2 {
+  
+      }
+    }
+    .button {
+      float: right;
+    }
+  }
+  .hr {
+    border-bottom: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}

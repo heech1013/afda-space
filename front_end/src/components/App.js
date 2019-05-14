@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
   NewsPeedPage,
-  ProfilePage,
+  ProfilePage, ProfileDiagnosisPage, ProfileSymptomPage, ProfileMedicinePage,
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
   MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
   CenterPage, CenterPostPage,
@@ -16,6 +16,9 @@ const App = () => {
         <Route exact path="/" component={NewsPeedPage}/>
 
         <Route exact path="/profile" component={ProfilePage}/>
+        <Route exact path="/profile/diagnosis" component={ProfileDiagnosisPage}/>
+        <Route exact path="/profile/symptom" component={ProfileSymptomPage}/>
+        <Route exact path="/profile/medicine" component={ProfileMedicinePage}/>
         
         <Route exact path="/diagnosis" component={DiagnosisPage}/>
         <Route exact path="/diagnosis/summary" component={DiagnosisSummaryPage}/>
