@@ -2,7 +2,7 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 
 const env = process.env.NODE_ENV || 'development';
-const config = require('config/config')[env];
+const config = require('../config/config')[env];
 
 const sequelize = new Sequelize(
   config.database, config.user, config.password, config
@@ -34,18 +34,18 @@ db.MedicineSideEffectsData = require('./MedicineSideEffectsData')(sequelize, Seq
 db.User.hasOne(db.Profile, { as: 'Profile', foreignKey: 'fkUserId' });
 db.Profile.belongsTo(db.User, { foreignKey: 'fkUserId' });
 /* (Follow) User:User = N:M */
-db.User.belongsToMany(User, { through: 'Follow', as: 'Followers', foreignKey: 'followingId' });
-db.User.belongsToMany(User, { through: 'Follow', as: 'Followings', foreignKey: 'followerId' });
+db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followers', foreignKey: 'followingId' });
+db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followings', foreignKey: 'followerId' });
 
 /* User:Post = 1:N */
 db.User.hasMany(db.Post, { as: 'Posts', foreignKey: 'fkUserId' });
 db.Post.belongsTo(db.User, { as: 'Posts', foreignKey: 'fkUserId' });
 /* Post:PostComment = 1:N */
-db.Post.hasMany(db.PostComment, { as: 'PostComments', foreignKey: 'fkPostId' });
-db.PostComment.belongsTo(db.Post, { as: 'PostComments', foreignKey: 'fkPostId' });
+db.Post.hasMany(db.PostComment, { as: 'RegisteredPostComments', foreignKey: 'fkPostId' });
+db.PostComment.belongsTo(db.Post, { as: 'RegisteredPostComments', foreignKey: 'fkPostId' });
 /* User:PostComment = 1:N */
-db.User.hasMany(db.PostComment, { foreignKey: 'fkUserId' });
-db.PostComment.belongsTo(db.User, { foreignKey: 'fkUserId' });
+db.User.hasMany(db.PostComment, { as: 'RegisteringPostComments', foreignKey: 'fkUserId' });
+db.PostComment.belongsTo(db.User, { as: 'RegisteringPostComments', foreignKey: 'fkUserId' });
 /* (PostBadge) User:Post = N:M */
 db.User.belongsToMany(db.Post, { through: 'PostBadge', as: '', foreignKey: '' });
 db.Post.belongsToMany(db.User, { through: 'PostBadge', as: '', foreignKey: '' });
@@ -55,7 +55,7 @@ db.User.hasMany(db.Center, { foreignKey: 'fkUserId' });
 db.Center.belongsTo(db.User, { foreignKey: 'fkUserId' });
 /* Center:CenterComment = 1:N */
 db.Center.hasMany(db.CenterComment, { foreignKey: 'fkCenterId' });
-db.CenterComment.belongsTo(Db.Center, { foreignKey: 'fkCenterId' });
+db.CenterComment.belongsTo(db.Center, { foreignKey: 'fkCenterId' });
 /* (CenterBadge) User:CenterBadge = N:M */
 db.User.belongsToMany(db.Center, { through: 'CenterBadge', as: '', foreignKey: '' });
 db.Center.belongsToMany(db.User, { through: 'CenterBadge', as: '', foreignKey: '' });
@@ -65,7 +65,7 @@ db.User.hasMany(db.Station, { foreignKey: 'fkUserId' });
 db.Station.belongsTo(db.User, { foreignKey: 'fkUserId' });
 /* Station:StationComment = 1:N */
 db.Station.hasMany(db.StationComment, { foreignKey: 'fkStationId' });
-db.StationComment.belongsTo(Db.Station, { foreignKey: 'fkStationId' });
+db.StationComment.belongsTo(db.Station, { foreignKey: 'fkStationId' });
 /* (StationBadge) User:StationBadge = N:M */
 db.User.belongsToMany(db.Station, { through: 'StationBadge', as: '', foreignKey: '' });
 db.Station.belongsToMany(db.User, { through: 'StationBadge', as: '', foreignKey: '' });

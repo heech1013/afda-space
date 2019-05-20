@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
-router.use('/post', require('./post/post.ctrl'));
+const index = require('./index.js');
+
+router.get('/', index);
 
 module.exports = router;

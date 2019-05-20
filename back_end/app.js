@@ -4,10 +4,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-const { sequelize } = require('models');
-const apiController = require('routes/api.ctrl');
-const CustomError = require('middleware/errorHandler/CustomError');
-const errorHandler = require('middleware/errorHandler/errorHandler');
+const { sequelize } = require('./models');
+const apiController = require('./routes/api.ctrl');
+const CustomError = require('./middleware/errorHandler/CustomError');
+const errorHandler = require('./middleware/errorHandler/errorHandler');
 
 const app = express();
 
