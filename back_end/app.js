@@ -4,7 +4,14 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
+const { sequelize } = require('models');
+const apiController = require('routes/api.ctrl');
+const CustomError = require('middleware/errorHandler/CustomError');
+const errorHandler = require('middleware/errorHandler/errorHandler');
+
 const app = express();
+
+sequelize.sync();
 
 process.env.NODE_ENV === 'production' ?
   app.use(morgan('combined')) && app.use(helmet())
@@ -12,6 +19,13 @@ process.env.NODE_ENV === 'production' ?
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', apiController);
+
+app.use((_, __, next) => {
+  next(CustomError('NotFound'));
+});
+app.use(errorHandler);
 
 process
   .on('unhandledRejection', (reason, p) => {

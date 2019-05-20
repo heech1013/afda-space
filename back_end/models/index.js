@@ -31,7 +31,95 @@ db.MedicineEvaluationData = require('./MedicineEvaluationData')(sequelize, Seque
 db.MedicineSideEffectsData = require('./MedicineSideEffectsData')(sequelize, Sequelize);
 
 /* User:Profile = 1:1 */
-db.User.hasOne(db.Profile, { as: 'CounselorProfile', foreignKey: 'fkUserId' });
+db.User.hasOne(db.Profile, { as: 'Profile', foreignKey: 'fkUserId' });
 db.Profile.belongsTo(db.User, { foreignKey: 'fkUserId' });
+/* (Follow) User:User = N:M */
+db.User.belongsToMany(User, { through: 'Follow', as: 'Followers', foreignKey: 'followingId' });
+db.User.belongsToMany(User, { through: 'Follow', as: 'Followings', foreignKey: 'followerId' });
+
+/* User:Post = 1:N */
+db.User.hasMany(db.Post, { as: 'Posts', foreignKey: 'fkUserId' });
+db.Post.belongsTo(db.User, { as: 'Posts', foreignKey: 'fkUserId' });
+/* Post:PostComment = 1:N */
+db.Post.hasMany(db.PostComment, { as: 'PostComments', foreignKey: 'fkPostId' });
+db.PostComment.belongsTo(db.Post, { as: 'PostComments', foreignKey: 'fkPostId' });
+/* User:PostComment = 1:N */
+db.User.hasMany(db.PostComment, { foreignKey: 'fkUserId' });
+db.PostComment.belongsTo(db.User, { foreignKey: 'fkUserId' });
+/* (PostBadge) User:Post = N:M */
+db.User.belongsToMany(db.Post, { through: 'PostBadge', as: '', foreignKey: '' });
+db.Post.belongsToMany(db.User, { through: 'PostBadge', as: '', foreignKey: '' });
+
+/* User:Center = 1:N */
+db.User.hasMany(db.Center, { foreignKey: 'fkUserId' });
+db.Center.belongsTo(db.User, { foreignKey: 'fkUserId' });
+/* Center:CenterComment = 1:N */
+db.Center.hasMany(db.CenterComment, { foreignKey: 'fkCenterId' });
+db.CenterComment.belongsTo(Db.Center, { foreignKey: 'fkCenterId' });
+/* (CenterBadge) User:CenterBadge = N:M */
+db.User.belongsToMany(db.Center, { through: 'CenterBadge', as: '', foreignKey: '' });
+db.Center.belongsToMany(db.User, { through: 'CenterBadge', as: '', foreignKey: '' });
+
+/* User:Station = 1:N */
+db.User.hasMany(db.Station, { foreignKey: 'fkUserId' });
+db.Station.belongsTo(db.User, { foreignKey: 'fkUserId' });
+/* Station:StationComment = 1:N */
+db.Station.hasMany(db.StationComment, { foreignKey: 'fkStationId' });
+db.StationComment.belongsTo(Db.Station, { foreignKey: 'fkStationId' });
+/* (StationBadge) User:StationBadge = N:M */
+db.User.belongsToMany(db.Station, { through: 'StationBadge', as: '', foreignKey: '' });
+db.Station.belongsToMany(db.User, { through: 'StationBadge', as: '', foreignKey: '' });
+
+/* Diagnosis:DiagnosisData = 1:N */
+db.Diagnosis.hasMany(db.DiagnosisData, { as: 'RegisteredDiagnosisData', foreignKey: 'fkDiagnosisId' });
+db.DiagnosisData.belongsTo(db.Diagnosis, { as: 'RegisteredDiagnosisData', foreignKey: 'fkDiagnosisId' });
+/* User:DiagnosisData = 1:N */
+db.User.hasMany(db.DiagnosisData, { as: 'RegisteringDiagnosisData', foreignKey: 'fkUserId' });
+db.DiagnosisData.belongsTo(db.User, { as: 'RegisteringDiagnosisData', foreignKey: 'fkUserId' });
+
+/* Symptom:SymptomData = 1:N */
+db.Symptom.hasMany(db.SymptomData, { as: 'RegisteredSymptomData', foreignKey: 'fkSymptomId' });
+db.SymptomData.belongsTo(db.Symptom, { as: 'RegisteredSymptomData', foreignKey: 'fkSymptomId' });
+/* User:SymptomData = 1:N */
+db.User.hasMany(db.SymptomData, { as: 'RegisteringSymptomData', foreignKey: 'fkUserId' });
+db.SymptomData.belongsTo(db.User, { as: 'RegisteringSymptomData', foreignKey: 'fkUserId' });
+
+/* Medicine:MedicineDosageData = 1:N */
+db.Medicine.hasMany(db.MedicineDosageData, { as: 'RegisteredMedicineDosageData', foreignKey: 'fkMedicineId' });
+db.MedicineDosageData.belongsTo(db.Medicine, { as: 'RegisteredMedicineDosageData', foreignKey: 'fkMedicineId' });
+/* User:MedicineDosageData = 1:N */
+db.User.hasMany(db.MedicineDosageData, { as: 'RegisteringMedicineDosageData', foreignKey: 'fkUserId' });
+db.MedicineDosageData.belongsTo(db.User, { as: 'RegisteringMedicineDosageData', foreignKey: 'fkUserId' });
+
+/* Medicine:MedicinePurposeData = 1:N */
+db.Medicine.hasMany(db.MedicinePurposeData, { as: 'RegisteredMedicinePurposeData', foreignKey: 'fkMedicineId' });
+db.MedicinePurposeData.belongsTo(db.Medicine, { as: 'RegisteredMedicinePurposeData', foreignKey: 'fkMedicineId' });
+/* Diagnosis:MedicinePurposeData = 1:N */
+db.Diagnosis.hasMany(db.MedicinePurposeData, { as: 'UsedMedicineForDiagnosis', foreignKey: 'fkDiagnosisId' });
+db.MedicinePurposeData.belongsTo(db.Diagnosis, { as: 'UsedMedicineForDiagnosis', foreignKey: 'fkDiagnosisId' });
+/* Symptom:MedicinePurposeData = 1:N */
+db.Symptom.hasMany(db.MedicinePurposeData, { as: 'UsedMedicineForSymptom', foreignKey: 'fkSymptomId' });
+db.MedicinePurposeData.belongsTo(db.Symptom, { as: 'UsedMedicineForSymptom', foreignKey: 'fkSymptomId' });
+/* User:MedicinePurposeData = 1:N */
+db.User.hasMany(db.MedicinePurposeData, { as: 'RegisteringMedicinePurposeData', foreignKey: 'fkUserId' });
+db.MedicinePurposeData.belongsTo(db.User, { as: 'RegisteringMedicinePurposeData', foreignKey: 'fkUserId' });
+
+/* Medicine:MedicineEvaluationData = 1:N */
+db.Medicine.hasMany(db.MedicineEvaluationData, { as: 'RegisteredMedicineEvaluationData', foreignKey: 'fkMedicineId' });
+db.MedicineEvaluationData.belongsTo(db.Medicine, { as: 'RegisteredMedicineEvaluationData', foreignKey: 'fkMedicineId' });
+/* User:MedicineEvaluationData = 1:N */
+db.User.hasMany(db.MedicineEvaluationData, { as: 'RegisteringMedicineEvaluationData', foreignKey: 'fkUserId' });
+db.MedicineEvaluationData.belongsTo(db.User, { as: 'RegisteringMedicineEvaluationData', foreignKey: 'fkUserId' });
+
+/* Medicine:MedicineSideEffectsData = 1:N */
+db.Medicine.hasMany(db.MedicineSideEffectsData, { as: 'RegisteredMedicineSideEffectsData', foreignKey: 'fkMedicineId' });
+db.MedicineSideEffectsData.belongsTo(db.Medicine, { as: 'RegisteredMedicineSideEffectsData', foreignKey: 'fkMedicineId' });
+/* Symptom:MedicineSideEffectsData = 1:N */
+db.Symptom.hasMany(db.MedicineSideEffectsData, { as: '', foreignKey: 'fkSymptomId' });
+db.MedicineSideEffectsData.belongsTo(db.Symptom, { as: '', foreignKey: 'fkSymptomId' });
+/* User:MedicineSideEffectsData = 1:N */
+db.User.hasMany(db.MedicineSideEffectsData, { as: 'RegisteringMedicineSideEffectsData', foreignKey: 'fkUserId' });
+db.MedicineSideEffectsData.belongsTo(db.User, { as: 'RegisteringMedicineSideEffectsData', foreignKey: 'fkUserId' });
+
 
 module.exports = db;

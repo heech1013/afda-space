@@ -1,0 +1,12 @@
+{
+  "NotFound": {
+    "name": "NotFound",
+    "code": "404",
+    "message": "Not Found"
+  },
+  "InternalServerError": {
+    "name": "InternalServerError",
+    "code": "500",
+    "message": "Internal server error"
+  }
+}
