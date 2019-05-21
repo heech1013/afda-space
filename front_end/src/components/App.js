@@ -21,14 +21,14 @@ const App = () => {
         <Route exact path="/profile/:id/medicine" component={ProfileMedicinePage}/>
         
         <Route exact path="/diagnosis" component={DiagnosisPage}/>
-        <Route exact path="/diagnosis/summary" component={DiagnosisSummaryPage}/>
-        <Route exact path="/diagnosis/symptom" component={DiagnosisSymptomPage}/>
-        <Route exact path="/diagnosis/medicine" component={DiagnosisMedicinePage}/>
-        <Route exact path="/diagnosis/newspeed" component={DiagnosisNewsPeedPage}/>
+        <Route exact path="/diagnosis/:id/summary" component={DiagnosisSummaryPage}/>
+        <Route exact path="/diagnosis/:id/symptom" component={DiagnosisSymptomPage}/>
+        <Route exact path="/diagnosis/:id/medicine" component={DiagnosisMedicinePage}/>
+        <Route exact path="/diagnosis/:id/newspeed" component={DiagnosisNewsPeedPage}/>
         
         <Route exact path="/medicine" component={MedicinePage}/>
-        <Route exact path="/medicine/summary" component={MedicineSummaryPage}/>
-        <Route exact path="/medicine/newspeed" component={MedicineNewspeedPage}/>
+        <Route exact path="/medicine/:id/summary" component={MedicineSummaryPage}/>
+        <Route exact path="/medicine/:id/newspeed" component={MedicineNewspeedPage}/>
         
         <Route exact path="/center" component={CenterPage}/>
         <Route exact path="/center/:id" component={CenterPostPage}/>
