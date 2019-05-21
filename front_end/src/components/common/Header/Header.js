@@ -18,7 +18,7 @@ const Header = () => (
       </Link>
       <div className={cx('menu')}>
         <Button theme={'menu'} to='/'>뉴스피드</Button>
-        <Button theme={'menu'} to='/profile'>내 프로필</Button>
+        <Button theme={'menu'} to='/profile/1'>내 프로필</Button>
         <Button theme={'menu'} to='/diagnosis'>진단명</Button>
         <Button theme={'menu'} to='/medicine'>처방약</Button>
         <Button theme={'menu'} to='/center'>치료기관</Button>

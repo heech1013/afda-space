@@ -15,10 +15,10 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={NewsPeedPage}/>
 
-        <Route exact path="/profile" component={ProfilePage}/>
-        <Route exact path="/profile/diagnosis" component={ProfileDiagnosisPage}/>
-        <Route exact path="/profile/symptom" component={ProfileSymptomPage}/>
-        <Route exact path="/profile/medicine" component={ProfileMedicinePage}/>
+        <Route exact path="/profile/:id" component={ProfilePage}/>
+        <Route exact path="/profile/:id/diagnosis" component={ProfileDiagnosisPage}/>
+        <Route exact path="/profile/:id/symptom" component={ProfileSymptomPage}/>
+        <Route exact path="/profile/:id/medicine" component={ProfileMedicinePage}/>
         
         <Route exact path="/diagnosis" component={DiagnosisPage}/>
         <Route exact path="/diagnosis/summary" component={DiagnosisSummaryPage}/>

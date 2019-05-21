@@ -1,6 +1,8 @@
 const { Post, PostComment, User, Profile } = require('../../models');
 
 const index = async (req, res, next) => {
+  const { userId: id } = req.query;
+  const userIdWhereClause = (id && id !== 'undefined') ? { where: { id } } : null;
   try {
     const posts = await Post.findAll({
       attributes: ['id', 'body', 'updatedAt'],
@@ -9,6 +11,7 @@ const index = async (req, res, next) => {
           model: User,
           as: 'Posts',
           attributes: ['id'],
+          ...userIdWhereClause,
           include: [
             {
               model: Profile,

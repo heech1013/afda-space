@@ -7,8 +7,8 @@ import PostList from 'components/post/PostList';
 
 class PostListContainer extends Component {
   getPostList = () => {
-    const { PostListActions } = this.props;
-    PostListActions.getPostList();
+    const { PostListActions, userId } = this.props;
+    PostListActions.getPostList(userId);
   }
 
   componentDidMount() {
