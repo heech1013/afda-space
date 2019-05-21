@@ -5,7 +5,8 @@ module.exports = {
     "database": "afda_space",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "logging": false
   },
   "production": {
     "user": process.env.RDS_USER,  // RDS master id

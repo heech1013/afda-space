@@ -3,7 +3,7 @@ const { Post, PostComment, User, Profile } = require('../../models');
 const index = async (req, res, next) => {
   try {
     const posts = await Post.findAll({
-      attributes: ['body', 'updatedAt'],
+      attributes: ['id', 'body', 'updatedAt'],
       include: [
         {
           model: User,
@@ -20,7 +20,7 @@ const index = async (req, res, next) => {
         {
           model: PostComment,
           as: 'RegisteredPostComments',
-          attributes: ['body', 'updatedAt'],
+          attributes: ['id', 'body'],
           include: [
             {
               model: User,
@@ -39,7 +39,7 @@ const index = async (req, res, next) => {
       ]
     });
 
-    return res.status(200).json({ success: true, posts });
+    return res.status(200).json({ posts });
   } catch (e) {
     next(e);
   }

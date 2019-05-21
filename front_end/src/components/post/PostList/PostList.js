@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
 import Writer from 'components/post/Writer';
-import Badge from 'components/common/Badge';
+// import Badge from 'components/common/Badge';
 
 const cx = classNames.bind(styles);
 
@@ -16,10 +16,11 @@ const CommentItem = ({nick, body}) => (
   </div>
 );
 
-const PostItem = ({nick, updatedAt, body, theme, checked, number, onClick, comment}) => {
+const PostItem = ({nick, updatedAt, body, comment}) => {
   const CommentList = comment.map(
     (comment) => {
-      const { id, nick, body } = comment;  // .toJS();
+      const { id, body, RegisteringPostComments } = comment;
+      const nick = RegisteringPostComments.Profile.nick;
       return (
         <CommentItem
           key={id}
@@ -33,9 +34,9 @@ const PostItem = ({nick, updatedAt, body, theme, checked, number, onClick, comme
   return (
     <div className={cx('post-item')}>
       <Link className={cx('nick')} to={`/profile/?nick=${nick}`}>{nick}</Link>
-      <div className={cx('date')}>{format(updatedAt, 'YYYY.MM.DD HH:mm')}</div>
+      <div className={cx('date')}>{format(updatedAt, 'YYYY.MM.DD')}</div>
       <p className={cx('body')}>{body}</p>
-      <Badge theme={theme} checked={checked} number={number} onClick={onClick}/>
+      {/* <Badge theme={theme} checked={checked} number={number} onClick={onClick}/> */}
       <br/><hr className={cx('hr')}/>
       <div className={cx('comment-list')}>
         {CommentList}
@@ -47,19 +48,15 @@ const PostItem = ({nick, updatedAt, body, theme, checked, number, onClick, comme
 const PostList = ({posts}) => {
   const postList = posts.map(
     (post) => {
-      const { id, nick, updatedAt, body, theme, checked, number, onClick, comment } = post;  // .toJS();
+      const { id, body, updatedAt, Posts, RegisteredPostComments } = post.toJS();
+      const nick = Posts.Profile.nick;
       return (
         <div className={cx('post-wrapper')} key={id}>
           <PostItem
-            // key={id}
             nick={nick}
             updatedAt={updatedAt}
             body={body}
-            theme={theme}
-            checked={checked}
-            number={number}
-            onClick={onClick}
-            comment={comment}
+            comment={RegisteredPostComments}
           />
           <Writer theme={'comment-writer'}/>
         </div >
