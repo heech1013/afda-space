@@ -7,27 +7,27 @@ const cx = classNames.bind(styles);
 
 const Div = ({children, ...rest}) => <div {...rest}>{children}</div>
 
-const ContentItem = ({title, enTitle, number, to}) => {
+const ContentItem = ({id, nameKr, nameEn, to}) => {
   const Element = to ? Link : Div;
-  const enTitleHTML = enTitle ? <div className={cx('en-title')}>({enTitle})</div> : [];
+  const nameEnHTML = nameEn ? <div className={cx('en-title')}>({nameEn})</div> : [];
   return (
     <div className={cx('content-item')}>
-      <Element className={cx('title', { to })} to={`/${to}/summary?title=${title}`}>{title}</Element>
-      <span className={cx('number', { to })}>{number}</span>
-      {enTitleHTML}
+      <Element className={cx('title', { to })} to={`/${to}/${id}/summary`}>{nameKr}</Element>
+      {/* <span className={cx('number', { to })}>{number}</span> */}
+      {nameEnHTML}
     </div>
   )
 };
 
-const ContentList = ({row_1, row_2, to, contents}) => {
+const ContentList = ({row_1, to, contents}) => {
   const contentList = contents.map((content) => {
-    const { id, title, enTitle, number } = content;
+    const { id, nameKr, nameEn } = content.toJS();
     return (
       <div className={cx('content-item-wrapper')} key={id}>
         <ContentItem
-          title={title}
-          enTitle={enTitle}
-          number={number}
+          id={id}
+          nameKr={nameKr}
+          nameEn={nameEn}
           to={to}
         />
         <hr className={cx('hr')}/>
@@ -38,7 +38,7 @@ const ContentList = ({row_1, row_2, to, contents}) => {
     <div className={cx('content-list')}>
       <div className={cx('row')}>
         <span className={cx('row-1')}>{row_1}</span>
-        <span className={cx('row-2')}>{row_2}</span>
+        {/* <span className={cx('row-2')}>{row_2}</span> */}
         <hr className={cx('row-hr')}/>
       </div>
       {contentList}
