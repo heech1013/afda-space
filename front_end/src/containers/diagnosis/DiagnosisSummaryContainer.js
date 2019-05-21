@@ -18,7 +18,6 @@ class DiagnosisSummaryContainer extends Component {
 
   render() {
     const { loading, diagnosisSummary } = this.props;
-    console.log(diagnosisSummary);
     const { nameKr, nameEn, description } = diagnosisSummary.toJS();
     if (loading) return null;
     return (
