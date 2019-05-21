@@ -5,14 +5,14 @@ import { Link, withRouter } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const ContentItem = ({pathname, id, area, centerName, doctorName, evalCount, subject, helpfulCount, answerCount}) => {
+const ContentItem = ({pathname, id, si, gu, centerName, doctorName, evalCount, subject, helpfulCount, answerCount}) => {
   const row =
     (pathname === '/center') ?
       <Link className={cx('content-link')} to={`${pathname}/${id}`}>
-        <span className={cx('area')}>{area}</span>
+        <span className={cx('area')}>{si + ' ' + gu}</span>
         <span className={cx('center-name')}>{centerName}</span>
         <span className={cx('doctor-name')}>{doctorName}</span>
-        <span className={cx('eval-count')}>{evalCount}</span>
+        {/* <span className={cx('eval-count')}>{evalCount}</span> */}
       </Link>
       : (pathname === '/station') ?
         <Link className={cx('content-link')} to={`${pathname}/${id}`}>
@@ -36,7 +36,7 @@ const ForumContentList = ({contents, location}) => {
         <span className={cx('row-area')}>{'지역'}</span>
         <span className={cx('row-center-name')}>{'기관명'}</span>
         <span className={cx('row-doctor-name')}>{'전문의 / 상담사 이름'}</span>
-        <span className={cx('row-eval-count')}>{'평가 수'}</span>
+        {/* <span className={cx('row-eval-count')}>{'평가 수'}</span> */}
       </div>
       : (location.pathname === '/station') ?
         <div className={cx('row')}>
@@ -49,16 +49,17 @@ const ForumContentList = ({contents, location}) => {
   const contentList = contents.map((content) => {
     const {
       id,
-      area = null, centerName = null, doctorName = null, evalCount = null,  // center
+      si = null, gu = null, centerName = null, doctorName = null, evalCount = null,  // center
       subject = null, helpfulCount = null, answerCount = null  // station
-    } = content;
+    } = content.toJS();
     return (
         <ContentItem
           id={id}
           key={id}
           pathname={location.pathname}
           // center
-          area={area}
+          si={si}
+          gu={gu}
           centerName={centerName}
           doctorName={doctorName}
           evalCount={evalCount}

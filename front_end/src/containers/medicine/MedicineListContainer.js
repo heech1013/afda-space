@@ -8,12 +8,10 @@ import ContentList from 'components/content/ContentList';
 class MedicineListContainer extends Component {
   getMedicineList = () => {
     const { MedicineListActions } = this.props;
-    console.log(MedicineListActions);
     MedicineListActions.getMedicineList();
   }
 
   componentDidMount() {
-    console.log('===CDM===');
     this.getMedicineList();
   }
 

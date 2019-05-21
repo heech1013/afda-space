@@ -5,4 +5,6 @@ export { default as diagnosisSummary } from './diagnosisSummary';
 
 export { default as medicineList } from './medicineList';
 
+export { default as centerList } from './centerList';
+
 export { penderReducer as pender } from 'redux-pender';
