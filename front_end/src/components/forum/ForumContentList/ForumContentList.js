@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const ContentItem = ({pathname, id, si, gu, centerName, doctorName, evalCount, subject, helpfulCount, answerCount}) => {
+const ContentItem = ({pathname, id, si, gu, centerName, doctorName, title}) => {
   const row =
     (pathname === '/center') ?
       <Link className={cx('content-link')} to={`${pathname}/${id}`}>
@@ -16,9 +16,9 @@ const ContentItem = ({pathname, id, si, gu, centerName, doctorName, evalCount, s
       </Link>
       : (pathname === '/station') ?
         <Link className={cx('content-link')} to={`${pathname}/${id}`}>
-          <span className={cx('subject')}>{subject}</span>
-          <span className={cx('helpful-count')}>{helpfulCount}</span>
-          <span className={cx('answer-count')}>{answerCount}</span>
+          <span className={cx('title')}>{title}</span>
+          {/* <span className={cx('helpful-count')}>{helpfulCount}</span> */}
+          {/* <span className={cx('answer-count')}>{answerCount}</span> */}
         </Link>
         : null;
   return (
@@ -41,16 +41,16 @@ const ForumContentList = ({contents, location}) => {
       : (location.pathname === '/station') ?
         <div className={cx('row')}>
           <span className={cx('row-subject')}>{'주제'}</span>
-          <span className={cx('row-helpful-count')}>{'유용해요'}</span>
-          <span className={cx('row-answer-count')}>{'답변 수'}</span>
+          {/* <span className={cx('row-helpful-count')}>{'유용해요'}</span> */}
+          {/* <span className={cx('row-answer-count')}>{'답변 수'}</span> */}
         </div>
         : null;
   
   const contentList = contents.map((content) => {
     const {
       id,
-      si = null, gu = null, centerName = null, doctorName = null, evalCount = null,  // center
-      subject = null, helpfulCount = null, answerCount = null  // station
+      si = null, gu = null, centerName = null, doctorName = null,  // center
+      title = null  // station
     } = content.toJS();
     return (
         <ContentItem
@@ -62,11 +62,8 @@ const ForumContentList = ({contents, location}) => {
           gu={gu}
           centerName={centerName}
           doctorName={doctorName}
-          evalCount={evalCount}
           // station
-          subject={subject}
-          helpfulCount={helpfulCount}
-          answerCount={answerCount}
+          title={title}
         />
     )
   });

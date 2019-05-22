@@ -9,3 +9,5 @@ export const getDiagnosisSummary = (diagnosisId) => axios.get(`/api/diagnosis/${
 export const getMedicineList = () => axios.get(`/api/medicine`);
 
 export const getCenterList = () => axios.get(`/api/center`);
+
+export const getStationList = () => axios.get(`/api/station`);
