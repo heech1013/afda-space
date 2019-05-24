@@ -1,12 +1,15 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import DiagnosisListContainer from 'containers/diagnosis/DiagnosisListContainer';
+// import DiagnosisListContainer from 'containers/diagnosis/DiagnosisListContainer';
+import ContentListContainer from 'containers/content/ContentListContainer';
 
 const DiagnosisPage = () => {
   return (
     <PageTemplate>
-      <DiagnosisListContainer/>
+      {/* <DiagnosisListContainer/> */}
+      <ContentListContainer
+        type={'diagnosis'}/>
     </PageTemplate>
   )
 }

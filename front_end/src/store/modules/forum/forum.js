@@ -6,23 +6,23 @@ import { pender } from 'redux-pender';
 import * as api from 'lib/api';
 
 /* action types */
-const GET_CENTER_LIST = 'centerList/GET_CENTER_LIST';
+const GET_FORUM_LIST = 'forum/GET_FORUM_LIST';
 
 /* action creators */
-export const getCenterList = createAction(GET_CENTER_LIST, api.getCenterList);
+export const getForumList = createAction(GET_FORUM_LIST, api.getContentList);
 
 /* initial state */
 const initialState = Map({
-  centerList: List()
+  forumList: List()
 });
 
 /* reducer */
 export default handleActions({
   ...pender({
-    type: GET_CENTER_LIST,
+    type: GET_FORUM_LIST,
     onSuccess: (state, action) => {
-      const { centerList } = action.payload.data;
-      return state.set('centerList', fromJS(centerList));
+      const { forumList } = action.payload.data;
+      return state.set('forumList', fromJS(forumList));
     }
   })
 }, initialState);

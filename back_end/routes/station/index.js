@@ -2,10 +2,10 @@ const { Station } = require('../../models');
 
 const index = async (req, res, next) => {
   try {
-    const stationList = await Station.findAll({
+    const forumList = await Station.findAll({
       attributes: ['id', 'title']
     });
-    return res.status(200).json({ stationList });
+    return res.status(200).json({ forumList });
   } catch (e) {
     next(e);
   }

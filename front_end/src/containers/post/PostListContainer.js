@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as postListActions from 'store/modules/postList';
+import * as postListActions from 'store/modules/post/postList';
 
 import PostList from 'components/post/PostList';
 

@@ -3,11 +3,6 @@ import axios from 'axios';
 
 export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
 
-export const getDiagnosisList = () => axios.get(`/api/diagnosis`);
-export const getDiagnosisSummary = (diagnosisId) => axios.get(`/api/diagnosis/${diagnosisId}/summary`);
-
-export const getMedicineList = () => axios.get(`/api/medicine`);
-
-export const getCenterList = () => axios.get(`/api/center`);
-
-export const getStationList = () => axios.get(`/api/station`);
+export const getContent = (type, id) => axios.get(`/api/${type}/${id}`);
+export const getContentList = (type) => axios.get(`/api/${type}`);
+export const getContentSymptomList = (type, id) => axios.get(`/api/${type}/${id}/symptom`);

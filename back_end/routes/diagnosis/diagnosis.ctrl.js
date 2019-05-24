@@ -1,9 +1,11 @@
 const router = require('express').Router();
 
-const index = require('./index');
 const show = require('./show');
+const indexSymptom = require('./indexSymptom');
+const index = require('./index');
 
-router.get('/:id/summary', show);
+router.get('/:id', show);
+router.get('/:id/symptom', indexSymptom);
 router.get('/', index);
 
 module.exports = router;
