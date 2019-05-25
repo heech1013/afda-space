@@ -7,8 +7,9 @@ import ContentList from 'components/content/ContentList';
 
 class ContentListContainer extends Component {
   getContentList = () => {
-    const { ContentActions, type } = this.props;
-    ContentActions.getContentList(type);
+    const { ContentActions, id, type, subType } = this.props;
+    if (subType === null) ContentActions.getContentList(type);
+    else if (subType === 'symptom') ContentActions.getContentSymptomList(type, id);
   }
 
   componentDidMount() {
@@ -16,20 +17,30 @@ class ContentListContainer extends Component {
   }
 
   render() {
-    const { loading, type, contentList } = this.props;
+    const { type, subType, loading, contentList, contentSymptomList } = this.props;
+
     const rowObj = {
       "diagnosis": "진단명",
-      "medicine": "처방약"
+      "medicine": "처방약",
+      "symptom": "증상명"
     }
+    const row_1 = subType ? rowObj[subType] : rowObj[type];
+    
+    const contentsObj = {
+      "symptom": contentSymptomList
+    };
+    const contents = subType ? contentsObj[subType] : contentList;
+
+    const to = subType ? null : type;
 
     if (loading) return null;
     return (
       <div>
         <ContentList
-          row_1={rowObj[type]}
+          row_1={row_1}
           // row_2={'사람 수'}
-          to={type}
-          contents={contentList}/>
+          to={to}
+          contents={contents}/>
       </div>
     )
   }
@@ -38,7 +49,8 @@ class ContentListContainer extends Component {
 export default connect(
   (state) => ({
     loading: state.pender.pending['content/GET_CONTENT_LIST'],
-    contentList: state.content.get('contentList')
+    contentList: state.content.get('contentList'),
+    contentSymptomList: state.content.get('contentSymptomList')
   }),
   (dispatch) => ({
     ContentActions: bindActionCreators(contentActions, dispatch)

@@ -9,7 +9,8 @@ const DiagnosisPage = () => {
     <PageTemplate>
       {/* <DiagnosisListContainer/> */}
       <ContentListContainer
-        type={'diagnosis'}/>
+        type={'diagnosis'}
+        subType={null}/>
     </PageTemplate>
   )
 }

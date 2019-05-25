@@ -4,7 +4,7 @@ const diagnosisSymptomCleaner = require('../../middleware/cleaner/diagnosisSympt
 const indexSymptom = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const uncleanedcontentList = await User.findAll({
+    const uncleanedcontentSymptomList = await User.findAll({
       attributes: ['id'],
       include: [
         {
@@ -35,8 +35,8 @@ const indexSymptom = async (req, res, next) => {
       ]
     });
 
-    const contentList = await diagnosisSymptomCleaner(uncleanedcontentList);
-    return res.status(200).json({ contentList });
+    const contentSymptomList = await diagnosisSymptomCleaner(uncleanedcontentSymptomList);
+    return res.status(200).json({ contentSymptomList });
   } catch (e) {
     next(e);
   }
