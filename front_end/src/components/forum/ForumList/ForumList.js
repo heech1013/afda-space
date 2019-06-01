@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ForumContentList.scss';
+import styles from './ForumList.scss';
 import classNames from 'classnames/bind';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const ContentItem = ({pathname, id, si, gu, centerName, doctorName, title}) => {
   )
 }
 
-const ForumContentList = ({contents, location}) => {
+const ForumList = ({contents, location}) => {
   const row =
     (location.pathname === '/center') ?
       <div className={cx('row')}>
@@ -69,7 +69,7 @@ const ForumContentList = ({contents, location}) => {
   });
   
   return (
-    <div className={cx('forum-content-list')}>
+    <div className={cx('forum-list')}>
       {row}
       <hr className={cx('row-hr')}/>
       {contentList}
@@ -79,4 +79,4 @@ const ForumContentList = ({contents, location}) => {
   )
 };
 
-export default withRouter(ForumContentList);
+export default withRouter(ForumList);

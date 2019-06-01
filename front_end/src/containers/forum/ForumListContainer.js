@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as forumActions from 'store/modules/forum/forum';
 
-import ForumContentList from 'components/forum/ForumContentList';
+import ForumList from 'components/forum/ForumList';
 
 class ForumListContainer extends Component {
   getForumList = () => {
@@ -20,7 +20,7 @@ class ForumListContainer extends Component {
     if (loading) return null;
     return (
       <div>
-        <ForumContentList
+        <ForumList
           contents={forumList}/>
       </div>
     )
