@@ -10,6 +10,7 @@ class ContentListContainer extends Component {
     const { ContentActions, id, type, subType } = this.props;
     if (subType === null) ContentActions.getContentList(type);
     else if (subType === 'symptom') ContentActions.getContentSymptomList(type, id);
+    else if (subType === 'medicine') ContentActions.getContentMedicineList(type, id);
   }
 
   componentDidMount() {
@@ -17,28 +18,40 @@ class ContentListContainer extends Component {
   }
 
   render() {
-    const { type, subType, loading, contentList, contentSymptomList } = this.props;
+    const {
+      type, subType,
+      loading,
+      contentList, contentSymptomList, contentMedicineList
+    } = this.props;
 
     const rowObj = {
-      "diagnosis": "진단명",
-      "medicine": "처방약",
-      "symptom": "증상명"
+      "diagnosis": ["진단명", "사람 수"],
+      "medicine": ["처방약", "평가 수"],
+      "symptom": ["증상명", "사람 수"]
     }
-    const row_1 = subType ? rowObj[subType] : rowObj[type];
+    const row_1 = subType ? rowObj[subType][0] : rowObj[type][0];
+    const row_2 = subType ? rowObj[subType][1] : rowObj[type][1];
     
     const contentsObj = {
-      "symptom": contentSymptomList
+      "symptom": contentSymptomList,
+      "medicine": contentMedicineList
     };
     const contents = subType ? contentsObj[subType] : contentList;
 
-    const to = subType ? null : type;
+    // const to = subType ? null : type;
+    // const to = (type === 'symptom' || subType === 'symptom') ? null : type;
+    const to =
+      (type !== 'symptom' && subType !== 'symptom') ?  // 적어도 하나가 symptom이면 null
+        subType ? subType : type
+        :
+        null;
 
     if (loading) return null;
     return (
       <div>
         <ContentList
           row_1={row_1}
-          // row_2={'사람 수'}
+          row_2={row_2}
           to={to}
           contents={contents}/>
       </div>
@@ -50,7 +63,8 @@ export default connect(
   (state) => ({
     loading: state.pender.pending['content/GET_CONTENT_LIST'],
     contentList: state.content.get('contentList'),
-    contentSymptomList: state.content.get('contentSymptomList')
+    contentSymptomList: state.content.get('contentSymptomList'),
+    contentMedicineList: state.content.get('contentMedicineList')
   }),
   (dispatch) => ({
     ContentActions: bindActionCreators(contentActions, dispatch)

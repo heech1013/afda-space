@@ -1,9 +1,12 @@
 const { Sequelize, Medicine, MedicinePurposeData } = require('../../models');
 
-const index = async (req, res, next) => {
+const medicineIndex = async (req, res, next) => {
   try {
-    const contentList = await MedicinePurposeData.findAll({
+    const { id } = req.params;
+
+    const contentMedicineList = await MedicinePurposeData.findAll({
       attributes: ['fkMedicineId', [Sequelize.fn('COUNT', Sequelize.col('fkMedicineId')), 'count']],
+      where: { fkDiagnosisId: id },
       include: [
         {
           model: Medicine,
@@ -12,11 +15,12 @@ const index = async (req, res, next) => {
         }
       ],
       group: ['fkMedicineId']
-    })
-    return res.status(200).json({ contentList });
+    });
+    
+    return res.status(200).json({ contentMedicineList });
   } catch (e) {
     next(e);
   }
 }
 
-module.exports = index;
+module.exports = medicineIndex;
