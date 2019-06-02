@@ -5,20 +5,20 @@ import { Link, withRouter } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const ContentItem = ({pathname, id, si, gu, centerName, doctorName, title}) => {
+const ContentItem = ({pathname, id, count, si, gu, centerName, doctorName, title}) => {
   const row =
     (pathname === '/center') ?
       <Link className={cx('content-link')} to={`${pathname}/${id}`}>
         <span className={cx('area')}>{si + ' ' + gu}</span>
         <span className={cx('center-name')}>{centerName}</span>
         <span className={cx('doctor-name')}>{doctorName}</span>
-        {/* <span className={cx('eval-count')}>{evalCount}</span> */}
+        <span className={cx('eval-count')}>{count}</span>
       </Link>
       : (pathname === '/station') ?
         <Link className={cx('content-link')} to={`${pathname}/${id}`}>
           <span className={cx('title')}>{title}</span>
           {/* <span className={cx('helpful-count')}>{helpfulCount}</span> */}
-          {/* <span className={cx('answer-count')}>{answerCount}</span> */}
+          <span className={cx('answer-count')}>{count}</span>
         </Link>
         : null;
   return (
@@ -36,19 +36,19 @@ const ForumList = ({contents, location}) => {
         <span className={cx('row-area')}>{'지역'}</span>
         <span className={cx('row-center-name')}>{'기관명'}</span>
         <span className={cx('row-doctor-name')}>{'전문의 / 상담사 이름'}</span>
-        {/* <span className={cx('row-eval-count')}>{'평가 수'}</span> */}
+        <span className={cx('row-eval-count')}>{'평가 수'}</span>
       </div>
       : (location.pathname === '/station') ?
         <div className={cx('row')}>
           <span className={cx('row-subject')}>{'주제'}</span>
           {/* <span className={cx('row-helpful-count')}>{'유용해요'}</span> */}
-          {/* <span className={cx('row-answer-count')}>{'답변 수'}</span> */}
+          <span className={cx('row-answer-count')}>{'답변 수'}</span>
         </div>
         : null;
   
   const contentList = contents.map((content) => {
     const {
-      id,
+      id, count,
       si = null, gu = null, centerName = null, doctorName = null,  // center
       title = null  // station
     } = content.toJS();
@@ -57,6 +57,7 @@ const ForumList = ({contents, location}) => {
           id={id}
           key={id}
           pathname={location.pathname}
+          count={count}
           // center
           si={si}
           gu={gu}

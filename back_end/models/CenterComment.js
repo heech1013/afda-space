@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const CenterComment = sequelize.define('centerComment', {
     body: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.TEXT,
       allowNull: true
     }
   }, {

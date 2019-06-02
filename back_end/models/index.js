@@ -53,9 +53,12 @@ db.Post.belongsToMany(db.User, { through: 'PostBadge', as: '', foreignKey: '' })
 /* User:Center = 1:N */
 db.User.hasMany(db.Center, { foreignKey: 'fkUserId' });
 db.Center.belongsTo(db.User, { foreignKey: 'fkUserId' });
+/* User:CenterComment = 1:N */
+db.User.hasMany(db.CenterComment, { as: 'RegisteringCenterComment', foreignKey: 'fkUserId' });
+db.CenterComment.belongsTo(db.User, { as: 'RegisteringCenterComment', foreignKey: 'fkUserId' });
 /* Center:CenterComment = 1:N */
-db.Center.hasMany(db.CenterComment, { foreignKey: 'fkCenterId' });
-db.CenterComment.belongsTo(db.Center, { foreignKey: 'fkCenterId' });
+db.Center.hasMany(db.CenterComment, { as: 'RegisteredCenterComment', foreignKey: 'fkCenterId' });
+db.CenterComment.belongsTo(db.Center, { as: 'RegisteredCenterComment', foreignKey: 'fkCenterId' });
 /* (CenterBadge) User:CenterBadge = N:M */
 db.User.belongsToMany(db.Center, { through: 'CenterBadge', as: '', foreignKey: '' });
 db.Center.belongsToMany(db.User, { through: 'CenterBadge', as: '', foreignKey: '' });
@@ -63,9 +66,12 @@ db.Center.belongsToMany(db.User, { through: 'CenterBadge', as: '', foreignKey: '
 /* User:Station = 1:N */
 db.User.hasMany(db.Station, { foreignKey: 'fkUserId' });
 db.Station.belongsTo(db.User, { foreignKey: 'fkUserId' });
+/* User:StationComment = 1:N */
+db.User.hasMany(db.StationComment, { as: 'RegisteringStationComment', foreignKey: 'fkUserId' });
+db.StationComment.belongsTo(db.User, { as: 'RegisteringStationComment', foreignKey: 'fkUserId' });
 /* Station:StationComment = 1:N */
-db.Station.hasMany(db.StationComment, { foreignKey: 'fkStationId' });
-db.StationComment.belongsTo(db.Station, { foreignKey: 'fkStationId' });
+db.Station.hasMany(db.StationComment, { as: 'RegisteredStationComment', foreignKey: 'fkStationId' });
+db.StationComment.belongsTo(db.Station, { as: 'RegisteredStationComment', foreignKey: 'fkStationId' });
 /* (StationBadge) User:StationBadge = N:M */
 db.User.belongsToMany(db.Station, { through: 'StationBadge', as: '', foreignKey: '' });
 db.Station.belongsToMany(db.User, { through: 'StationBadge', as: '', foreignKey: '' });
