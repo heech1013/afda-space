@@ -11,7 +11,6 @@ const GET_CONTENT_LIST = 'content/GET_CONTENT_LIST';
 const GET_CONTENT_SYMPTOM_LIST = 'content/GET_CONTENT_SYMPTOM_LIST';
 const GET_CONTENT_MEDICINE_LIST = 'content/GET_CONTENT_MEDICINE_LIST';
 
-
 /* action creators */
 export const getContent = createAction(GET_CONTENT, api.getContent);
 export const getContentList = createAction(GET_CONTENT_LIST, api.getContentList);

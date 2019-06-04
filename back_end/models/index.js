@@ -32,7 +32,7 @@ db.MedicineSideEffectsData = require('./MedicineSideEffectsData')(sequelize, Seq
 
 /* User:Profile = 1:1 */
 db.User.hasOne(db.Profile, { as: 'Profile', foreignKey: 'fkUserId' });
-db.Profile.belongsTo(db.User, { foreignKey: 'fkUserId' });
+db.Profile.belongsTo(db.User, { as: 'Profile', foreignKey: 'fkUserId' });
 /* (Follow) User:User = N:M */
 db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followers', foreignKey: 'followingId' });
 db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followings', foreignKey: 'followerId' });
@@ -51,8 +51,8 @@ db.User.belongsToMany(db.Post, { through: 'PostBadge', as: '', foreignKey: '' })
 db.Post.belongsToMany(db.User, { through: 'PostBadge', as: '', foreignKey: '' });
 
 /* User:Center = 1:N */
-db.User.hasMany(db.Center, { foreignKey: 'fkUserId' });
-db.Center.belongsTo(db.User, { foreignKey: 'fkUserId' });
+db.User.hasMany(db.Center, { as: 'RegisteringCenter', foreignKey: 'fkUserId' });
+db.Center.belongsTo(db.User, { as: 'RegisteringCenter', foreignKey: 'fkUserId' });
 /* User:CenterComment = 1:N */
 db.User.hasMany(db.CenterComment, { as: 'RegisteringCenterComment', foreignKey: 'fkUserId' });
 db.CenterComment.belongsTo(db.User, { as: 'RegisteringCenterComment', foreignKey: 'fkUserId' });
@@ -64,8 +64,8 @@ db.User.belongsToMany(db.Center, { through: 'CenterBadge', as: '', foreignKey: '
 db.Center.belongsToMany(db.User, { through: 'CenterBadge', as: '', foreignKey: '' });
 
 /* User:Station = 1:N */
-db.User.hasMany(db.Station, { foreignKey: 'fkUserId' });
-db.Station.belongsTo(db.User, { foreignKey: 'fkUserId' });
+db.User.hasMany(db.Station, { as: 'RegisteringStation', foreignKey: 'fkUserId' });
+db.Station.belongsTo(db.User, { as: 'RegisteringStation', foreignKey: 'fkUserId' });
 /* User:StationComment = 1:N */
 db.User.hasMany(db.StationComment, { as: 'RegisteringStationComment', foreignKey: 'fkUserId' });
 db.StationComment.belongsTo(db.User, { as: 'RegisteringStationComment', foreignKey: 'fkUserId' });

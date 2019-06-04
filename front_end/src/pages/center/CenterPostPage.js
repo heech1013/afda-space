@@ -1,18 +1,18 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ForumTitle from 'components/forum/ForumTitle';
+// import ForumTitle from 'components/forum/ForumTitle';
+import ForumTitleContainer from 'containers/forum/ForumTitleContainer';
 import Writer from 'components/post/Writer';
 import ForumCommentList from 'components/forum/ForumCommentList';
 
-const CenterPostPage = () => {
+const CenterPostPage = ({match}) => {
+  const { id } = match.params;
   return (
     <PageTemplate>
-      <ForumTitle
-        area={'서울시 동작구'}
-        centerName={'동작구 심리상담센터'}
-        doctorName={'신희창'}
-        enroller={'우울한 청룡'}/>
+      <ForumTitleContainer
+        type={'center'}
+        id={id}/>
       <Writer theme={'post-writer'}/>
       <ForumCommentList
         row={'후기'}

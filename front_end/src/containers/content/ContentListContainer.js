@@ -20,7 +20,7 @@ class ContentListContainer extends Component {
   render() {
     const {
       type, subType,
-      loading,
+      loading_GET_CONTENT_LIST, loading_GET_CONTENT_SYMPTOM_LIST, loading_GET_CONTENT_MEDICINE_LIST,
       contentList, contentSymptomList, contentMedicineList
     } = this.props;
 
@@ -46,7 +46,7 @@ class ContentListContainer extends Component {
         :
         null;
 
-    if (loading) return null;
+    if (loading_GET_CONTENT_LIST || loading_GET_CONTENT_SYMPTOM_LIST || loading_GET_CONTENT_MEDICINE_LIST) return null;
     return (
       <div>
         <ContentList
@@ -61,7 +61,9 @@ class ContentListContainer extends Component {
 
 export default connect(
   (state) => ({
-    loading: state.pender.pending['content/GET_CONTENT_LIST'],
+    loading_GET_CONTENT_LIST: state.pender.pending['content/GET_CONTENT_LIST'],
+    loading_GET_CONTENT_SYMPTOM_LIST: state.pender.pending['content/GET_CONTENT_SYMPTOM_LIST'],
+    loading_GET_CONTENT_MEDICINE_LIST: state.pender.pending['content/GET_CONTENT_MEDICINE_LIST'],
     contentList: state.content.get('contentList'),
     contentSymptomList: state.content.get('contentSymptomList'),
     contentMedicineList: state.content.get('contentMedicineList')
