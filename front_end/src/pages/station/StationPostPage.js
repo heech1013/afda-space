@@ -1,17 +1,17 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ForumTitle from 'components/forum/ForumTitle';
+import ForumTitleContainer from 'containers/forum/ForumTitleContainer';
 import Writer from 'components/post/Writer';
 import ForumCommentList from 'components/forum/ForumCommentList';
 
-const StationPostPage = () => {
+const StationPostPage = ({match}) => {
+  const { id } = match.params;
   return (
     <PageTemplate>
-      <ForumTitle
-        subject={'새로 가입하셨나요? 여러분을 소개해주세요!'}
-        body={'이 곳에 소개를 적어주시면, 여러분이 왔다는 사실을 모두가 알 수 있어요! 이러쿵 저러쿵해서 이러쿵 저러쿵해요. 이러쿵 저러쿵해서 이러쿵 저러쿵 해봐요!'}
-        enroller={'우울한 청룡'}/>
+      <ForumTitleContainer
+        type={'station'}
+        id={id}/>
       <Writer theme={'post-writer'}/>
       <ForumCommentList
         row={'답변'}

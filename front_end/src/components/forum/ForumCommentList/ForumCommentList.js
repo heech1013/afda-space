@@ -16,7 +16,17 @@ const Comment = ({nick, updatedAt, body}) => (
 
 const ForumCommentList = ({row, comments}) => {
   const commentList = comments.map((comment) => {
-    const { id, nick, updatedAt, body } = comment;
+    const { updatedAt, body, RegisteringCenterComment = null, RegisteringStationComment = null } = comment.toJS();
+    
+    let id, nick;
+    if (row === '답변') {  // station
+      id = RegisteringStationComment.id;
+      nick = RegisteringStationComment.Profile.nick;
+    } else if (row === '후기') {  // center
+      id = RegisteringCenterComment.id;
+      nick = RegisteringCenterComment.Profile.nick;
+    }
+
     return (
       <div>
         <Comment

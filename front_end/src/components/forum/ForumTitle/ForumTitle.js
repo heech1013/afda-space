@@ -10,9 +10,12 @@ const ForumTitle = ({forum}) => {
     RegisteringCenter = null, si = null, gu = null, centerName = null, doctorName = null,
     RegisteringStation = null, title = null, body = null,
   } = forum.toJS();
-
-  const enrollerNick = title ? RegisteringStation.Profile.nick : RegisteringCenter.Profile.nick;
-  const enrollerId = title ? RegisteringStation.id : RegisteringCenter.id;
+  
+  let enrollerNick, enrollerId;
+  if (RegisteringCenter || RegisteringStation) {
+    enrollerNick = title ? RegisteringStation.Profile.nick : RegisteringCenter.Profile.nick;
+    enrollerId = title ? RegisteringStation.id : RegisteringCenter.id;
+  }
   const row_1 = title ? title : '기관 정보';
   const contentUnderRow =
     title ?

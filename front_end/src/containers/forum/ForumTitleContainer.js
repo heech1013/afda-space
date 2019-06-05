@@ -22,8 +22,7 @@ class ForumTitleContainer extends Component {
     return (
       <div>
         <ForumTitle
-          forum={forum}
-        />
+          forum={forum}/>
       </div>
     )
   }
