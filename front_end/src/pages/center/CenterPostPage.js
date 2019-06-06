@@ -14,7 +14,8 @@ const CenterPostPage = ({match}) => {
         id={id}/>
       <Writer theme={'post-writer'}/>
       <ForumCommentListContainer
-        row={'후기'}/>
+        type={'center'}
+        id={id}/>
     </PageTemplate>
   )
 };
