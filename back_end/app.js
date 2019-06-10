@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+// const passport = require('passport');
+// const cookieSession = require('cookie-session');
+// const session = require('express-session');
 
 const { sequelize } = require('./models');
 const apiController = require('./routes/api.ctrl');

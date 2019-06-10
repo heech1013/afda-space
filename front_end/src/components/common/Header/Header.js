@@ -8,13 +8,11 @@ import logo from 'logo.png';  // yarn eject, remove ModuleScopePlugin than you c
 
 const cx = classNames.bind(styles);
 
-/* margin 8 (default) 어디서 0으로 해야 하는지? (margin:0 / padding:0) */
-
 const Header = () => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
-        <img className={cx('brand')} src={logo} alt='' height='60' width='154.02'/> {/* height : width = 1 : 2.567 */}
+        <img className={cx('brand')} src={logo} alt='아프다 스페이스' height='60' width='154.02'/> {/* height : width = 1 : 2.567 */}
       </Link>
       <div className={cx('menu')}>
         <Button theme={'menu'} to='/'>뉴스피드</Button>

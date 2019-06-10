@@ -1,6 +1,10 @@
 import axios from 'axios';
 // import queryString from 'query-string';
 
+export const login = (id, expires_in) => axios.post(`/api/auth/login`, { id, expires_in });
+export const join = (authId, nick, sex, age) => axios.post(`/api/auth/join`, { authId, nick, sex, age });
+export const checkToken = () => axios.post();
+
 export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
 
 export const getContent = (type, id) => axios.get(`/api/${type}/${id}`);

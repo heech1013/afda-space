@@ -1,5 +1,8 @@
 export { default as NewsPeedPage } from './NewsPeedPage';
 
+export { default as LoginPage } from './LoginPage';
+export { default as JoinPage } from './JoinPage';
+
 export { default as ProfilePage } from './profile/ProfilePage';
 export { default as ProfileDiagnosisPage } from './profile/ProfileDiagnosisPage';
 export { default as ProfileSymptomPage } from './profile/ProfileSymptomPage';

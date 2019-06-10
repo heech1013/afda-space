@@ -1,13 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
+    authId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    password: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
     userType: {
-      // 'patient' / 'expert' / 'manager'
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(10),  // 'patient' / 'expert' / 'manager'
       allowNull: false
     },
     provider: {
       type: DataTypes.STRING(10),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 'local'
     }
   }, {
     timestamps: true,

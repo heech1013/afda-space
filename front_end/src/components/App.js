@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
   NewsPeedPage,
+  LoginPage, JoinPage,
   ProfilePage, ProfileDiagnosisPage, ProfileSymptomPage, ProfileMedicinePage,
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
   MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
@@ -14,6 +15,9 @@ const App = () => {
     <div>
       <Switch>
         <Route exact path="/" component={NewsPeedPage}/>
+
+        <Route exact path="/login" component={LoginPage}/>
+        <Route exact path="/join" component={JoinPage}/>
 
         <Route exact path="/profile/:id" component={ProfilePage}/>
         <Route exact path="/profile/:id/diagnosis" component={ProfileDiagnosisPage}/>
