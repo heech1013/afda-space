@@ -1,10 +1,12 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
 const { User, Profile } = require('../../models');
 
 const join = async (req, res, next) => {
   try {
     const { authId, nick, sex, age } = req.body;
-    const user = await User.create({ authId, Profile: { nick, sex, age }}, { include: [{ model: Profile, as: 'Profile' }]});
+    const user = await User.create({ authId, userType: 'patient', provider: 'kakao', Profile: { nick, sex, age }}, { include: [{ model: Profile, as: 'Profile' }]});
     const token = await jwt.sign(
       {
         id: user.id,

@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 class KakaoLogin extends Component {
   componentDidMount() {
     const { BaseActions, history } = this.props;
+    Kakao.cleanup();  // kakao.init을 두 번 이상 실행(로그인 페이지에 두 번 이상 접속)하면 에러가 나기 때문에, init하기 전 sdk 리소스를 비워준다.
     Kakao.init('72c76b14bb8ff423398a0e9ccee18b91');
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',

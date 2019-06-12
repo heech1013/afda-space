@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './JoinForm.scss';
 import classNames from 'classnames/bind';
 
-import Button from 'components/common/Button';
-
 const cx = classNames.bind(styles);
 
 const JoinForm = ({

@@ -35,7 +35,7 @@ const initialState =  Map({
   joinForm: Map({
     nick: '',
     sex: 1,
-    age: 0
+    age: 1
   })
 });
 
