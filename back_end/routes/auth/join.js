@@ -10,15 +10,16 @@ const join = async (req, res, next) => {
     const token = await jwt.sign(
       {
         id: user.id,
-        userType: user.userType
+        userType: user.userType,
+        nick: user.Profile.nick
       },
-      process.env.JWT_TOKEN_SECRET,
+      process.env.JWT_SECRET,
       {
         expiresIn: '12h',
         issuer: '아프다스페이스.com'
       }
     );
-    return res.status(201).json({ auth: { authId: null, join: true, token }});
+    return res.status(201).json({ logged: true, auth: { authId: null, token }});
   } catch (e) {
     next(e);
   }

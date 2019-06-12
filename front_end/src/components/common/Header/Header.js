@@ -8,7 +8,7 @@ import logo from 'logo.png';  // yarn eject, remove ModuleScopePlugin than you c
 
 const cx = classNames.bind(styles);
 
-const Header = () => (
+const Header = ({logged, handleLogout}) => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
@@ -22,10 +22,17 @@ const Header = () => (
         <Button theme={'menu'} to='/center'>치료기관</Button>
         <Button theme={'menu'} to='/station'>정거장</Button>
       </div>
-      <div className={cx('auth')}>
-        <Button to='/login'>로그인</Button>
-        <Button to='/join'>회원가입</Button>
-      </div>
+      {logged ?
+        <div className={cx('auth')}>
+          <Button onClick={handleLogout}>로그아웃</Button>
+        </div>  
+        :
+        <div className={cx('auth')}>
+          <Button to='/login'>로그인</Button>
+          <Button to='/join'>회원가입</Button>
+        </div>
+      }
+      
     </div>
     <hr className={cx('line')}/>
   </header>

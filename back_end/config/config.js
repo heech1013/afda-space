@@ -6,7 +6,7 @@ module.exports = {
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false,
-    "logging": false
+    "logging": true
   },
   "production": {
     "user": process.env.RDS_USER,  // RDS master id
