@@ -16,7 +16,7 @@ const Button = ({
     <Element
       className={cx('button', theme, { clicked })}
       to={to}
-      onClick={() => onClick()}>
+      onClick={onClick}>
       {children}
     </Element>
   )

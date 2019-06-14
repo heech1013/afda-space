@@ -8,7 +8,7 @@ import logo from 'logo.png';  // yarn eject, remove ModuleScopePlugin than you c
 
 const cx = classNames.bind(styles);
 
-const Header = ({logged, handleLogout}) => (
+const Header = ({logged, onLogout}) => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
@@ -24,7 +24,7 @@ const Header = ({logged, handleLogout}) => (
       </div>
       {logged ?
         <div className={cx('auth')}>
-          <Button onClick={handleLogout}>로그아웃</Button>
+          <Button onClick={onLogout}>로그아웃</Button>
         </div>  
         :
         <div className={cx('auth')}>

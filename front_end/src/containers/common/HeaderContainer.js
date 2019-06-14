@@ -31,7 +31,7 @@ class HeaderContainer extends Component {
       <div>
         <Header
           logged={logged}
-          onClick={handleLogout}/>
+          onLogout={handleLogout}/>
       </div>
     )
   }
