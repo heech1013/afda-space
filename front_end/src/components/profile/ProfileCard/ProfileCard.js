@@ -6,8 +6,10 @@ import Button from 'components/common/Button';
 
 const cx = classNames.bind(styles);
 
-const ProfileCard = ({nick, age, sex, introduction, updatable}) => {
+const ProfileCard = ({updatable, onEdit, profile}) => {
   const buttonHTML = updatable ? <Button className={cx('button')}>수정하기</Button> : null;
+  const { Profile } = profile.toJS();
+  const { nick, age, sex, introduction } = Profile;
   return (
     <div className={cx('profile-card', { updatable })}>
       <span className={cx('nick')}>{nick}</span>
