@@ -8,7 +8,7 @@ import logo from 'logo.png';  // yarn eject, remove ModuleScopePlugin than you c
 
 const cx = classNames.bind(styles);
 
-const Header = ({logged, onLogout}) => (
+const Header = ({logged, id, onLogout}) => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
@@ -16,7 +16,7 @@ const Header = ({logged, onLogout}) => (
       </Link>
       <div className={cx('menu')}>
         <Button theme={'menu'} to='/'>뉴스피드</Button>
-        <Button theme={'menu'} to='/profile/1'>내 프로필</Button>
+        { logged ? <Button theme={'menu'} to={`/profile/${id}`}>내 프로필</Button> : null }
         <Button theme={'menu'} to='/diagnosis'>진단명</Button>
         <Button theme={'menu'} to='/medicine'>처방약</Button>
         <Button theme={'menu'} to='/center'>치료기관</Button>

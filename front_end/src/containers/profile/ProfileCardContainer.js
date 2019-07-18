@@ -7,7 +7,7 @@ import ProfileCard from 'components/profile/ProfileCard';
 
 class ProfileCardContainer extends Component {
   getProfile = () => {
-    const { ProfileActions, id } = this.props;
+    const { ProfileActions, userId: id } = this.props;
     ProfileActions.getProfile(id);
   }
   
@@ -17,13 +17,14 @@ class ProfileCardContainer extends Component {
   }
 
   render() {
-    const { logged, loading, profile } = this.props;
-    if (!logged) return <div>로그인 후에 사용 가능합니다.</div>
-    else if (loading) return null;
+    const { userId, storeId, loading, profile } = this.props;
+    if (loading) return null;
+    const updatable = userId == storeId;
     return (
       <div>
         <ProfileCard
-          profile={profile}/>
+          profile={profile}
+          updatable={updatable}/>
       </div>
     )
   }
@@ -32,6 +33,7 @@ class ProfileCardContainer extends Component {
 export default connect(
   (state) => ({
     logged: state.base.get('logged'),
+    storeId: state.base.get('id'),
     loading: state.pender.pending['profile/GET_PROFILE'],
     profile: state.profile.get('profile')
   }),

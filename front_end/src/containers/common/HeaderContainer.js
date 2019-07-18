@@ -25,12 +25,13 @@ class HeaderContainer extends Component {
   }
 
   render() {
-    const { logged } = this.props;
+    const { logged, id } = this.props;
     const { handleLogout } = this;
     return (
       <div>
         <Header
           logged={logged}
+          id={id}
           onLogout={handleLogout}/>
       </div>
     )
@@ -39,7 +40,8 @@ class HeaderContainer extends Component {
 
 export default connect(
   (state) => ({
-    logged: state.base.get('logged')
+    logged: state.base.get('logged'),
+    id: state.base.get('id')
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch)

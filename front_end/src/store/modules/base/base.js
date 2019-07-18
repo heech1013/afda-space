@@ -30,6 +30,7 @@ export const checkJWT = createAction(CHECK_JWT, api.checkJWT);
 /* initial state */
 const initialState =  Map({
   logged: false,
+  id: null,
   auth: Map({
     token: null,
     authId: null
@@ -46,8 +47,9 @@ export default handleActions({
   ...pender({
     type: LOGIN,
     onSuccess: (state, action) => {
-      const { logged, auth } = action.payload.data;
+      const { logged, id, auth } = action.payload.data;
       return state.set('logged', logged)
+                  .set('id', id)
                   .set('auth', fromJS(auth));
     }
   }),
@@ -57,8 +59,9 @@ export default handleActions({
   ...pender({
     type: JOIN,
     onSuccess: (state, action) => {
-      const { logged, auth } = action.payload.data;
+      const { logged, id, auth } = action.payload.data;
       return state.set('logged', logged)
+                  .set('id', id)
                   .set('auth', fromJS(auth));
     }
   }),
@@ -77,8 +80,9 @@ export default handleActions({
   ...pender({
     type: CHECK_JWT,
     onSuccess: (state, action) => {
-      const { logged } = action.payload.data;
-      return state.set('logged', logged);
+      const { logged, id } = action.payload.data;
+      return state.set('logged', logged)
+                  .set('id', id);
     }
   })
 }, initialState);

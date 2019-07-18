@@ -10,7 +10,7 @@ const ProfilePage = ({match}) => {
   return (
     <PageTemplate>
       <ProfileCardContainer
-        updatable={true}/>
+        userId={id}/>
       <MiniMenu buttonArr={['프로필', '진단명', '증상', '처방약']}/>
       <PostListContainer
         userId={id}/>

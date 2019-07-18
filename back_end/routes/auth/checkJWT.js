@@ -11,8 +11,10 @@ const checkJWT = async (req, res, next) => {
       if (err) next(CustomError('Unauthorized', 'Not verified jwt'));
       try {
         const user = await User.findOne({ attributes: ['id'], where: { id: decoded.id }});
-        if (user) return res.status(200).json({ logged: true });
-      } catch (e) {}
+        if (user) return res.status(200).json({ logged: true, id: user.id });
+      } catch (e) {
+        next(e);
+      }
     });
   } catch (e) {
     next(e);

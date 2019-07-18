@@ -3,7 +3,13 @@ node_modules
 .env
 
 # front end
-/front_end/build
-/front_end/yarn-error.log
+./front_end/build
 
 # back end
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

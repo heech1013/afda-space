@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
-import { Map, fromJS, List } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
 
 import * as api from 'lib/api';
@@ -9,7 +9,7 @@ import * as api from 'lib/api';
 const GET_PROFILE = 'profile/GET_PROFILE';
 
 /* action creators */
-export const getProfile = createAction(GET_PROFILE, api.getUserProfile);
+export const getProfile = createAction(GET_PROFILE, api.getProfile);
 
 /* initial state */
 const initialState = Map({

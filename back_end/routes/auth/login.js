@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
           issuer: '아프다스페이스.com'
         }
       );
-      return res.status(200).json({ logged: true, auth: { authId: null, token }});
+      return res.status(200).json({ logged: true, id: user.id, auth: { authId: null, token }});
     }
   } catch (e) {
     next(e);
