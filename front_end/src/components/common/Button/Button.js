@@ -11,7 +11,7 @@ const Button = ({
   children, theme = 'default', to, onClick, location
 }) => {
   const Element = to ? Link : Div;
-  const clicked = '/' + location.pathname.split('/')[1] === to ? true : false
+  const clicked = to ? location.pathname.split('/')[1] === to.split('/')[1] : null;
   return (
     <Element
       className={cx('button', theme, { clicked })}

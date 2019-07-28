@@ -19,6 +19,7 @@ class ProfileCardContainer extends Component {
   render() {
     const { userId, storeId, loading, profile } = this.props;
     if (loading) return null;
+    // eslint-disable-next-line eqeqeq
     const updatable = userId == storeId;
     return (
       <div>

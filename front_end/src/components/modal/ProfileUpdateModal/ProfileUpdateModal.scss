@@ -1,0 +1,27 @@
+.form {
+  .close {
+    font-size: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      color: #2C3F77;
+    }
+  }
+  .description {
+    // 알 수 없는 오류로 인해 타 파일의 .descriotion css를 받아와 따로 none 처리
+    border: none;
+    margin: 0;
+    padding: 0;
+    color: #2C3F77;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  .input {
+    margin-bottom: 2rem;
+  }
+  .button {
+    margin-left: 0;
+  }
+}

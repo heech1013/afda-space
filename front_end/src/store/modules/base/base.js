@@ -16,6 +16,9 @@ const CHANGE_SEX_INPUT = 'base/CHANGE_SEX_INPUT';
 
 const CHECK_JWT = 'base/CHECK_JWT';
 
+const SHOW_MODAL = 'base/SHOW_MODAL';
+const HIDE_MODAL = 'base/HIDE_MODAL';
+
 /* action creators */
 export const login = createAction(LOGIN, api.login);
 export const logout = createAction(LOGOUT);
@@ -26,6 +29,9 @@ export const changeAgeInput = createAction(CHANGE_AGE_INPUT);
 export const changeSexInput = createAction(CHANGE_SEX_INPUT);
 
 export const checkJWT = createAction(CHECK_JWT, api.checkJWT);
+
+export const showModal = createAction(SHOW_MODAL);
+export const hideModal = createAction(HIDE_MODAL);
 
 /* initial state */
 const initialState =  Map({
@@ -39,6 +45,9 @@ const initialState =  Map({
     nick: '',
     sex: 1,
     age: 1
+  }),
+  modal: Map({
+    profileCard: false
   })
 });
 
@@ -84,5 +93,13 @@ export default handleActions({
       return state.set('logged', logged)
                   .set('id', id);
     }
-  })
+  }),
+  [SHOW_MODAL]: (state, action) => {
+    const { payload: modalName } = action;
+    return state.setIn(['modal', modalName], true);
+  },
+  [HIDE_MODAL]: (state, action) => {
+    const { payload: modalName } = action;
+    return state.setIn(['modal', modalName], false);
+  }
 }, initialState);

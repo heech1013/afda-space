@@ -9,7 +9,12 @@
 }
 .modal-wrapper {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 25%;
+  left: 25%;
   z-index: 10;
+  background: white;
+  border: 1px solid #2C3F77;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 60rem;
 }
