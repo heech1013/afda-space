@@ -37,7 +37,7 @@ class ProfileUpdateModal extends Component {
           <input className={cx('input')} autoFocus value={introduction} onChange={handleIntroductionChange}/>
           { error && <div className={cx('error')}>{error}</div>}
           <div>
-            <Button className={cx('button')} onClick={onSubmit}>수정</Button>
+            <Button className={cx('button')} onClick={onSubmit({nick, introduction})}>수정</Button>
           </div>
           
         </div>

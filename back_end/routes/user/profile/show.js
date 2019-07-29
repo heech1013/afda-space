@@ -1,6 +1,6 @@
-const { User, Profile } = require('../../models');
+const { User, Profile } = require('../../../models');
 
-const profile = async (req, res, next) => {
+const show = async (req, res, next) => {
   try {
     const { id } = req.params;
     const profile = await User.findOne({ attributes: ['id'], where: { id }, include: [{ model: Profile, as: 'Profile', attributes: ['nick', 'sex', 'age', 'introduction']}]});
@@ -10,4 +10,4 @@ const profile = async (req, res, next) => {
   }
 };
 
-module.exports = profile;
+module.exports = show;
