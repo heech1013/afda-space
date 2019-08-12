@@ -30,14 +30,14 @@ class ProfileUpdateModal extends Component {
     return (
       <ModalWrapper visible={visible}>
         <div className={cx('form')}>
-          <div onClick={onCancel} className={cx('close')}>&times;</div>
+          <div onClick={() => onCancel()} className={cx('close')}>&times;</div>
           <div className={cx('description')}>닉네임</div>
           <input className={cx('input')} autoFocus value={nick} onChange={handleNickChange}/>
           <div className={cx('description')}>자기소개</div>
           <input className={cx('input')} autoFocus value={introduction} onChange={handleIntroductionChange}/>
           { error && <div className={cx('error')}>{error}</div>}
           <div>
-            <Button className={cx('button')} onClick={onSubmit({nick, introduction})}>수정</Button>
+            <Button className={cx('button')} onClick={() => onSubmit({nick, introduction})}>수정</Button>
           </div>
           
         </div>

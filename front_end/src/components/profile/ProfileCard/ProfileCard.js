@@ -7,7 +7,7 @@ import Button from 'components/common/Button';
 const cx = classNames.bind(styles);
 
 const ProfileCard = ({updatable, onEdit, profile}) => {
-  const buttonHTML = updatable ? <Button className={cx('button')}>수정하기</Button> : null;
+  const buttonHTML = updatable ? <Button className={cx('button')} onClick={onEdit}>수정하기</Button> : null;
   const { nick, age, sex, introduction } = profile.toJS();
   const interpretedSex = sex === 1 ? '남자' : sex === 2 ? '여자' : null;
   return (

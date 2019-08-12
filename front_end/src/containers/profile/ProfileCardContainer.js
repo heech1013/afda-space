@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as baseActions from 'store/modules/base/base';
 import * as profileActions from 'store/modules/profile/profile';
 
 import ProfileCard from 'components/profile/ProfileCard';
@@ -16,8 +17,14 @@ class ProfileCardContainer extends Component {
     if (logged) this.getProfile();
   }
 
+  handleEdit = () => {
+    const { BaseActions } = this.props;
+    BaseActions.showModal('profileCardUpdate');
+  }
+
   render() {
     const { userId, storeId, loading, profile } = this.props;
+    const { handleEdit } = this;
     if (loading) return null;
     // eslint-disable-next-line eqeqeq
     const updatable = userId == storeId;
@@ -25,7 +32,8 @@ class ProfileCardContainer extends Component {
       <div>
         <ProfileCard
           profile={profile}
-          updatable={updatable}/>
+          updatable={updatable}
+          onEdit={handleEdit}/>
       </div>
     )
   }
@@ -39,6 +47,7 @@ export default connect(
     profile: state.profile.get('profile')
   }),
   (dispatch) => ({
+    BaseActions: bindActionCreators(baseActions, dispatch),
     ProfileActions: bindActionCreators(profileActions, dispatch)
   })
 )(ProfileCardContainer);

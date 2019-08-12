@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as baseActions from 'store/modules/base';
-import * as profileActions from 'store/modules/profile';
+import * as baseActions from 'store/modules/base/base';
+import * as profileActions from 'store/modules/profile/profile';
 import ProfileUpdateModal from 'components/modal/ProfileUpdateModal';
 
 class ProfileUpdateModalContainer extends Component {
   handleCancel = () => {
     const { BaseActions } = this.props;
-    BaseActions.hideModal('profileCard');
+    BaseActions.hideModal('profileCardUpdate');
   }
 
-  handleSubmit = async (nick, introduction) => {
-    const { ProfileActions } = this.props;
+  handleSubmit = async ({nick, introduction}) => {
+    const { userId: id } = this.props;
+    const { ProfileActions, BaseActions } = this.props;
     try {
-      await ProfileActions
-    } catch (e) { }
+      await ProfileActions.updateProfileCard(id, nick, introduction);
+      BaseActions.hideModal('profileCardUpdate')
+    } catch (e) {}
   }
   
   render() {
@@ -25,8 +27,8 @@ class ProfileUpdateModalContainer extends Component {
       <ProfileUpdateModal
         visible={visible}
         error={error}
-        onCancel={}
-        onSubmit={}/>
+        onCancel={handleCancel}
+        onSubmit={handleSubmit}/>
     );
   }
 }
