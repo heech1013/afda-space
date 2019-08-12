@@ -6,6 +6,11 @@ import * as profileActions from 'store/modules/profile/profile';
 import ProfileUpdateModal from 'components/modal/ProfileUpdateModal';
 
 class ProfileUpdateModalContainer extends Component {
+  getProfile = () => {
+    const { ProfileActions, userId: id } = this.props;
+    ProfileActions.getProfile(id);
+  }
+
   handleCancel = () => {
     const { BaseActions } = this.props;
     BaseActions.hideModal('profileCardUpdate');
@@ -16,7 +21,8 @@ class ProfileUpdateModalContainer extends Component {
     const { ProfileActions, BaseActions } = this.props;
     try {
       await ProfileActions.updateProfileCard(id, nick, introduction);
-      BaseActions.hideModal('profileCardUpdate')
+      BaseActions.hideModal('profileCardUpdate');
+      this.getProfile();
     } catch (e) {}
   }
   

@@ -1,4 +1,9 @@
 {
+  "BadRequest": {
+    "name": "BadRequest",
+    "code": "400",
+    "message": "Bad Request"
+  },
   "Unauthorized": {
     "name": "Unauthorized",
     "code": "401",
