@@ -8,7 +8,8 @@ import Button from 'components/common/Button';
 const cx = classNames.bind(styles);
 
 const Content = ({
-  contentType, updatable,
+  contentType,
+  updatable,
   diagnosisName, ageAtFirstSymptom, periodOfSymptom,
   symptomName,
   medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect
@@ -81,17 +82,11 @@ const ProfileContentList = ({contents, updatable, location}) => {
     return (
       <div key={id}>
         <Content
-          contentType={location.pathname.split('/')[2]}
+          contentType={location.pathname.split('/')[3]}
           updatable={updatable}
-          diagnosisName={diagnosisName}
-          ageAtFirstSymptom={ageAtFirstSymptom}
-          periodOfSymptom={periodOfSymptom}
+          diagnosisName={diagnosisName} ageAtFirstSymptom={ageAtFirstSymptom} periodOfSymptom={periodOfSymptom}
           symptomName={symptomName}
-          medicineName={medicineName}
-          purposeOfPrescription={purposeOfPrescription}
-          perceivedEffect={perceivedEffect}
-          degreeOfSideEffect={degreeOfSideEffect}
-          symptomOfSideEffect={symptomOfSideEffect}
+          medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}
         />
         <hr className={cx('hr')}/>
       </div>

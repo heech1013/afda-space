@@ -19,7 +19,7 @@ const initialState = Map({
   profileCardUpdate: Map({
     nick: '',
     introduction: '',
-    error: false
+    error: null
   })
 });
 
@@ -39,7 +39,7 @@ export default handleActions({
                   .setIn(['profileCardUpdate', 'introduction'], '');
     },
     onError: (state, action) => {
-      return state.setIn(['profileCardUpdate', 'error'], true);
+      return state.setIn(['profileCardUpdate', 'error'], action.payload.response.data.message);
     }
   })
 }, initialState);
