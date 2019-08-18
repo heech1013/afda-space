@@ -20,6 +20,9 @@ const initialState = Map({
     nick: '',
     introduction: '',
     error: null
+  }),
+  contentList: Map({
+
   })
 });
 
