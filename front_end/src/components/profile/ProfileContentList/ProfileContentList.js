@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 const Content = ({
   contentType,
   updatable,
-  diagnosisName, ageAtFirstSymptom, periodOfSymptom,
+  diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
   symptomName,
   medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect
 }) => {
@@ -22,12 +22,12 @@ const Content = ({
           <span className={cx('column-2')}>{diagnosisName}</span>
         </div>
         <div className={cx('column')}>
-          <span className={cx('column-1')}>{'증상이 처음 나타난 시기 : '}</span>
-          <span className={cx('column-2')}>{ageAtFirstSymptom}</span>
+          <span className={cx('column-1')}>{'관련 증상이 처음 발견된 날짜 : '}</span>
+          <span className={cx('column-2')}>{dateAtFirstSymptom}</span>
         </div>
         <div className={cx('column')}>
-          <span className={cx('column-1')}>{'증상을 겪은 기간 : '}</span>
-          <span className={cx('column-2')}>{periodOfSymptom}</span>
+          <span className={cx('column-1')}>{'진단을 받은 날짜 : '}</span>
+          <span className={cx('column-2')}>{dateAtFirstDiagnosed}</span>
         </div>
       </div>
       :
@@ -75,7 +75,7 @@ const ProfileContentList = ({contents, updatable, location}) => {
   const contentList = contents.map((content) => {
     const {
       id,
-      diagnosisName = null, ageAtFirstSymptom = null, periodOfSymptom = null,
+      diagnosisName = null, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null,
       symptomName = null,
       medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null
     } = content;
@@ -84,7 +84,7 @@ const ProfileContentList = ({contents, updatable, location}) => {
         <Content
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
-          diagnosisName={diagnosisName} ageAtFirstSymptom={ageAtFirstSymptom} periodOfSymptom={periodOfSymptom}
+          diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
           medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}
         />

@@ -1,7 +1,7 @@
 const router = require('express').Router({ mergeParams: true });
 
-const show = require('./show');
+const index = require('./index');
 
-router.get('/', show);
+router.get('/', index);
 
 module.exports = router;
