@@ -35,8 +35,9 @@ class ProfileContentListContainer extends Component {
 
 export default connect(
   (state) => ({
+    logged: state.base.get('logged'),
     storeId: state.base.get('id'),
-    loading: state.pender.pending['GET_USER_DIAGNOSIS_LIST'],
+    loading: state.pender.pending['profile/GET_USER_DIAGNOSIS_LIST'],
     contents: state.profile.get('contents')
   }),
   (dispatch) => ({

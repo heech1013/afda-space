@@ -8,6 +8,7 @@ import Button from 'components/common/Button';
 const cx = classNames.bind(styles);
 
 const Content = ({
+  key,
   contentType,
   updatable,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
@@ -16,7 +17,7 @@ const Content = ({
 }) => {
   const contentHTML =
     contentType === 'diagnosis' ?
-      <div>
+      <div key={key}>
         <div className={cx('column')}>
           <span className={cx('column-1')}>{'진단명 : '}</span>
           <span className={cx('column-2')}>{diagnosisName}</span>
@@ -32,13 +33,13 @@ const Content = ({
       </div>
       :
       contentType === 'symptom' ?
-        <div className={cx('column')}>
+        <div key={key} className={cx('column')}>
           <span className={cx('column-1')}>{'증상 : '}</span>
           <span className={cx('column-2')}>{symptomName}</span>
         </div>
         :
         contentType === 'medicine' ?
-          <div>
+          <div key={key}>
             <div className={cx('column')}>
               <span className={cx('column-1')}>{'처방약 : '}</span>
               <span className={cx('column-2')}>{medicineName}</span>
@@ -61,10 +62,10 @@ const Content = ({
             </div>
           </div>
           : null;
-  const buttonHTML = updatable ? <Button className={cx('button')}>수정하기</Button> : null;
+  const buttonHTML = updatable ? <Button key={key} className={cx('button')}>수정하기</Button> : null;
 
   return (
-    <div className={cx('content', { updatable })}>
+    <div key={key} className={cx('content', { updatable })}>
       {contentHTML}
       {buttonHTML}
     </div>
@@ -82,13 +83,14 @@ const ProfileContentList = ({contents, updatable, location}) => {
     return (
       <div key={id}>
         <Content
+          key={id}
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
           medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}
         />
-        <hr className={cx('hr')}/>
+        <hr key={id} className={cx('hr')}/>
       </div>
     )
   })

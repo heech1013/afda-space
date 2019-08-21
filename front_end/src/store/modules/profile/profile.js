@@ -13,7 +13,7 @@ const GET_USER_CONTENT_LIST = 'profile/GET_USER_CONTENT_LIST';
 /* action creators */
 export const getProfile = createAction(GET_PROFILE, api.getProfile);
 export const updateProfileCard = createAction(UPDATE_PROFILE_CARD, api.updateProfileCard);
-export const getUserConentList = createAction(GET_USER_CONTENT_LIST, api.getUserContentList);
+export const getUserContentList = createAction(GET_USER_CONTENT_LIST, api.getUserContentList);
 
 /* initial state */
 const initialState = Map({
@@ -48,7 +48,7 @@ export default handleActions({
   ...pender({
     type: GET_USER_CONTENT_LIST,
     onSuccess: (state, action) => {
-      const { contents } = action.payload.date;
+      const { contents } = action.payload.data;
       return state.set('contents', fromJS(contents));
     }
   })
