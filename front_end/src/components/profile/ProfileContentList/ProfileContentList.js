@@ -8,7 +8,6 @@ import Button from 'components/common/Button';
 const cx = classNames.bind(styles);
 
 const Content = ({
-  key,
   contentType,
   updatable,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
@@ -17,7 +16,7 @@ const Content = ({
 }) => {
   const contentHTML =
     contentType === 'diagnosis' ?
-      <div key={key}>
+      <div>
         <div className={cx('column')}>
           <span className={cx('column-1')}>{'진단명 : '}</span>
           <span className={cx('column-2')}>{diagnosisName}</span>
@@ -33,13 +32,13 @@ const Content = ({
       </div>
       :
       contentType === 'symptom' ?
-        <div key={key} className={cx('column')}>
+        <div className={cx('column')}>
           <span className={cx('column-1')}>{'증상 : '}</span>
           <span className={cx('column-2')}>{symptomName}</span>
         </div>
         :
         contentType === 'medicine' ?
-          <div key={key}>
+          <div>
             <div className={cx('column')}>
               <span className={cx('column-1')}>{'처방약 : '}</span>
               <span className={cx('column-2')}>{medicineName}</span>
@@ -62,10 +61,10 @@ const Content = ({
             </div>
           </div>
           : null;
-  const buttonHTML = updatable ? <Button key={key} className={cx('button')}>수정하기</Button> : null;
+  const buttonHTML = updatable ? <Button className={cx('button')}>수정하기</Button> : null;
 
   return (
-    <div key={key} className={cx('content', { updatable })}>
+    <div className={cx('content', { updatable })}>
       {contentHTML}
       {buttonHTML}
     </div>
@@ -79,18 +78,19 @@ const ProfileContentList = ({contents, updatable, location}) => {
       diagnosisName = null, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null,
       symptomName = null,
       medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null
-    } = content;
+    } = content.toJS();
+    // console.log('*************content: ', content);
     return (
       <div key={id}>
         <Content
-          key={id}
+          
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
           medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}
         />
-        <hr key={id} className={cx('hr')}/>
+        <hr className={cx('hr')}/>
       </div>
     )
   })
