@@ -121,8 +121,8 @@ db.MedicineEvaluationData.belongsTo(db.User, { as: 'RegisteringMedicineEvaluatio
 db.Medicine.hasMany(db.MedicineSideEffectsData, { as: 'RegisteredMedicineSideEffectsData', foreignKey: 'fkMedicineId' });
 db.MedicineSideEffectsData.belongsTo(db.Medicine, { as: 'RegisteredMedicineSideEffectsData', foreignKey: 'fkMedicineId' });
 /* Symptom:MedicineSideEffectsData = 1:N */
-db.Symptom.hasMany(db.MedicineSideEffectsData, { as: '', foreignKey: 'fkSymptomId' });
-db.MedicineSideEffectsData.belongsTo(db.Symptom, { as: '', foreignKey: 'fkSymptomId' });
+db.Symptom.hasMany(db.MedicineSideEffectsData, { as: 'SymptomOfSideEffects', foreignKey: 'fkSymptomId' });
+db.MedicineSideEffectsData.belongsTo(db.Symptom, { as: 'SymptomOfSideEffects', foreignKey: 'fkSymptomId' });
 /* User:MedicineSideEffectsData = 1:N */
 db.User.hasMany(db.MedicineSideEffectsData, { as: 'RegisteringMedicineSideEffectsData', foreignKey: 'fkUserId' });
 db.MedicineSideEffectsData.belongsTo(db.User, { as: 'RegisteringMedicineSideEffectsData', foreignKey: 'fkUserId' });

@@ -79,7 +79,6 @@ const ProfileContentList = ({contents, updatable, location}) => {
       symptomName = null,
       medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null
     } = content.toJS();
-    // console.log('*************content: ', content);
     return (
       <div key={id}>
         <Content
