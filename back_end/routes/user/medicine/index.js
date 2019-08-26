@@ -18,15 +18,36 @@ const index = async (req, res, next) => {
         {
           model: MedicineSideEffectsData, as: 'RegisteringMedicineSideEffectsData', attributes: ['id'],
           include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
-        }
+        }  // 배열로 오는가, 객체로 오는가? 존재하는 row 수에 따라 다른가?
       ]
     });
 
-    const contents = uncleanedMedicineData.map((content) => {
-      const { RegisteringMedicinePurposeData, RegisteringMedicineEvaluationData, RegisteringMedicineSideEffectsData } = uncleanedMedicineData;
+    const contents = uncleanedMedicineData.map((obj) => {
+      const { RegisteringMedicinePurposeData, RegisteringMedicineEvaluationData, RegisteringMedicineSideEffectsData } = obj;
+      const { id } = RegisteringMedicinePurposeData;
+      const medicineName = RegisteringMedicinePurposeData.RegisteredMedicinePurposeData.nameKr;  // 이름 혹은 null
+      const purposeOfPrescription = RegisteringMedicinePurposeData.UsedMedicineForDiagnosis ? RegisteringMedicinePurposeData.UsedMedicineForDiagnosis.nameKr
+                                      : RegisteringMedicinePurposeData.UsedMedicineForSymptom ? RegisteringMedicinePurposeData.UsedMedicineForSymptom.nameKr : null;
+      const perceivedEffect = !RegisteringMedicinePurposeData.perceivedEffectiveness ? null
+                                : RegisteringMedicinePurposeData.perceivedEffectiveness = 1 ? '알 수 없다'
+                                  : RegisteringMedicinePurposeData.perceivedEffectiveness = 2 ? '없다'
+                                    : RegisteringMedicinePurposeData.perceivedEffectiveness = 3 ? '약간'
+                                      : RegisteringMedicinePurposeData.perceivedEffectiveness = 4 ? '보통'
+                                        : RegisteringMedicinePurposeData.perceivedEffectiveness = 5 ? '크다' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
+      const degreeOfSideEffect = !RegisteringMedicineEvaluationData.sideEffects ? null
+                                  : RegisteringMedicineEvaluationData.sideEffects = 1 ? '없다'
+                                    : RegisteringMedicineEvaluationData.sideEffects = 2 ? '약간'
+                                      : RegisteringMedicineEvaluationData.sideEffects = 3 ? '중간'
+                                        : RegisteringMedicineEvaluationData.sideEffects = 4 ? '심각' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
+      const symptomOfSideEffect = RegisteringMedicineSideEffectsData ? RegisteringMedicineSideEffectsData.symptomOfSideEffect.nameKr : null;
+
       return {
-        id: RegisteringMedicinePurposeData.id,
-        
+        id,
+        medicineName,
+        purposeOfPrescription,
+        perceivedEffect,
+        degreeOfSideEffect,
+        symptomOfSideEffect
       }
     });
 
