@@ -3,7 +3,7 @@ const { User, Medicine, MedicineEvaluationData, MedicineSideEffectsData, Medicin
 const index = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const uncleanedMedicineData = User.findOne({
+    const uncleanedMedicineData = await User.findOne({
       attributes: ['id'], where: { id },
       include: [
         {
@@ -14,11 +14,11 @@ const index = async (req, res, next) => {
             { model: Medicine, as: 'RegisteredMedicinePurposeData', attributes: ['nameKr']}
           ]
         },
-        { model: MedicineEvaluationData, as: 'RegisteringMedicineEvaluationData', attributes: ['sideEffects']},
+        { model: MedicineEvaluationData, as: 'RegisteringMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
         {
           model: MedicineSideEffectsData, as: 'RegisteringMedicineSideEffectsData', attributes: ['id'],
           include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
-        }  // 배열로 오는가, 객체로 오는가? 존재하는 row 수에 따라 다른가?
+        }
       ]
     });
 
