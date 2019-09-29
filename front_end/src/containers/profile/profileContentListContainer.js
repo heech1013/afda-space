@@ -9,7 +9,7 @@ import ProfileContentList from 'components/profile/ProfileContentList';
 class ProfileContentListContainer extends Component {
   getContentList = () => {
     const { type, ProfileActions, userId: id } = this.props;
-    if (type === 'diagnosis') ProfileActions.getUserContentList(type, id);
+    if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
   }
 
   componentDidMount() {

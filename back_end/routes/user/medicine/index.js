@@ -11,13 +11,17 @@ const index = async (req, res, next) => {
           include: [
             { model: Diagnosis, as: 'UsedMedicineForDiagnosis', attributes: ['nameKr']},
             { model: Symptom, as: 'UsedMedicineForSymptom', attributes: ['nameKr']},
-            { model: Medicine, as: 'RegisteredMedicinePurposeData', attributes: ['nameKr']}
+            {
+              model: Medicine, as: 'RegisteredMedicinePurposeData', attributes: ['nameKr'],
+              include: [
+                { model: MedicineEvaluationData, as: 'RegisteredMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
+                {
+                  model: MedicineSideEffectsData, as: 'RegisteredMedicineSideEffectsData', attributes: ['id'],
+                  include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
+                }
+              ]
+            }
           ]
-        },
-        { model: MedicineEvaluationData, as: 'RegisteringMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
-        {
-          model: MedicineSideEffectsData, as: 'RegisteringMedicineSideEffectsData', attributes: ['id'],
-          include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
         }
       ]
     });
