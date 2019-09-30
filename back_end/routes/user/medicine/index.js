@@ -26,24 +26,23 @@ const index = async (req, res, next) => {
       ]
     });
 
-    const contents = uncleanedMedicineData.map((obj) => {
-      const { RegisteringMedicinePurposeData, RegisteringMedicineEvaluationData, RegisteringMedicineSideEffectsData } = obj;
-      const { id } = RegisteringMedicinePurposeData;
-      const medicineName = RegisteringMedicinePurposeData.RegisteredMedicinePurposeData.nameKr;  // 이름 혹은 null
-      const purposeOfPrescription = RegisteringMedicinePurposeData.UsedMedicineForDiagnosis ? RegisteringMedicinePurposeData.UsedMedicineForDiagnosis.nameKr
-                                      : RegisteringMedicinePurposeData.UsedMedicineForSymptom ? RegisteringMedicinePurposeData.UsedMedicineForSymptom.nameKr : null;
-      const perceivedEffect = !RegisteringMedicinePurposeData.perceivedEffectiveness ? null
-                                : RegisteringMedicinePurposeData.perceivedEffectiveness = 1 ? '알 수 없다'
-                                  : RegisteringMedicinePurposeData.perceivedEffectiveness = 2 ? '없다'
-                                    : RegisteringMedicinePurposeData.perceivedEffectiveness = 3 ? '약간'
-                                      : RegisteringMedicinePurposeData.perceivedEffectiveness = 4 ? '보통'
-                                        : RegisteringMedicinePurposeData.perceivedEffectiveness = 5 ? '크다' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
-      const degreeOfSideEffect = !RegisteringMedicineEvaluationData.sideEffects ? null
-                                  : RegisteringMedicineEvaluationData.sideEffects = 1 ? '없다'
-                                    : RegisteringMedicineEvaluationData.sideEffects = 2 ? '약간'
-                                      : RegisteringMedicineEvaluationData.sideEffects = 3 ? '중간'
-                                        : RegisteringMedicineEvaluationData.sideEffects = 4 ? '심각' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
-      const symptomOfSideEffect = RegisteringMedicineSideEffectsData ? RegisteringMedicineSideEffectsData.symptomOfSideEffect.nameKr : null;
+    const contents = uncleanedMedicineData.RegisteringMedicinePurposeData.map((obj) => {
+      const { id } = obj;
+      const medicineName = obj.RegisteredMedicinePurposeData.nameKr;  // 이름 혹은 null
+      const purposeOfPrescription = obj.UsedMedicineForDiagnosis ? obj.UsedMedicineForDiagnosis.nameKr
+                                      : obj.UsedMedicineForSymptom ? obj.UsedMedicineForSymptom.nameKr : null;
+      const perceivedEffect = !obj.perceivedEffectiveness ? null
+                                : obj.perceivedEffectiveness = 1 ? '알 수 없다'
+                                  : obj.perceivedEffectiveness = 2 ? '없다'
+                                    : obj.perceivedEffectiveness = 3 ? '약간'
+                                      : obj.perceivedEffectiveness = 4 ? '보통'
+                                        : obj.perceivedEffectiveness = 5 ? '크다' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
+      const degreeOfSideEffect = !obj.RegisteredMedicinePurposeData.RegisteredMedicineEvaluationData.sideEffects ? null
+                                  : obj.RegisteredMedicinePurposeData.RegisteredMedicineEvaluationData.sideEffects = 1 ? '없다'
+                                    : obj.RegisteredMedicinePurposeData.RegisteredMedicineEvaluationData.sideEffects = 2 ? '약간'
+                                      : obj.RegisteredMedicinePurposeData.RegisteredMedicineEvaluationData.sideEffects = 3 ? '중간'
+                                        : obj.RegisteredMedicinePurposeData.RegisteredMedicineEvaluationData.sideEffects = 4 ? '심각' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
+      const symptomOfSideEffect = obj.RegisteredMedicinePurposeData.RegisteredMedicineSideEffectsData ? obj.RegisteredMedicinePurposeData.RegisteredMedicineSideEffectsData[0].SymptomOfSideEffects.nameKr : null;
 
       return {
         id,
