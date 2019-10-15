@@ -16,7 +16,7 @@ class ContentTitleContainer extends Component {
   }
 
   render() {
-    const { loading, content } = this.props;
+    const { loading, content, buttonString } = this.props;
     const { nameKr, nameEn } = content.toJS();
     if (loading) return null;
     return (
@@ -24,7 +24,7 @@ class ContentTitleContainer extends Component {
         <ContentTitle
           nameKr={nameKr}
           nameEn={nameEn}
-          buttonString={'내 프로필에 추가'}
+          buttonString={buttonString}
           onClick={() => console.log('add content to my profile')}/>
       </div>
     )

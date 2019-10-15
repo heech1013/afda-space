@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
 import MiniMenu from 'components/common/MiniMenu';
+import ContentTitleContainer from 'containers/content/ContentTitleContainer';
 import ProfileContentListContainer from 'containers/profile/ProfileContentListContainer';
 
 const ProfileDiagnosisPage = ({match}) => {
@@ -9,6 +10,8 @@ const ProfileDiagnosisPage = ({match}) => {
   return (
     <PageTemplate>
       <MiniMenu buttonArr={['프로필', '진단명', '증상', '처방약']}/>
+      <ContentTitleContainer
+        buttonString={"새 진단명 추가"}/>
       <ProfileContentListContainer
         type={'diagnosis'}
         userId={id}/>
