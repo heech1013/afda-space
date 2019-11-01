@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as baseActions from 'store/modules/base/base';
 import * as contentActions from 'store/modules/content/content';
 
 import ContentTitle from 'components/content/ContentTitle';
@@ -11,12 +12,18 @@ class ContentTitleContainer extends Component {
     ContentActions.getContent(type, id);
   }
 
+  handleModal = () => {
+    const { BaseActions } = this.props;
+    BaseActions.showModal('profileDiagnosisAdd');
+  }
+
   componentDidMount() {
     this.getContent();
   }
 
   render() {
     const { loading, content, buttonString } = this.props;
+    const { handleModal } = this;
     const { nameKr, nameEn } = content.toJS();
     if (loading) return null;
     return (
@@ -25,7 +32,7 @@ class ContentTitleContainer extends Component {
           nameKr={nameKr}
           nameEn={nameEn}
           buttonString={buttonString}
-          onClick={() => console.log('add content to my profile')}/>
+          onClick={handleModal}/>
       </div>
     )
   }
@@ -37,6 +44,7 @@ export default connect(
     content: state.content.get('content')
   }),
   (dispatch) => ({
+    BaseActions: bindActionCreators(baseActions, dispatch),
     ContentActions: bindActionCreators(contentActions, dispatch)
   })
 )(ContentTitleContainer);

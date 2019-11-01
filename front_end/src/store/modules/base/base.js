@@ -47,7 +47,8 @@ const initialState =  Map({
     age: 1
   }),
   modal: Map({
-    profileCardUpdate: false
+    profileCardUpdate: false,
+    profileDiagnosisAdd: false
   })
 });
 

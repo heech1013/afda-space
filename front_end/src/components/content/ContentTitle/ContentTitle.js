@@ -13,7 +13,7 @@ const ContentTitle = ({ location, nameKr, nameEn, onClick, buttonString}) => {
   return (
     <div className={cx('content-title')}>
       { noTitleName ? <span className={cx('nameKr')}>{nameKr}</span> : null }
-      <Button className={cx('button')} theme={'addToMyProfile'} onClick={() => onClick()}>{buttonString}</Button>
+      <Button className={cx('button')} theme={'addToMyProfile'} onClick={onClick}>{buttonString}</Button>
       <br/>
       { noTitleName ? <span className={cx('nameEn', { bracket })}>({nameEn})</span> : null }
     </div>
