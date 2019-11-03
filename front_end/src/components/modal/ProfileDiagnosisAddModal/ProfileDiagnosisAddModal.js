@@ -12,7 +12,7 @@ class ProfileDiagnosisAddModal extends Component {
     const { visible } = this.props;
     return (
       <ModalWrapper visible={visible}>
-
+        
       </ModalWrapper>
     )
   }
