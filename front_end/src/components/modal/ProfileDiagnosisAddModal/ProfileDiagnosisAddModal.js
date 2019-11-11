@@ -17,7 +17,7 @@ class ProfileDiagnosisAddModal extends Component {
     const { visible } = this.props;
     let yearSelectList = "";
     for (let i = new Date().getFullYear(); i > 1909; i--) {
-      yearSelectList += ("<option value='", i, "'>", i, "</option>");
+      yearSelectList += ("<option value='" + i + "'>" + i + "</option>");
       // 문제: 맨 마지막 단락만 추가가 됨 + 따옴표로 인해 STRING으로  들어감.
     }
 
