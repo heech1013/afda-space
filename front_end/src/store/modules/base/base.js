@@ -35,8 +35,10 @@ export const hideModal = createAction(HIDE_MODAL);
 
 /* initial state */
 const initialState =  Map({
-  logged: false,
-  id: null,
+  // logged: false,
+  // id: null,
+  logged: true,  // 임시
+  id: 5,  // 임시
   auth: Map({
     token: null,
     authId: null

@@ -54,6 +54,7 @@ const ContentList = ({row_1, row_2, to, contents}) => {
       </div>
     );
   });
+  
   return (
     <div className={cx('content-list')}>
       <div className={cx('row')}>

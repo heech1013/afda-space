@@ -28,12 +28,12 @@ class KakaoLogin extends Component {
   componentDidMount() {
     const { history } = this.props;
     Kakao.cleanup();  // kakao.init을 두 번 이상 실행(로그인 페이지에 두 번 이상 접속)하면 에러가 나기 때문에, init하기 전 sdk 리소스를 비워준다.
-    Kakao.init('72c76b14bb8ff423398a0e9ccee18b91');
+    Kakao.init('2ef83b139c92fbb8798d07febee20bbf');
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: (authObj) => {  // 사용자가 성공적으로 카카오 로그인을 진행하였을 경우. 자동으로 access_token을 사용하여 Kakao.API를 사용할 수 있게 된다.
         Kakao.API.request({
-          url: '/v1/user/me',
+          url: '/v2/user/me',
           success: (res) => {
             this.loginOrJoin(res.id);
           },
@@ -53,7 +53,8 @@ class KakaoLogin extends Component {
   render() {
     return (
       <div className={cx('kakao-login')}>
-        <a id="kakao-login-btn" href={'/'}>{''}</a> {/* warning 방지를 위해 href와 children에 임시값을 넣어놓았다 */}
+        <div id="kakao-login-btn">{""}</div>
+        {/* <a id="kakao-login-btn" href={'/'}>{''}</a> warning 방지를 위해 href와 children에 임시값을 넣어놓았다 */}
       </div>
     );
   }
