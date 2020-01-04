@@ -15,9 +15,9 @@ class ProfileDiagnosisAddModalContainer extends Component {
     const { BaseActions } = this.props;
     BaseActions.hideModal('profileDiagnosisAdd');
   }
-  handleSubmit = ({}) => {
+  // handleSubmit = ({}) => {
 
-  }
+  // }
 
   componentDidMount() {
     this.getDiagnosisList();
