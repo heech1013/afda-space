@@ -12,7 +12,7 @@ const create = async (req, res, next) => {
     
     /** data(state)의 날짜 입력값 중 빈 칸은 모두 null string('')으로 제출된다.
      * DiagnosisData model의 날짜 type은 INTEGER로, ''를 insert할 수 없다. 따라서 모두 null로 바꿔준다.
-     * profileDiagnosisAddModal의 initial state의 날짜 항목 default를 null로 설정할 수는 없다. input tag의 value 값을 null로 설정할 수 없기 때문이다. null string 또는 undefined만 가능하다.
+     * profileDiagnosisAddModal의 initial state의 날짜 항목 default를 null로 설정할 수는 없다. input tag의 value 값을 null로 설정할 수 없기 때문이다.
      */
     const nullStringHandler = (data) => {
       return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ const create = async (req, res, next) => {
       })
     }
     await nullStringHandler(data);
-    
+
     const {
       diagnosisId: fkDiagnosisId,
       FNRadioGroup,
@@ -47,6 +47,7 @@ const create = async (req, res, next) => {
         firstNoticeYear, firstNoticeMonth, firstNoticeDay, firstNoticeUnaware, firstNoticeUnknown,
         firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay, firstDiagnosedUnaware, firstDiagnosedUnknown
       });
+      return res.json({ success: true });
     }
   } catch (e) {
     next (e)

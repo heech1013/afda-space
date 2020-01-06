@@ -27,8 +27,8 @@ class ProfileUpdateModalContainer extends Component {
   }
   
   render() {
-    const { visible, error } = this.props;
     const { handleCancel, handleSubmit } = this;
+    const { visible, error } = this.props;
     return (
       <ProfileUpdateModal
         visible={visible}

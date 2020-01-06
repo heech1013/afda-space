@@ -7,9 +7,18 @@ import * as profileActions from 'store/modules/profile/profile';
 import ProfileDiagnosisAddModal from 'components/modal/ProfileDiagnosisAddModal';
 
 class ProfileDiagnosisAddModalContainer extends Component {
-  getDiagnosisList = () => {
+  /** modal의 진단명 option을 위한 정보 받아오기 */
+  getDiagnosisOptionList = () => {
     const { ContentActions } = this.props;
     ContentActions.getContentList('diagnosis');
+  }
+
+  /** 진단명 정보 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 진단명 정보를 받아온다.
+   * modal과 별개
+   */
+  getUserDiagnosisList = () => {
+    const { userId, ProfileActions } = this.props;
+    ProfileActions.getUserContentList('diagnosis', userId);
   }
 
   handleCancel = () => {
@@ -22,12 +31,12 @@ class ProfileDiagnosisAddModalContainer extends Component {
     try {
       await ProfileActions.postUserDiagnosis(id, data);
       BaseActions.hideModal('profileDiagnosisAdd');
-      this.getDiagnosisList();
+      this.getUserDiagnosisList();
     } catch (e) {}
   }
 
   componentDidMount() {
-    this.getDiagnosisList();
+    this.getDiagnosisOptionList();
   }
 
   render() {
