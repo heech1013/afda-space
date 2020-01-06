@@ -112,7 +112,7 @@ class ProfileDiagnosisAddModal extends Component {
 
   render() {
     const { diagnosisId, FNRadioGroup, firstNoticeYear, firstNoticeMonth, firstNoticeDay, FDRadioGroup, firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay } = this.state;
-    const { visible, diagnosisList, onCancel, onSubmit } = this.props;
+    const { visible, diagnosisList, onCancel, onSubmit, error } = this.props;
     const { state, handleDiagnosisChange, handleRadioChange, handleDateChange } = this;
 
     /** 존재하는 진단명 리스트를 조회하여 select의 option list를 생성한다. */
@@ -125,7 +125,7 @@ class ProfileDiagnosisAddModal extends Component {
     return (
       <ModalWrapper visible={visible}>
         <div className={cx('form')}>
-          <div className={cx('close')} onClick={() => onCancel()}>&times;</div> {/** onCancel is not a function */}
+          <div className={cx('close')} onClick={() => onCancel()}>&times;</div> {/** 보류: onCancel is not a function */}
           <div>추가하려는 진단명을 선택해주세요.</div>
           <select name="diagnosis" value={diagnosisId} onChange={handleDiagnosisChange}>{diagnosisOptionList}</select>
 
@@ -153,6 +153,7 @@ class ProfileDiagnosisAddModal extends Component {
           <input type="radio" name="FDRadioGroup" value="firstDiagnosedUnaware" checked={FDRadioGroup['firstDiagnosedUnaware']} onChange={handleRadioChange}/>진단을 받은 적은 없지만, 제 생각엔 해당 증상명을 가지고 있는 것 같습니다.
           <input type="radio" name="FDRadioGroup" value="firstDiagnosedUnknown" checked={FDRadioGroup['firstDiagnosedUnknown']} onChange={handleRadioChange}/>잘 모르겠습니다.
           {/* 에러 처리: 이미 추가한 진단명일 때 / 유효하지 않은 날짜일 때 */}
+          { error && <div className={cx('error')}>{error}</div>}
           <div>
             <Button onClick={() => onSubmit({ state })}>저장</Button>
           </div>
@@ -163,14 +164,3 @@ class ProfileDiagnosisAddModal extends Component {
 }
 
 export default ProfileDiagnosisAddModal;
-
-// state:
-// diagnosisId: 1
-// FNRadioGroup: {firstNoticeUnaware: true}
-// firstNoticeYear: ""
-// firstNoticeMonth: ""
-// firstNoticeDay: ""
-// FDRadioGroup: {firstDiagnosedUnknown: true}
-// firstDiagnosedYear: ""
-// firstDiagnosedMonth: ""
-// firstDiagnosedDay: ""

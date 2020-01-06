@@ -18,7 +18,7 @@ const ProfileDiagnosisPage = ({match}) => {
         type={'diagnosis'}
         userId={id}/>
       <ProfileDiagnosisAddModalContainer
-        // userId={id}
+        userId={id}
       />
     </PageTemplate>
   )

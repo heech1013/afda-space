@@ -4,6 +4,6 @@ const index = require('./index');
 const create = require('./create');
 
 router.get('/', index);
-router.post('/', index);
+router.post('/', create);
 
 module.exports = router;

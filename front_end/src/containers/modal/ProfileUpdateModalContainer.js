@@ -42,7 +42,7 @@ class ProfileUpdateModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileCardUpdate']),
-    error: state.profile.getIn(['profileCardUpdate', 'error'])
+    error: state.profile.getIn(['error', 'profileCardUpdate'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),
