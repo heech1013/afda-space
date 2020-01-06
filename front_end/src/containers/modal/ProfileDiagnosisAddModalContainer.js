@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base/base';
 import * as contentActions from 'store/modules/content/content';
-
 import ProfileDiagnosisAddModal from 'components/modal/ProfileDiagnosisAddModal';
 
 class ProfileDiagnosisAddModalContainer extends Component {
