@@ -26,10 +26,8 @@ const create = async (req, res, next) => {
 
     const {
       diagnosisId: fkDiagnosisId,
-      FNRadioGroup,
-      firstNoticeYear, firstNoticeMonth, firstNoticeDay,
-      FDRadioGroup,
-      firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay
+      firstNoticeYear, firstNoticeMonth, firstNoticeDay, FNRadioGroup,
+      firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay, FDRadioGroup
     } = data;
 
     /** FN, FD 상관 없이 둘 중 하나(Unaware / Unknown)의 값이 true일 경우 나머지 항목은 key 자체가 사라짐.
@@ -38,9 +36,11 @@ const create = async (req, res, next) => {
     const { firstNoticeUnaware = false, firstNoticeUnknown = false } = FNRadioGroup;
     const { firstDiagnosedUnaware = false, firstDiagnosedUnknown = false } = FDRadioGroup;
 
+    /** 날짜의 유효성 체크 없이 받는다. */
+
     const existingDiagnosisData = await DiagnosisData.findAll({ where: { fkUserId, fkDiagnosisId }});
     if (existingDiagnosisData.length) next(CustomError("BadRequest", "이미 등록한 진단명입니다."));
-
+    
     else {
       await DiagnosisData.create({
         fkUserId, fkDiagnosisId,

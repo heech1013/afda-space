@@ -126,36 +126,36 @@ class ProfileDiagnosisAddModal extends Component {
       <ModalWrapper visible={visible}>
         <div className={cx('form')}>
           <div className={cx('close')} onClick={() => onCancel()}>&times;</div> {/** 보류: onCancel is not a function */}
-          <div>추가하려는 진단명을 선택해주세요.</div>
+          <div className={cx('question')}>추가하려는 진단명을 선택해주세요.</div>
           <select name="diagnosis" value={diagnosisId} onChange={handleDiagnosisChange}>{diagnosisOptionList}</select>
 
-          <div>처음으로 해당 진단명과 관련된 증상을 알아차린 것이 언제인가요?</div>
+          <div className={cx('question')}>처음으로 해당 진단명과 관련된 증상을 알아차린 것이 언제인가요?</div>
           {/* 날짜 input: 년, 월, 일 */}
           <input name="FNY" autoFocus type="number" min="1900" max={new Date().getFullYear()} step="1" value={firstNoticeYear} onChange={handleDateChange}/>
-          <span>년</span>
+          <span>년   </span>
           <input name="FNM" autoFocus type="number" min="1" max="12" step="1" value={firstNoticeMonth} onChange={handleDateChange}/>
-          <span>월 (알고 있다면 기입해주세요)</span>
+          <span>월 (알고 있다면 기입해주세요)   </span>
           <input name="FND" autoFocus type="number" min="1" max="31" step="1" value={firstNoticeDay} onChange={handleDateChange}/>
           <span>일 (알고 있다면 기입해주세요)</span>
           {/* radio group: Unaware, Unknown */}
-          <input type="radio" name="FNRadioGroup" value="firstNoticeUnaware" checked={FNRadioGroup['firstNoticeUnaware']} onChange={handleRadioChange}/>증상을 전혀 알아채지 못했습니다.
-          <input type="radio" name="FNRadioGroup" value="firstNoticeUnknown" checked={FNRadioGroup['firstNoticeUnknown']} onChange={handleRadioChange}/>잘 모르겠습니다.
+          <br/><input type="radio" name="FNRadioGroup" value="firstNoticeUnaware" checked={FNRadioGroup['firstNoticeUnaware']} onChange={handleRadioChange}/>증상을 전혀 알아채지 못했습니다.
+          <br/><input type="radio" name="FNRadioGroup" value="firstNoticeUnknown" checked={FNRadioGroup['firstNoticeUnknown']} onChange={handleRadioChange}/>잘 모르겠습니다.
 
-          <div>전문가(전문의, 임상심리전문가 등)로부터 해당 진단명을 진단 받은 것이 언제인가요?</div>
+          <div className={cx('question')}>전문가(전문의, 임상심리전문가 등)로부터 해당 진단명을 진단 받은 것이 언제인가요?</div>
           {/* 날짜 input: 년, 월, 일 */}
           <input name="FDY" autoFocus type="number" min="1900" max={new Date().getFullYear()} step="1" value={firstDiagnosedYear} onChange={handleDateChange}/>
-          <span>년</span>
+          <span>년   </span>
           <input name="FDM" autoFocus type="number" min="1" max="12" step="1" value={firstDiagnosedMonth} onChange={handleDateChange}/>
-          <span>월 (알고 있다면 기입해주세요)</span>
+          <span>월 (알고 있다면 기입해주세요)   </span>
           <input name="FDD" autoFocus type="number" min="1" max="31" step="1" value={firstDiagnosedDay} onChange={handleDateChange}/>
           <span>일 (알고 있다면 기입해주세요)</span>
           {/* radio group: Unaware, Unknown */}
-          <input type="radio" name="FDRadioGroup" value="firstDiagnosedUnaware" checked={FDRadioGroup['firstDiagnosedUnaware']} onChange={handleRadioChange}/>진단을 받은 적은 없지만, 제 생각엔 해당 증상명을 가지고 있는 것 같습니다.
-          <input type="radio" name="FDRadioGroup" value="firstDiagnosedUnknown" checked={FDRadioGroup['firstDiagnosedUnknown']} onChange={handleRadioChange}/>잘 모르겠습니다.
-          {/* 에러 처리: 이미 추가한 진단명일 때 / 유효하지 않은 날짜일 때 */}
+          <br/><input type="radio" name="FDRadioGroup" value="firstDiagnosedUnaware" checked={FDRadioGroup['firstDiagnosedUnaware']} onChange={handleRadioChange}/>진단을 받은 적은 없지만, 제 생각엔 해당 증상명을 가지고 있는 것 같습니다.
+          <br/><input type="radio" name="FDRadioGroup" value="firstDiagnosedUnknown" checked={FDRadioGroup['firstDiagnosedUnknown']} onChange={handleRadioChange}/>잘 모르겠습니다.
+          {/* 에러 처리: 이미 추가한 진단명일 때 */}
           { error && <div className={cx('error')}>{error}</div>}
           <div>
-            <Button onClick={() => onSubmit({ state })}>저장</Button>
+            <br/><Button onClick={() => onSubmit({ state })}>저장</Button>
           </div>
         </div>
       </ModalWrapper>

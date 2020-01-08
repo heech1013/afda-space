@@ -45,7 +45,7 @@ class ProfileDiagnosisAddModalContainer extends Component {
     return (
       <ProfileDiagnosisAddModal
         visible={visible}
-        onCancle={handleCancel}
+        onCancel={handleCancel}
         onSubmit={handleSubmit}
         diagnosisList={diagnosisList}
         error={error}/>
