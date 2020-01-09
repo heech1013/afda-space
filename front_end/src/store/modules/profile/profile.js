@@ -10,12 +10,14 @@ const GET_PROFILE = 'profile/GET_PROFILE';
 const UPDATE_PROFILE_CARD = 'profile/UPDATE_PROFILE_CARD';
 const GET_USER_CONTENT_LIST = 'profile/GET_USER_CONTENT_LIST';
 const POST_USER_DIAGNOSIS = 'profile/POST_USER_DIAGNOSIS';
+const POST_USER_SYMPTOM = 'profile/POST_USER_SYMPTOM';
 
 /* action creators */
 export const getProfile = createAction(GET_PROFILE, api.getProfile);
 export const updateProfileCard = createAction(UPDATE_PROFILE_CARD, api.updateProfileCard);
 export const getUserContentList = createAction(GET_USER_CONTENT_LIST, api.getUserContentList);
 export const postUserDiagnosis = createAction(POST_USER_DIAGNOSIS, api.postUserDiagnosis);
+export const postUserSymptom = createAction(POST_USER_SYMPTOM, api.postUserSymptom);
 
 /* initial state */
 const initialState = Map({
@@ -28,7 +30,8 @@ const initialState = Map({
   contents: List(),
   error: Map({
     profileCardUpdate: null,
-    userDiagnosisCreate: null
+    userDiagnosisCreate: null,
+    userSymptomCreate: null
   })
 });
 
@@ -62,6 +65,12 @@ export default handleActions({
     type: POST_USER_DIAGNOSIS,
     onError: (state, action) => {
       return state.setIn(['error', 'userDiagnosisCreate'], action.payload.response.data.message);
+    }
+  }),
+  ...pender({
+    type: POST_USER_SYMPTOM,
+    onError: (state, action) => {
+      return state.setIn(['error', 'userSymptomCreate'], action.payload.response.data.message);
     }
   })
 }, initialState);

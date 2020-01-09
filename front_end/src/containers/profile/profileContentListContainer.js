@@ -13,10 +13,20 @@ class ProfileContentListContainer extends Component {
     if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
   }
 
-  handleDelete = async (diagnosisDataId) => {
-    const { ContentActions } = this.props;
+  handleDelete = async (contentId) => {
+    const { type, ContentActions } = this.props;
     try {
-      await ContentActions.deleteContent('diagnosisData', diagnosisDataId);
+      switch (type) {
+        case 'diagnosis':
+          await ContentActions.deleteContent('diagnosisData', contentId);
+          break;
+        case 'symptom':
+          await ContentActions.deleteContent('symptomData', contentId);
+          break;
+        default:
+          break;
+      }
+      
     } catch (e) {}
     this.getContentList();
   }

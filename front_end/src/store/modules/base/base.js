@@ -50,7 +50,8 @@ const initialState =  Map({
   }),
   modal: Map({
     profileCardUpdate: false,
-    profileDiagnosisAdd: false
+    profileDiagnosisAdd: false,
+    profileSymptomAdd: false
   })
 });
 

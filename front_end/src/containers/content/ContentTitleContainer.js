@@ -13,8 +13,17 @@ class ContentTitleContainer extends Component {
   }
 
   handleModal = () => {
-    const { BaseActions } = this.props;
-    BaseActions.showModal('profileDiagnosisAdd');
+    const { BaseActions, buttonString } = this.props;
+    switch (buttonString) {
+      case '새 진단명 추가':  /** 내 프로필/진단명/새 진단명 추가 */
+        BaseActions.showModal('profileDiagnosisAdd');
+        break;
+      case '새 증상 추가':  /** 내 프로필/증상/새 증상 추가 */
+        BaseActions.showModal('profileSymptomAdd');
+        break;
+      default:
+        break;
+    }
   }
 
   componentDidMount() {
