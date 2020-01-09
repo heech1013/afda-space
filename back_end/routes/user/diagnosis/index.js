@@ -18,13 +18,13 @@ const index = async (req, res, next) => {
             firstNoticeUnknown ? '알 수 없음' :
               firstNoticeDay ? `${firstNoticeYear}년 ${firstNoticeMonth}월 ${firstNoticeDay}일` :
                 firstNoticeMonth ? `${firstNoticeYear}년 ${firstNoticeMonth}월}` :
-                  `${firstNoticeYear}년`;
+                  firstNoticeYear ? `${firstNoticeYear}년` : '-';
         const dateAtFirstDiagnosed =
           firstDiagnosedUnaware ? '진단을 받은 적은 없지만 가지고 있다고 생각한다' :
             firstDiagnosedUnknown ? '알 수 없음' :
               firstDiagnosedDay ? `${firstDiagnosedYear}년 ${firstDiagnosedMonth}월 ${firstDiagnosedDay}일` :
                 firstDiagnosedMonth ? `${firstDiagnosedYear}년 ${firstDiagnosedMonth}월}` :
-                  `${firstDiagnosedYear}년`;
+                  firstDiagnosedYear ? `${firstDiagnosedYear}년` : '-';
         return {
           id,
           diagnosisName: content.RegisteredDiagnosisData.nameKr,
