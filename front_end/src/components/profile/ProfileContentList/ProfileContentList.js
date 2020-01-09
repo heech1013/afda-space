@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 const Content = ({
   contentType,
   updatable,
+  id /** data 자체 PK id */, onClick,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
   symptomName,
   medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect
@@ -61,7 +62,7 @@ const Content = ({
             </div>
           </div>
           : null;
-  const buttonHTML = updatable ? <Button className={cx('button')}>수정하기</Button> : null;
+  const buttonHTML = updatable ? <Button className={cx('button')} onClick={() => onClick(id)}>삭제하기</Button> : null;
 
   return (
     <div className={cx('content', { updatable })}>
@@ -71,10 +72,10 @@ const Content = ({
   )
 }
 
-const ProfileContentList = ({contents, updatable, location}) => {
+const ProfileContentList = ({contents, updatable, onClick, location}) => {
   const contentList = contents.map((content) => {
     const {
-      id,
+      id,  // data 자체의 id(PK)
       diagnosisName = null, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null,
       symptomName = null,
       medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null
@@ -82,9 +83,9 @@ const ProfileContentList = ({contents, updatable, location}) => {
     return (
       <div key={id}>
         <Content
-          
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
+          id={id} onClick={onClick}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
           medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}

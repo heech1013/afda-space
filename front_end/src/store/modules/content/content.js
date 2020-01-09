@@ -10,12 +10,15 @@ const GET_CONTENT = 'content/GET_CONTENT';
 const GET_CONTENT_LIST = 'content/GET_CONTENT_LIST';
 const GET_CONTENT_SYMPTOM_LIST = 'content/GET_CONTENT_SYMPTOM_LIST';
 const GET_CONTENT_MEDICINE_LIST = 'content/GET_CONTENT_MEDICINE_LIST';
+const DELETE_CONTENT = 'content/DELETE_CONTENT';
 
 /* action creators */
 export const getContent = createAction(GET_CONTENT, api.getContent);
 export const getContentList = createAction(GET_CONTENT_LIST, api.getContentList);
 export const getContentSymptomList = createAction(GET_CONTENT_SYMPTOM_LIST, api.getContentSymptomList);
 export const getContentMedicineList = createAction(GET_CONTENT_MEDICINE_LIST, api.getContentMedicineList);
+export const deleteContent = createAction(DELETE_CONTENT, api.deleteContent);
+
 
 /* initial state */
 const initialState = Map({

@@ -125,7 +125,7 @@ class ProfileDiagnosisAddModal extends Component {
     return (
       <ModalWrapper visible={visible}>
         <div className={cx('form')}>
-          <div className={cx('close')} onClick={() => onCancel()}>&times;</div> {/** 보류: onCancel is not a function */}
+          <div className={cx('close')} onClick={() => onCancel()}>&times;</div>
           <div className={cx('question')}>추가하려는 진단명을 선택해주세요.</div>
           <select name="diagnosis" value={diagnosisId} onChange={handleDiagnosisChange}>{diagnosisOptionList}</select>
 

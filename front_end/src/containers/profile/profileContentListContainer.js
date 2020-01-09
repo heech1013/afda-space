@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base/base';
 import * as profileActions from 'store/modules/profile/profile';
+import * as contentActions from 'store/modules/content/content';
 
 import ProfileContentList from 'components/profile/ProfileContentList';
 
@@ -12,6 +13,14 @@ class ProfileContentListContainer extends Component {
     if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
   }
 
+  handleDelete = async (diagnosisDataId) => {
+    const { ContentActions } = this.props;
+    try {
+      await ContentActions.deleteContent('diagnosisData', diagnosisDataId);
+    } catch (e) {}
+    this.getContentList();
+  }
+
   componentDidMount() {
     const { logged } = this.props;
     if (logged) this.getContentList();
@@ -19,6 +28,7 @@ class ProfileContentListContainer extends Component {
 
   render() {
     const { userId, storeId, loading, contents } = this.props;
+    const { handleDelete } = this;
     if (loading) return null;
     // eslint-disable-next-line eqeqeq
     const updatable = userId == storeId;
@@ -27,6 +37,7 @@ class ProfileContentListContainer extends Component {
         <ProfileContentList
           contents={contents}
           updatable={updatable}
+          onClick={handleDelete}
         />
       </div>
     )
@@ -42,6 +53,7 @@ export default connect(
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),
-    ProfileActions: bindActionCreators(profileActions, dispatch)
+    ProfileActions: bindActionCreators(profileActions, dispatch),
+    ContentActions: bindActionCreators(contentActions, dispatch)
   })
 )(ProfileContentListContainer);
