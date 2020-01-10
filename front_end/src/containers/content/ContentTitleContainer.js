@@ -21,6 +21,9 @@ class ContentTitleContainer extends Component {
       case '새 증상 추가':  /** 내 프로필/증상/새 증상 추가 */
         BaseActions.showModal('profileSymptomAdd');
         break;
+      case '새 처방약 추가':  /** 내 프로필/처방약/새 처방약 축가 */
+        BaseActions.showModal('profileMedicineAdd');
+        break;
       default:
         break;
     }
