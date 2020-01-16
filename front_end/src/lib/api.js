@@ -10,6 +10,7 @@ export const updateProfileCard = (id, nick, introduction) => axios.patch(`/api/u
 export const getUserContentList = (type, id) => axios.get(`/api/user/${id}/${type}`);
 export const postUserDiagnosis = (id, data) => axios.post(`/api/user/${id}/diagnosis`, { data });
 export const postUserSymptom = (id, symptomId) => axios.post(`/api/user/${id}/symptom`, { symptomId });
+export const postUserMedicine = (id, medicineId) => axios.post(`/api/user/${id}/medicine`, { medicineId });
 
 export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
 

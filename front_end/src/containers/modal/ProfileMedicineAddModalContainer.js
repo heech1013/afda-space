@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base/base';
 import * as contentActions from 'store/modules/content/content';
+import * as profileActions from 'store/modules/profile/profile';
 import ProfileMedicineAddModal from 'components/modal/ProfileMedicineAddModal';
 
 class ProfileMedicineAddModalContainer extends Component {
@@ -12,9 +13,26 @@ class ProfileMedicineAddModalContainer extends Component {
     ContentActions.getContentList('medicine');
   }
 
+  /** 처방약 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 처방약 리스트를 받아온다.
+   * modal과 별개
+   */
+  getUserMedicineList = () => {
+    const { userId, ProfileActions } = this.props;
+    ProfileActions.getUserContentList('medicine', userId);
+  }
+
   handleCancel = () => {
     const { BaseActions } = this.props;
     BaseActions.hideModal('profileMedicineAdd');
+  }
+
+  handleSubmit = async ({ medicineId }) => {
+    const { userId: id, ProfileActions, BaseActions } = this.props;
+    try {
+      await ProfileActions.postUserMedicine(id, medicineId);
+      BaseActions.hideModal('profileMedicineAdd');
+      this.getUserMedicineList();
+    } catch (e) {}
   }
 
   componentDidMount() {
@@ -22,7 +40,7 @@ class ProfileMedicineAddModalContainer extends Component {
   }
 
   render() {
-    const { handleCancel } = this;
+    const { handleCancel, handleSubmit } = this;
     const { visible, medicineList } = this.props;
 
     return (
@@ -30,6 +48,7 @@ class ProfileMedicineAddModalContainer extends Component {
         visible={visible}
         medicineList={medicineList}
         onCancel={handleCancel}
+        onSubmit={handleSubmit}
       />
     )
   }
@@ -42,6 +61,7 @@ export default connect(
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),
-    ContentActions: bindActionCreators(contentActions, dispatch)
+    ContentActions: bindActionCreators(contentActions, dispatch),
+    ProfileActions: bindActionCreators(profileActions, dispatch)
   })
 )(ProfileMedicineAddModalContainer);

@@ -25,6 +25,7 @@ db.DiagnosisData = require('./DiagnosisData')(sequelize, Sequelize);
 db.Symptom = require('./Symptom')(sequelize, Sequelize);
 db.SymptomData = require('./SymptomData')(sequelize, Sequelize);
 db.Medicine = require('./Medicine')(sequelize, Sequelize);
+db.MedicineData = require('./MedicineData')(sequelize, Sequelize);
 db.MedicineDosageData = require('./MedicineDosageData')(sequelize, Sequelize);
 db.MedicinePurposeData = require('./MedicinePurposeData')(sequelize, Sequelize);
 db.MedicineEvaluationData = require('./MedicineEvaluationData')(sequelize, Sequelize);
@@ -89,6 +90,13 @@ db.SymptomData.belongsTo(db.Symptom, { as: 'RegisteredSymptomData', foreignKey: 
 /* User:SymptomData = 1:N */
 db.User.hasMany(db.SymptomData, { as: 'RegisteringSymptomData', foreignKey: 'fkUserId' });
 db.SymptomData.belongsTo(db.User, { as: 'RegisteringSymptomData', foreignKey: 'fkUserId' });
+
+/* Medicine:MedicineData = 1:N */
+db.Medicine.hasMany(db.MedicineData, { as: 'RegisteredMedicineData', foreignKey: 'fkMedicineId' });
+db.MedicineData.belongsTo(db.Medicine, { as: 'RegisteredMedicineData', foreignKey: 'fkMedicineId' });
+/* User:MedicineData = 1:N */
+db.User.hasMany(db.MedicineData, { as: 'RegisteringMedicineData', foreignKey: 'fkUserId' });
+db.MedicineData.belongsTo(db.User, { as: 'RegisteringMedicineData', foreignKey: 'fkUserId' });
 
 /* Medicine:MedicineDosageData = 1:N */
 db.Medicine.hasMany(db.MedicineDosageData, { as: 'RegisteredMedicineDosageData', foreignKey: 'fkMedicineId' });

@@ -19,7 +19,7 @@ class ProfileMedicineAddModal extends Component {
   render() {
     const { handleMedicineChange } = this;
     const { medicineId } = this.state;
-    const { visible, medicineList, onCancel } = this.props;
+    const { visible, medicineList, onCancel, onSubmit } = this.props;
 
     /** 존재하는 처방약 리스트를 조회하여 select의 option list를 생성한다. */
     const medicineOptionList = medicineList.map((medicine) => {
@@ -33,6 +33,9 @@ class ProfileMedicineAddModal extends Component {
         <div>
           <div className={cx('close')} onClick={() => onCancel()}>&times;</div>
           <select name="medicine" value={medicineId} onChange={handleMedicineChange}>{medicineOptionList}</select>
+        </div>
+        <div>
+          <br/><Button onClick={() => onSubmit({ medicineId })}>추가</Button>
         </div>
       </ModalWrapper>
     )
