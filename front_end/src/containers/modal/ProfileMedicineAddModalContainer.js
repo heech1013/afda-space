@@ -41,7 +41,7 @@ class ProfileMedicineAddModalContainer extends Component {
 
   render() {
     const { handleCancel, handleSubmit } = this;
-    const { visible, medicineList } = this.props;
+    const { visible, medicineList, error } = this.props;
 
     return (
       <ProfileMedicineAddModal 
@@ -49,6 +49,7 @@ class ProfileMedicineAddModalContainer extends Component {
         medicineList={medicineList}
         onCancel={handleCancel}
         onSubmit={handleSubmit}
+        error={error}
       />
     )
   }
@@ -57,7 +58,8 @@ class ProfileMedicineAddModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileMedicineAdd']),
-    medicineList: state.content.get('contentList')
+    medicineList: state.content.get('contentList'),
+    error: state.profile.getIn(['error', 'userMedicineCreate'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

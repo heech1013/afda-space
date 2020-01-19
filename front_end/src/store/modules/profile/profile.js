@@ -37,7 +37,8 @@ const initialState = Map({
   error: Map({
     profileCardUpdate: null,
     userDiagnosisCreate: null,
-    userSymptomCreate: null
+    userSymptomCreate: null,
+    userMedicineCreate: null
   })
 });
 
@@ -77,6 +78,12 @@ export default handleActions({
     type: POST_USER_SYMPTOM,
     onError: (state, action) => {
       return state.setIn(['error', 'userSymptomCreate'], action.payload.response.data.message);
+    }
+  }),
+  ...pender({
+    type: POST_USER_MEDICINE,
+    onError: (state, action) => {
+      return state.setIn(['error', 'userMedicineCreate'], action.payload.response.data.message);
     }
   })
 }, initialState);
