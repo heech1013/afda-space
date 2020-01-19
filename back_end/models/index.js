@@ -106,6 +106,9 @@ db.User.hasMany(db.MedicineDosageData, { as: 'RegisteringMedicineDosageData', fo
 db.MedicineDosageData.belongsTo(db.User, { as: 'RegisteringMedicineDosageData', foreignKey: 'fkUserId' });
 
 /* Medicine:MedicinePurposeData = 1:N */
+/** 하나의 처방약이 여러 개의 진단명/증상에 대해 처방될 수 있는 것이 최종 설계이지만 mvp에서는 기능상 처방 목적을 하나만 등록할 수 있다.
+ * 다만 최종 설계로의 확장 용이성을 위해 일대다로 설계한다.
+ */
 db.Medicine.hasMany(db.MedicinePurposeData, { as: 'RegisteredMedicinePurposeData', foreignKey: 'fkMedicineId' });
 db.MedicinePurposeData.belongsTo(db.Medicine, { as: 'RegisteredMedicinePurposeData', foreignKey: 'fkMedicineId' });
 /* Diagnosis:MedicinePurposeData = 1:N */

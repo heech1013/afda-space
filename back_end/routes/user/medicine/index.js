@@ -25,41 +25,26 @@ const index = async (req, res, next) => {
                 }
               ]
           }]
-          
-          // model: MedicinePurposeData, as: 'RegisteringMedicinePurposeData', attributes: ['id', 'perceivedEffectiveness'],
-          // include: [
-          //   { model: Diagnosis, as: 'UsedMedicineForDiagnosis', attributes: ['nameKr']},
-          //   { model: Symptom, as: 'UsedMedicineForSymptom', attributes: ['nameKr']},
-          //   {
-          //     model: Medicine, as: 'RegisteredMedicinePurposeData', attributes: ['nameKr'],
-          //     include: [
-          //       { model: MedicineEvaluationData, as: 'RegisteredMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
-          //       {
-          //         model: MedicineSideEffectsData, as: 'RegisteredMedicineSideEffectsData', attributes: ['id'],
-          //         include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
-          //       }
-          //     ]
-          //   }
-          // ]
         }
       ]
     });
 
-    // console.log(uncleanedMedicineData.RegisteringMedicineData);
-
     const contents = uncleanedMedicineData.RegisteringMedicineData.map((obj) => {
       const { id } = obj;
       const medicineName = obj.RegisteredMedicineData.nameKr;  // 이름 혹은 null
-      
-      // let purposeOfPrescription;
-      // if (obj.RegisteredMedicineData.RegisteredMedicinePurposeData.UsedMedicineForDiagnosis) purposeOfPrescription = obj.RegisteredMedicineData.RegisteredMedicinePurposeData.UsedMedicineForDiagnosis.nameKr;
-      // else if (obj.RegisteredMedicineData.RegisteredMedicinePurposeData.UsedMedicineForSymptom) purposeOfPrescription = obj.RegisteredMedicineData.RegisteredMedicinePurposeData.UsedMedicineForSymptom.nameKr;
-      // else purposeOfPrescription = '-';
-      
-      const purposeData = obj.RegisteredMedicineData.RegisteredMedicinePurposeData;
-      const purposeOfPrescription = purposeData.UsedMedicineForDiagnosis ? purposeData.UsedMedicineForDiagnosis.nameKr
-                                      : purposeData.UsedMedicineForSymptom ? purposeData.UsedMedicineForSymptom.nameKr : '-';
-      console.log("1111111111:\n", purposeData, '\n');
+
+      /** 하나의 처방약이 여러 개의 처방 목적을 가질 수 있다. 따라서 DB 설계 상 MedicineData:MedicinePurposeData = 1:N
+       * 그러나 mvp 기능상 하나의 처방 목적만 등록할 수 있도록 되어 있다. 그래서 데이터를 첫 번째 원소([0])로 특정한다.
+       * 최종 설계에 따라 추후 여러 개의 처방 목적을 등록/조회할 수 있도록 한다.
+       */
+      const purposeData = obj.RegisteredMedicineData.RegisteredMedicinePurposeData[0];
+      const purposeOfPrescription = purposeData.UsedMedicineForDiagnosis ?
+        purposeData.UsedMedicineForDiagnosis.nameKr
+        :
+        purposeData.UsedMedicineForSymptom ?
+          purposeData.UsedMedicineForSymptom.nameKr
+          :
+          '-';
 
       let perceivedEffect;
       switch (purposeData.perceivedEffectiveness) {
@@ -70,33 +55,27 @@ const index = async (req, res, next) => {
         case 5: perceivedEffect = '크다'; break;
         default: perceivedEffect = '-';
       }
-      console.log("2222222222:\n", purposeData.perceivedEffectiveness, '\n');
-      // const perceivedEffect = !purposeData.perceivedEffectiveness ? '-'
-      //                           : purposeData.perceivedEffectiveness = 1 ? '알 수 없다'
-      //                             : purposeData.perceivedEffectiveness = 2 ? '없다'
-      //                               : purposeData.perceivedEffectiveness = 3 ? '약간'
-      //                                 : purposeData.perceivedEffectiveness = 4 ? '보통'
-      //                                   : purposeData.perceivedEffectiveness = 5 ? '크다' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
 
       let degreeOfSideEffect;
-      switch (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects) {
+      /** 하나의 처방약에 여러 개의 처방 목적이 있을 수 있음에 따라, 처방 목적에 대한 처방약의 평가도 여러 개가 있을 수 있다.
+       * DB 설계 상 Medicine:MedicineEvaluationData = 1:N
+       * 그러나 mvp 기능 상 하나의 처방 목적만 등록할 수 있게 제한함에 따라, 평가 역시 하나만 등록이 된다. 데이터를 배열의 첫 번째 원소([0])만 조회한다.
+      */
+      switch (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData[0].sideEffects) {
         case 1: degreeOfSideEffect = '없다'; break;
         case 2: degreeOfSideEffect = '약간'; break;
         case 3: degreeOfSideEffect = '중간'; break;
         case 4: degreeOfSideEffect = '심각'; break;
         default: degreeOfSideEffect = '-';
       }
-      console.log("3333333333:\n", obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects, '\n');
-
-      // const degreeOfSideEffect = !obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects ? '-'
-      //                             : obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects = 1 ? '없다'
-      //                               : obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects = 2 ? '약간'
-      //                                 : obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects = 3 ? '중간'
-      //                                   : obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.sideEffects = 4 ? '심각' : '정보를 받아올 수 없습니다. 서버 관리자에게 문의해주세요.';
-      const symptomOfSideEffect = obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData ? obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData[0].SymptomOfSideEffects.nameKr + ' 등' : '-';
+      
+      const symptomOfSideEffect = obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData ? 
+        obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData[0].SymptomOfSideEffects.nameKr + ' 등'
+        :
+        '-';
 
       return {
-        id,
+        id,  // 한 User에게 등록된 MedicineData의 id
         medicineName,
         purposeOfPrescription,
         perceivedEffect,
@@ -112,3 +91,44 @@ const index = async (req, res, next) => {
 };
 
 module.exports = index;
+
+/*
+uncleanedMedicineData = {
+  "id": 1,
+  "RegistereingMedicineData": [  // 배열, map 처리
+    {  // 첫 번째 배열 원소이자 obj
+      "id": 1,  // contents[0].id
+      "RegisteredMedicineData": {
+        "nameKr": "부프로피온",  // contents[0].medicineName
+        "RegisteredMedicinePurposeData": [  // purposeData(변수)
+          // 처방 목적이 여러 개 등록될 수 있지만(최종설계 상, DB 설계 상: 1대 다) mvp에서는 기능상 한 개만 등록할 수 있다.
+          {
+            "id": 1,
+            "perceivedEffectiveness": "3",
+            "UsedMedicineForDiagnosis": {
+              "nameKr": "주요 우울증"
+            },
+            "UsedMEdicineForSymptom": {}
+          },
+          { ... }
+        ],
+        "RegisteredMedicineEvaluationData": [
+          // 특정 purpose에 대해 종속하는 평가 데이터(DB 설계 상으로는 그렇지 않지만 기능상으로는 그렇다).
+          // 따라서 1대다(하나의 처방약 데이터에 대해 여러 개의 평가가 있을 수 있음. 목적이 여러 개가 있을 수 있음에 따라.)
+          {
+            "sideEffects": 3
+            "fkMedicineId": 5  // 어디에 쓰이나?
+          },
+          { ... }
+        ]
+    },
+    
+    {  // 두 번째 배열 원소이자 obj
+      "id": 2,
+      "RegisteredMedicineData": {
+        ...
+    }
+
+  }
+}
+*/
