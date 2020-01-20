@@ -31,6 +31,11 @@ class ProfileContentListContainer extends Component {
     this.getContentList();
   }
 
+  handleModal = (type) => {
+    const { BaseActions } = this.props;
+    BaseActions.showModal(type);
+  }
+
   componentDidMount() {
     const { logged } = this.props;
     if (logged) this.getContentList();
@@ -38,7 +43,7 @@ class ProfileContentListContainer extends Component {
 
   render() {
     const { userId, storeId, loading, contents } = this.props;
-    const { handleDelete } = this;
+    const { handleDelete, handleModal } = this;
     if (loading) return null;
     // eslint-disable-next-line eqeqeq
     const updatable = userId == storeId;
@@ -48,6 +53,7 @@ class ProfileContentListContainer extends Component {
           contents={contents}
           updatable={updatable}
           onClick={handleDelete}
+          onModal={handleModal}
         />
       </div>
     )

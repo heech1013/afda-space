@@ -5,6 +5,7 @@ import MiniMenu from 'components/common/MiniMenu';
 import ContentTitleContainer from 'containers/content/ContentTitleContainer';
 import ProfileContentListContainer from 'containers/profile/ProfileContentListContainer';
 import ProfileMedicineAddModalContainer from 'containers/modal/ProfileMedicineAddModalContainer';
+import ProfileMedicineDosageAddModalContainer from 'containers/modal/ProfileMedicineDosageAddModalContainer';
 
 const ProfileMedicinePage = ({match}) => {
   const { id } = match.params;  // App.js에서 설정한 params 변수명: id
@@ -18,6 +19,8 @@ const ProfileMedicinePage = ({match}) => {
         type={'medicine'}
         userId={id} />
       <ProfileMedicineAddModalContainer
+        userId={id} />
+      <ProfileMedicineDosageAddModalContainer 
         userId={id} />
     </PageTemplate>
   )

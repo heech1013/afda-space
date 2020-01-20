@@ -8,9 +8,10 @@ import Button from 'components/common/Button';
 const cx = classNames.bind(styles);
 
 const Content = ({
+  id, /** data 자체 PK id */
   contentType,
   updatable,
-  id /** data 자체 PK id */, onClick,
+  onClick, onModal,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
   symptomName,
   medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect
@@ -62,7 +63,18 @@ const Content = ({
             </div>
           </div>
           : null;
-  const buttonHTML = updatable ? <Button className={cx('button')} onClick={() => onClick(id)}>삭제하기</Button> : null;
+  const buttonHTML = !updatable ?
+    null
+    :
+    contentType === 'medicine' ?
+      <div>
+        <Button  onClick={() => onClick(id)}>삭제하기</Button>
+        <Button  onClick={() => onModal('profileMedicineEvaluationAdd')}>평가하기</Button>
+        <Button  onClick={() => onModal('profileMedicinePurposeAdd')}>처방목적 추가하기</Button>
+        <Button  onClick={() => onModal('profileMedicineDosageAdd')}>용량 추가하기</Button>
+      </div>
+      :
+      <Button className={cx('button')} onClick={() => onClick(id)}>삭제하기</Button>;
 
   return (
     <div className={cx('content', { updatable })}>
@@ -72,7 +84,7 @@ const Content = ({
   )
 }
 
-const ProfileContentList = ({contents, updatable, onClick, location}) => {
+const ProfileContentList = ({contents, updatable, onClick, onModal, location}) => {
   const contentList = contents.map((content) => {
     const {
       id,  // data 자체의 id(PK)
@@ -83,9 +95,10 @@ const ProfileContentList = ({contents, updatable, onClick, location}) => {
     return (
       <div key={id}>
         <Content
+          id={id}
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
-          id={id} onClick={onClick}
+          onClick={onClick} onModal={onModal}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
           medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}

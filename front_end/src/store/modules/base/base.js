@@ -52,7 +52,10 @@ const initialState =  Map({
     profileCardUpdate: false,
     profileDiagnosisAdd: false,
     profileSymptomAdd: false,
-    profileMedicineAdd: false
+    profileMedicineAdd: false,
+    profileMedicineDosageAdd: false,
+    profileMedicinePurposeAdd: false,
+    profileMedicineEvaluationAdd: false
   })
 });
 
