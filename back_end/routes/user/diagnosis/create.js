@@ -1,4 +1,5 @@
 const { DiagnosisData } = require('../../../models');
+const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 
 const create = async (req, res, next) => {
@@ -14,14 +15,6 @@ const create = async (req, res, next) => {
      * DiagnosisData model의 날짜 type은 INTEGER로, ''를 insert할 수 없다. 따라서 모두 null로 바꿔준다.
      * profileDiagnosisAddModal의 initial state의 날짜 항목 default를 null로 설정할 수는 없다. input tag의 value 값을 null로 설정할 수 없기 때문이다.
      */
-    const nullStringHandler = (data) => {
-      return new Promise((resolve, reject) => {
-        for (let key in data) {
-          if (data[key] === '') data[key] = null;
-        }
-        resolve();
-      })
-    }
     await nullStringHandler(data);
 
     const {

@@ -9,8 +9,10 @@
 }
 .modal-wrapper {
   position: fixed;
-  top: 25%;
+  top: 10%;
   left: 25%;
+  max-height: 700px;
+  overflow: auto;
   z-index: 10;
   background: white;
   border: 1px solid #2C3F77;

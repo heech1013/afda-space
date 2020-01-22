@@ -24,13 +24,16 @@ class ProfileMedicineDosageAddModal extends Component {
       no: false
     },
     switchTo: 1,   // 처방약을 선택하지 않고 제출하는 예외 상황을 방지하기 위해 초깃값을 1로 설정.
-    firstTakingRadio: {
+    dosageDifferRadio: {
       yes: false,
       no: false
     },
     firstTakingYear: '',
     firstTakingMonth: '',
     firstTakingDay: '',
+    initialDosageCount: '',
+    initialDosageMg: '',
+    initialDosageFrequency: '',
     stopTakingYear: '',
     stopTakingMonth: '',
     stopTakingDay: '',
@@ -76,9 +79,9 @@ class ProfileMedicineDosageAddModal extends Component {
   }
 
   render() {
-    const { handleOptionChange, handleDateChange, handleInputChange, handleCheckboxChange } = this;
+    const { state, handleOptionChange, handleDateChange, handleInputChange, handleCheckboxChange } = this;
     const {
-      takingStatus, recentTakingYear, recentTakingMonth, recentTakingDay, dosageCount, dosageMg, dosageFrequency, additionalDosage, switchRadio, switchTo, firstTakingRadio, firstTakingYear, firstTakingMonth, firstTakingDay, initialDosageCount, initialDosageMg, initialDosageFrequency, stopTakingYear, stopTakingMonth, stopTakingDay, noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other, reasonText
+      takingStatus, recentTakingYear, recentTakingMonth, recentTakingDay, dosageCount, dosageMg, dosageFrequency, additionalDosage, switchRadio, switchTo, dosageDifferRadio, firstTakingYear, firstTakingMonth, firstTakingDay, initialDosageCount, initialDosageMg, initialDosageFrequency, stopTakingYear, stopTakingMonth, stopTakingDay, noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other, reasonText
     } = this.state;
     const { visible, medicineList, onCancel, onSubmit, error } = this.props;
 
@@ -151,10 +154,10 @@ class ProfileMedicineDosageAddModal extends Component {
             }
 
             <div className={cx('question')}>처방약을 복용하기 시작했을 때, (전에도 같은 처방약을 복용한 경험이 있다면) 전과는 다른 복용량을 섭취하게 되었나요?</div>
-            <input name="firstTakingRadio" type="radio" value="yes" checked={firstTakingRadio.yes} onChange={handleOptionChange}/>예
-            <input name="firstTakingRadio" type="radio" value="no" checked={firstTakingRadio.no} onChange={handleOptionChange}/>아니오
+            <input name="dosageDifferRadio" type="radio" value="yes" checked={dosageDifferRadio.yes} onChange={handleOptionChange}/>예
+            <input name="dosageDifferRadio" type="radio" value="no" checked={dosageDifferRadio.no} onChange={handleOptionChange}/>아니오
 
-            { firstTakingRadio.yes &&
+            { dosageDifferRadio.yes &&
               <div>
                 <div className={cx('question')}>최초로 해당 처방약을 복용하기 시작했던 것이 언제인가요?</div>
                 {/* 날짜 input: 년, 월, 일 */}
@@ -212,9 +215,8 @@ class ProfileMedicineDosageAddModal extends Component {
                   <input type="checkbox" key={6} name="courseDone" value="courseDone" checked={courseDone} onChange={handleInputChange}/>치료 과정이 모두 마무리 되어서
                   <input type="checkbox" key={7} name="other" value="other" checked={other} onChange={handleInputChange}/>기타
 
-                {/** other를 선택했을 경우 */}
                 { other && 
-                  <div>
+                  <div>  {/** other를 선택했을 경우 */}
                     <div className={cx('question')}>해당 처방약 복용을 그만두게 된 또 다른 이유들을 적어주세요.</div>
                     <input name="reasonText" type="textarea" autoFocus value={reasonText} onChange={handleInputChange}/>
                   </div>
@@ -227,7 +229,7 @@ class ProfileMedicineDosageAddModal extends Component {
           { error && <div className={cx('error')}>{error}</div>}
         </div>
         <div>
-          <br/><Button onClick={() => onSubmit({ })}>추가</Button>
+          <br/><Button onClick={() => onSubmit({ state })}>추가</Button>
         </div>
       </ModalWrapper>
     )
