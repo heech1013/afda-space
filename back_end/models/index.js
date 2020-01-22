@@ -27,6 +27,7 @@ db.SymptomData = require('./SymptomData')(sequelize, Sequelize);
 db.Medicine = require('./Medicine')(sequelize, Sequelize);
 db.MedicineData = require('./MedicineData')(sequelize, Sequelize);
 db.MedicineDosageData = require('./MedicineDosageData')(sequelize, Sequelize);
+db.ReasonOfStop = require('./ReasonOfStop')(sequelize, Sequelize);
 db.MedicinePurposeData = require('./MedicinePurposeData')(sequelize, Sequelize);
 db.MedicineEvaluationData = require('./MedicineEvaluationData')(sequelize, Sequelize);
 db.MedicineSideEffectsData = require('./MedicineSideEffectsData')(sequelize, Sequelize);
@@ -104,6 +105,10 @@ db.MedicineDosageData.belongsTo(db.Medicine, { as: 'RegisteredMedicineDosageData
 /* User:MedicineDosageData = 1:N */
 db.User.hasMany(db.MedicineDosageData, { as: 'RegisteringMedicineDosageData', foreignKey: 'fkUserId' });
 db.MedicineDosageData.belongsTo(db.User, { as: 'RegisteringMedicineDosageData', foreignKey: 'fkUserId' });
+
+/** ReasonOfStop:MedicineDosageData = 1:1 */
+db.MedicineDosageData.hasOne(db.ReasonOfStop, { as: 'ReasonOfStop', foreignKey: 'fkMedicineDosageDataId'});
+db.ReasonOfStop.belongsTo(db.MedicineDosageData, { as: 'ReasonOfStop', foreignKey: 'fkMedicineDosageDataId'});
 
 /* Medicine:MedicinePurposeData = 1:N */
 /** 하나의 처방약이 여러 개의 진단명/증상에 대해 처방될 수 있는 것이 최종 설계이지만 mvp에서는 기능상 처방 목적을 하나만 등록할 수 있다.

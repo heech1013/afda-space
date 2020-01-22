@@ -72,14 +72,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    reasonOfStop: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    otherReasonOfStop: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    }
+    /** 처방 중단 이유를 위한 새로운 스키마 생성(ReasonOfStop) */
+    // reasonOfStop: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true
+    // },
+    // otherReasonOfStop: {
+    //   type: DataTypes.TEXT,
+    //   allowNull: true
+    // }
   }, {
     timestamps: true,
     underscored: false,
