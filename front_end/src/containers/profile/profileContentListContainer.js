@@ -13,6 +13,11 @@ class ProfileContentListContainer extends Component {
     if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
   }
 
+  updateContentId = (id) => {
+    const { ProfileActions } = this.props;
+    ProfileActions.updateContentId(id);
+  }
+
   handleDelete = async (contentId) => {
     const { type, ContentActions } = this.props;
     try {
@@ -43,7 +48,7 @@ class ProfileContentListContainer extends Component {
 
   render() {
     const { userId, storeId, loading, contents } = this.props;
-    const { handleDelete, handleModal } = this;
+    const { handleDelete, handleModal, updateContentId } = this;
     if (loading) return null;
     // eslint-disable-next-line eqeqeq
     const updatable = userId == storeId;
@@ -54,6 +59,7 @@ class ProfileContentListContainer extends Component {
           updatable={updatable}
           onClick={handleDelete}
           onModal={handleModal}
+          updateContentId={updateContentId}
         />
       </div>
     )

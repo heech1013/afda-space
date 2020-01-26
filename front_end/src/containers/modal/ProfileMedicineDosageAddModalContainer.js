@@ -26,14 +26,14 @@ class ProfileMedicineDosageAddModalContainer extends Component {
     BaseActions.hideModal('profileMedicineDosageAdd');
   }
 
-  // handleSubmit = async ({ medicineId }) => {
-  //   const { userId: id, ProfileActions, BaseActions } = this.props;
-  //   try {
-  //     await ProfileActions.postUserMedicine(id, medicineId);
-  //     BaseActions.hideModal('profileMedicineDosageAdd');
-  //     this.getUserMedicineList();
-  //   } catch (e) {}
-  // }
+  handleSubmit = async ({ state: data }) => {
+    const { userId: id, ProfileActions, BaseActions } = this.props;
+    try {
+      await ProfileActions.postUserMedicineDosage(id, data);
+      BaseActions.hideModal('profileMedicineDosageAdd');
+      this.getUserMedicineList();
+    } catch (e) {}
+  }
 
   componentDidMount() {
     this.getMedicineOptionList();
@@ -41,12 +41,13 @@ class ProfileMedicineDosageAddModalContainer extends Component {
 
   render() {
     const { handleCancel, handleSubmit } = this;
-    const { visible, medicineList, error } = this.props;
+    const { visible, medicineList, medicineId, error } = this.props;
 
     return (
       <ProfileMedicineDosageAddModal 
         visible={visible}
         medicineList={medicineList}
+        medicineId={medicineId}
         onCancel={handleCancel}
         onSubmit={handleSubmit}
         // error={error}
@@ -59,6 +60,7 @@ export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileMedicineDosageAdd']),
     medicineList: state.content.get('contentList'),
+    medicineId: state.profile.get('contentId'),
     // error: state.profile.getIn(['error', 'userMedicineCreate'])
   }),
   (dispatch) => ({

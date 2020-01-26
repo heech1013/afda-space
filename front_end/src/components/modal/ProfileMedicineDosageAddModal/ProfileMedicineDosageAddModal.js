@@ -8,6 +8,7 @@ const cx = classNames.bind(styles);
 
 class ProfileMedicineDosageAddModal extends Component {
   state = {
+    contentId: '',
     takingStatus: {
       yes: false,
       no: false
@@ -83,7 +84,9 @@ class ProfileMedicineDosageAddModal extends Component {
     const {
       takingStatus, recentTakingYear, recentTakingMonth, recentTakingDay, dosageCount, dosageMg, dosageFrequency, additionalDosage, switchRadio, switchTo, dosageDifferRadio, firstTakingYear, firstTakingMonth, firstTakingDay, initialDosageCount, initialDosageMg, initialDosageFrequency, stopTakingYear, stopTakingMonth, stopTakingDay, noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other, reasonText
     } = this.state;
-    const { visible, medicineList, onCancel, onSubmit, error } = this.props;
+    const { visible, medicineList, contentId, onCancel, onSubmit, error } = this.props;
+
+    this.setState({ contentId });
 
     /** 존재하는 처방약 리스트를 조회하여 select의 option list를 생성한다. */
     const medicineOptionList = medicineList.map((medicine) => {

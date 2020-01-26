@@ -9,7 +9,7 @@ const index = async (req, res, next) => {
         {
           model: MedicineData, as: 'RegisteringMedicineData', attributes: ['id'],
           include: [{
-              model: Medicine, as: 'RegisteredMedicineData', attributes: ['nameKr'],
+              model: Medicine, as: 'RegisteredMedicineData', attributes: ['id', 'nameKr'],
               include: [
                 {
                   model: MedicinePurposeData, as: 'RegisteredMedicinePurposeData', attributes: ['id', 'perceivedEffectiveness'],
@@ -31,6 +31,7 @@ const index = async (req, res, next) => {
 
     const contents = uncleanedMedicineData.RegisteringMedicineData.map((obj) => {
       const { id } = obj;
+      const medicineId = obj.RegisteredMedicineData.id;
       const medicineName = obj.RegisteredMedicineData.nameKr;  // 이름 혹은 null
 
       /** 하나의 처방약이 여러 개의 처방 목적을 가질 수 있다. 따라서 DB 설계 상 MedicineData:MedicinePurposeData = 1:N
@@ -76,6 +77,7 @@ const index = async (req, res, next) => {
 
       return {
         id,  // 한 User에게 등록된 MedicineData의 id
+        contentId,  // medicine의 id (-> ProfileContentList(Container))
         medicineName,
         purposeOfPrescription,
         perceivedEffect,

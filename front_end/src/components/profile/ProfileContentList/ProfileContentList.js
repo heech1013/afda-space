@@ -9,9 +9,10 @@ const cx = classNames.bind(styles);
 
 const Content = ({
   id, /** data 자체 PK id */
+  contentId,
   contentType,
   updatable,
-  onClick, onModal,
+  onClick, onModal, updateContentId,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
   symptomName,
   medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect
@@ -69,9 +70,18 @@ const Content = ({
     contentType === 'medicine' ?
       <div>
         <Button  onClick={() => onClick(id)}>삭제하기</Button>
-        <Button  onClick={() => onModal('profileMedicineEvaluationAdd')}>평가하기</Button>
-        <Button  onClick={() => onModal('profileMedicinePurposeAdd')}>처방목적 추가하기</Button>
-        <Button  onClick={() => onModal('profileMedicineDosageAdd')}>용량 추가하기</Button>
+        <Button  onClick={() => {
+          updateContentId(contentId);
+          onModal('profileMedicineEvaluationAdd');
+        }}>평가하기</Button>
+        <Button  onClick={() => {
+          updateContentId(contentId);
+          onModal('profileMedicinePurposeAdd');
+        }}>처방목적 추가하기</Button>
+        <Button  onClick={() => {
+          updateContentId(contentId);
+          onModal('profileMedicineDosageAdd');
+        }}>용량 추가하기</Button>
       </div>
       :
       <Button className={cx('button')} onClick={() => onClick(id)}>삭제하기</Button>;
@@ -84,10 +94,11 @@ const Content = ({
   )
 }
 
-const ProfileContentList = ({contents, updatable, onClick, onModal, location}) => {
+const ProfileContentList = ({contents, updatable, onClick, onModal, updateContentId, location}) => {
   const contentList = contents.map((content) => {
     const {
       id,  // data 자체의 id(PK)
+      contentId = null,  // diagnosis(아직 추가하지 않았음), symptom(아직 추가하지 않았음), medicine의 id
       diagnosisName = null, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null,
       symptomName = null,
       medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null
@@ -95,10 +106,10 @@ const ProfileContentList = ({contents, updatable, onClick, onModal, location}) =
     return (
       <div key={id}>
         <Content
-          id={id}
+          id={id} contentId={contentId}
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
-          onClick={onClick} onModal={onModal}
+          onClick={onClick} onModal={onModal} updateContentId={updateContentId}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
           medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}
