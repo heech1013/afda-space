@@ -41,16 +41,17 @@ class ProfileMedicineDosageAddModalContainer extends Component {
 
   render() {
     const { handleCancel, handleSubmit } = this;
-    const { visible, medicineList, medicineId, error } = this.props;
+    const { visible, medicineList, contentId, error } = this.props;
+    console.log('contentId in pmdamc: ', contentId);
 
     return (
       <ProfileMedicineDosageAddModal 
         visible={visible}
         medicineList={medicineList}
-        medicineId={medicineId}
+        contentId={contentId}
         onCancel={handleCancel}
         onSubmit={handleSubmit}
-        // error={error}
+        error={error}
       />
     )
   }
@@ -60,8 +61,8 @@ export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileMedicineDosageAdd']),
     medicineList: state.content.get('contentList'),
-    medicineId: state.profile.get('contentId'),
-    // error: state.profile.getIn(['error', 'userMedicineCreate'])
+    contentId: state.profile.get('contentId'),  // medicineId
+    error: state.profile.getIn(['error', 'userMedicineCreate'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

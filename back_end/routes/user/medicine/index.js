@@ -31,7 +31,7 @@ const index = async (req, res, next) => {
 
     const contents = uncleanedMedicineData.RegisteringMedicineData.map((obj) => {
       const { id } = obj;
-      const medicineId = obj.RegisteredMedicineData.id;
+      const contentId = obj.RegisteredMedicineData.id;  // medicineId
       const medicineName = obj.RegisteredMedicineData.nameKr;  // 이름 혹은 null
 
       /** 하나의 처방약이 여러 개의 처방 목적을 가질 수 있다. 따라서 DB 설계 상 MedicineData:MedicinePurposeData = 1:N

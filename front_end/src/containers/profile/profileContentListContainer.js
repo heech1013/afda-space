@@ -13,9 +13,11 @@ class ProfileContentListContainer extends Component {
     if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
   }
 
-  updateContentId = (id) => {
+  updateContentId = async (contentId) => {
     const { ProfileActions } = this.props;
-    ProfileActions.updateContentId(id);
+    try {
+      await ProfileActions.updateContentId(contentId);
+    } catch (e) {}
   }
 
   handleDelete = async (contentId) => {
@@ -31,7 +33,6 @@ class ProfileContentListContainer extends Component {
         default:
           break;
       }
-      
     } catch (e) {}
     this.getContentList();
   }

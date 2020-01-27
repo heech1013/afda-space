@@ -64,12 +64,10 @@ export default handleActions({
       return state.set('contents', fromJS(contents));
     }
   }),
-  ...pender({
-    type: UPDATE_CONTENT_ID,
-    onSuccess: (state, action) => {
-      return state.set('contentId', action.payload.data);
-    }
-  }),
+  [UPDATE_CONTENT_ID]: (state, action) => {
+    const { payload: contentId } = action;
+    return state.set('contentId', contentId);
+  },
   ...pender({
     type: POST_USER_DIAGNOSIS,
     onError: (state, action) => {
