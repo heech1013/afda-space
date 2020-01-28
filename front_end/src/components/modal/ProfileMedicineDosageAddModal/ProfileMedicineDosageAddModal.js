@@ -102,8 +102,8 @@ class ProfileMedicineDosageAddModal extends Component {
             { takingStatus.yes && <div className={cx('question')}>현재 복용량이 어떻게 되나요?</div>}
             { takingStatus.no && <div className={cx('question')}>가장 최근 복용량이 어떻게 되나요?</div>}
             {/** dosage input */}
-            수량: <input name="dosageCount" autoFocus type="number" value={dosageCount} onChange={handleInputChange}/>정(알)씩
-            용량: <input name="dosageMg" autoFocus type="number" value={dosageMg} onChange={handleInputChange}/>mg/1정(1알)
+            수량: <input name="dosageCount" autoFocus type="number" min="0" value={dosageCount} onChange={handleInputChange}/>정(알)씩
+            용량: <input name="dosageMg" autoFocus type="number" min="0" value={dosageMg} onChange={handleInputChange}/>mg/1정(1알)
             빈도: <select name="dosageFrequency" value={dosageFrequency} onChange={handleInputChange}>
               <option key={1} value={1}>매일</option>
               <option key={2} value={2}>매일 2회씩</option>
@@ -129,7 +129,7 @@ class ProfileMedicineDosageAddModal extends Component {
             {/** additional dosage checkbox & input */}
             <input name="additionalDosage" type="checkbox" value={additionalDosage} onChange={handleCheckboxChange}/>필요에 따라 추가로 해당 처방약을 복용합니다.
             { additionalDosage && '수량: '}  {/** html과 string을 더하면 string이 되어 html 변환을 해야 하므로 input html과 string을 분리한다. */}
-            { additionalDosage && <input name="additionalDosageCount" autoFocus type="number" value={additionalDosageCount} onChange={handleInputChange}/>}
+            { additionalDosage && <input name="additionalDosageCount" autoFocus type="number" min="0" value={additionalDosageCount} onChange={handleInputChange}/>}
             { additionalDosage && '정(알)씩'}  {/** html과 string을 더하면 string이 되어 html 변환을 해야 하므로 input html과 string을 분리한다. */}
 
             <div className={cx('question')}>원래 다른 처방약을 복용하다가 해당 처방약으로 바꾸게 된 것인가요?</div> {/** Did you switch to Bupropion from another treatment(s)? */}
@@ -157,8 +157,8 @@ class ProfileMedicineDosageAddModal extends Component {
               <span>일 (알고 있다면 기입해주세요)</span>
 
               <div className={cx('question')}>최초의 복용량이 어떻게 되나요?</div>
-              수량: <input name="initialDosageCount" autoFocus type="number" value={initialDosageCount} onChange={handleInputChange}/>정(알)씩
-              용량: <input name="initialDosageMg" autoFocus type="number" value={initialDosageMg} onChange={handleInputChange}/>mg/1정(1알)
+              수량: <input name="initialDosageCount" autoFocus type="number" min="0" value={initialDosageCount} onChange={handleInputChange}/>정(알)씩
+              용량: <input name="initialDosageMg" autoFocus type="number" min="0" value={initialDosageMg} onChange={handleInputChange}/>mg/1정(1알)
               빈도: <select name="initialDosageFrequency" value={initialDosageFrequency} onChange={handleInputChange}>
                 <option key={1} value={1}>매일</option>
                 <option key={2} value={2}>매일 2회씩</option>
@@ -194,13 +194,13 @@ class ProfileMedicineDosageAddModal extends Component {
                 <span>일 (알고 있다면 기입해주세요)</span>
 
                 <div className={cx('question')}>해당 처방약 복용을 그만두게 된 이유가 무엇인가요? (중복 선택 가능)</div>
-                <input type="checkbox" key={1} name="noEffect" value="noEffect" checked={noEffect} onChange={handleInputChange}/>효과가 없는 것 같아서
-                <input type="checkbox" key={2} name="expensive" value="expensive" checked={expensive} onChange={handleInputChange}/>가격이 비싸서
-                <input type="checkbox" key={3} name="personalResearch" value="personalResearch" checked={personalResearch} onChange={handleInputChange}/>개인적인 판단 하에
-                <input type="checkbox" key={4} name="doctorAdvice" value="doctorAdvice" checked={doctorAdvice} onChange={handleInputChange}/>전문가(의사, 임상심리전문가 등)의 권유로
-                <input type="checkbox" key={5} name="sideEffect" value="sideEffect" checked={sideEffect} onChange={handleInputChange}/>부작용이 너무 심해서
-                <input type="checkbox" key={6} name="courseDone" value="courseDone" checked={courseDone} onChange={handleInputChange}/>치료 과정이 모두 마무리 되어서
-                <input type="checkbox" key={7} name="other" value="other" checked={other} onChange={handleInputChange}/>기타
+                <input type="checkbox" key={1} name="noEffect" value="noEffect" checked={noEffect} onChange={handleCheckboxChange}/>효과가 없는 것 같아서
+                <input type="checkbox" key={2} name="expensive" value="expensive" checked={expensive} onChange={handleCheckboxChange}/>가격이 비싸서
+                <input type="checkbox" key={3} name="personalResearch" value="personalResearch" checked={personalResearch} onChange={handleCheckboxChange}/>개인적인 판단 하에
+                <input type="checkbox" key={4} name="doctorAdvice" value="doctorAdvice" checked={doctorAdvice} onChange={handleCheckboxChange}/>전문가(의사, 임상심리전문가 등)의 권유로
+                <input type="checkbox" key={5} name="sideEffect" value="sideEffect" checked={sideEffect} onChange={handleCheckboxChange}/>부작용이 너무 심해서
+                <input type="checkbox" key={6} name="courseDone" value="courseDone" checked={courseDone} onChange={handleCheckboxChange}/>치료 과정이 모두 마무리 되어서
+                <input type="checkbox" key={7} name="other" value="other" checked={other} onChange={handleCheckboxChange}/>기타
                 { other && 
                   <div>  {/** other를 선택했을 경우 */}
                     <div className={cx('question')}>해당 처방약 복용을 그만두게 된 또 다른 이유들을 적어주세요.</div>
@@ -227,7 +227,17 @@ class ProfileMedicineDosageAddModal extends Component {
               (!dosageCount || !dosageMg || !dosageFrequency)
               || (dosageDifferRadio.yes && (!initialDosageCount || !initialDosageMg || !initialDosageFrequency))
             ) this.setState({ frontError: '복용량을 입력하세요.' });
-            else onSubmit({ state });
+            else {
+              onSubmit({ state });
+              /** 제출 후 form 빈칸으로 초기화 */
+              this.setState({
+                contentId: '', takingStatus: { yes: false, no: false }, recentTakingYear: '', recentTakingMonth: '', recentTakingDay: '',
+                dosageCount: '', dosageMg: '', dosageFrequency: 1, additionalDosage: false, additionalDosageCount: '', switchRadio: { yes: false, no: false }, switchTo: 1,
+                dosageDifferRadio: { yes: false, no: false }, firstTakingYear: '', firstTakingMonth: '', firstTakingDay: '',
+                initialDosageCount: '', initialDosageMg: '', initialDosageFrequency: 1, stopTakingYear: '', stopTakingMonth: '', stopTakingDay: '',
+                noEffect: false, expensive: false, personalResearch: false, doctorAdvice: false, sideEffect: false, courseDone: false, other: false, reasonText: '', frontError: ''
+              });
+            }
           }}>추가</Button>
         </div>
       </ModalWrapper>

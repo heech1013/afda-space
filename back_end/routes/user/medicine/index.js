@@ -1,32 +1,33 @@
-const { User, Medicine, MedicineData, MedicineEvaluationData, MedicineSideEffectsData, MedicinePurposeData, Diagnosis, Symptom } = require('../../../models');
+const { User, Medicine, MedicineData, MedicineEvaluationData, MedicineSideEffectsData, MedicinePurposeData, MedicineDosageData, Diagnosis, Symptom } = require('../../../models');
 
 const index = async (req, res, next) => {
   try {
     const { id } = req.params;
     const uncleanedMedicineData = await User.findOne({
       attributes: ['id'], where: { id },
-      include: [
-        {
-          model: MedicineData, as: 'RegisteringMedicineData', attributes: ['id'],
-          include: [{
-              model: Medicine, as: 'RegisteredMedicineData', attributes: ['id', 'nameKr'],
-              include: [
-                {
-                  model: MedicinePurposeData, as: 'RegisteredMedicinePurposeData', attributes: ['id', 'perceivedEffectiveness'],
-                  include: [
-                    { model: Diagnosis, as: 'UsedMedicineForDiagnosis', attributes: ['nameKr']},
-                    { model: Symptom, as: 'UsedMedicineForSymptom', attributes: ['nameKr']},
-                  ]
-                },
-                { model: MedicineEvaluationData, as: 'RegisteredMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
-                {
-                  model: MedicineSideEffectsData, as: 'RegisteredMedicineSideEffectsData', attributes: ['id'],
-                  include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
-                }
-              ]
-          }]
-        }
-      ]
+      include: [{
+        model: MedicineData, as: 'RegisteringMedicineData', attributes: ['id'],
+        include: [{
+            model: Medicine, as: 'RegisteredMedicineData', attributes: ['id', 'nameKr'],
+            include: [
+              {
+                model: MedicinePurposeData, as: 'RegisteredMedicinePurposeData', attributes: ['id', 'perceivedEffectiveness'],
+                include: [
+                  { model: Diagnosis, as: 'UsedMedicineForDiagnosis', attributes: ['nameKr']},
+                  { model: Symptom, as: 'UsedMedicineForSymptom', attributes: ['nameKr']},
+                ]
+              },
+              { model: MedicineEvaluationData, as: 'RegisteredMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
+              {
+                model: MedicineSideEffectsData, as: 'RegisteredMedicineSideEffectsData', attributes: ['id'],
+                include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
+              },
+              {
+                model: MedicineDosageData, as: 'RegisteredMedicineDosageData', attributes: ['id', /** something */ ]
+              }
+            ]
+        }]
+      }]
     });
 
     const contents = uncleanedMedicineData.RegisteringMedicineData.map((obj) => {

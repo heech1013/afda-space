@@ -16,7 +16,7 @@ const create = async (req, res, next) => {
 
     if (!fkMedicineId) return next(CustomError('InternalServerError', 'MedicineId is missing.'));
 
-    /** */
+    /**  data(state) 안에 val = { yes: false, no: false } 꼴의 값을 의미에 맞게 boolean으로 변환 */
     const radioHandler = (val) => {    
       if (val.yes) {
         val = true;
@@ -31,26 +31,23 @@ const create = async (req, res, next) => {
     switchRadio = radioHandler(switchRadio);
     dosageDifferRadio = radioHandler(dosageDifferRadio);
 
-    /** */
-    if (!takingStatus) {
+    /** 응답에 따라 db insert 값을 조정 */
+    if (takingStatus) {
       stopTakingYear, stopTakingMonth, stopTakingDay, reasonText = null;
       noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other = false;
     }
-    /** */
     if (!additionalDosage) {
       additionalDosageCount = null;
     }
-    /** */
     if (!switchRadio) {
       switchTo = null;
     }
-    /** */
     if (!dosageDifferRadio) {
       firstTakingYear, firstTakingMonth, firstTakingDay, initialDosageCount, initialDosageMg, initialDosageFrequency = null;
     }
-
-
-    console.log("fkMedicineId: ", fkMedicineId, '\n', "takingStatus: ", takingStatus, '\n', "recentTakingYear: ", recentTakingYear, '\n', "recentTakingMonth: ", recentTakingMonth, '\n', "recentTakingDay: ", recentTakingDay, '\n', "dosageCount: ", dosageCount, '\n', "dosageMg: ", dosageMg, '\n', "dosageFrequency: ", dosageFrequency, '\n', "additionalDosage: ", additionalDosage, '\n', "additionalDosageCount: ", additionalDosageCount, '\n', "switchRadio: ", switchRadio, '\n', "switchTo: ", switchTo, '\n', "dosageDifferRadio: ", dosageDifferRadio, '\n', "firstTakingYear: ", firstTakingYear, '\n', "firstTakingMonth: ", firstTakingMonth, '\n', "firstTakingDay: ", firstTakingDay, '\n', "initialDosageCount: ", initialDosageCount, '\n', "initialDosageMg: ", initialDosageMg, '\n', "initialDosageFrequency: ", initialDosageFrequency, '\n', "stopTakingYear: ", stopTakingYear, '\n', "stopTakingMonth: ", stopTakingMonth, '\n', "stopTakingDay: ", stopTakingDay, '\n', "noEffect: ", noEffect, '\n', "expensive: ", expensive, '\n', "personalResearch: ", personalResearch, '\n', "doctorAdvice: ", doctorAdvice, '\n', "sideEffect: ", sideEffect, '\n', "courseDone: ", courseDone, '\n', "other: ", other, '\n', "reasonText: ", reasonText, '\n');
+    if (!other) {
+      reasonText = null;
+    }
 
     await MedicineDosageData.create({
       fkUserId,
