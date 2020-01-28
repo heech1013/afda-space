@@ -66,12 +66,6 @@ class ProfileMedicineDosageAddModal extends Component {
     this.setState(obj);
   }
 
-  componentDidMount() {
-    const { contentId } = this.props;
-    console.log('contentId in pmdam: ', contentId);
-    this.setState({ contentId });
-  }
-
   render() {
     const { state, handleOptionChange, handleDateChange, handleInputChange, handleCheckboxChange } = this;
     const {

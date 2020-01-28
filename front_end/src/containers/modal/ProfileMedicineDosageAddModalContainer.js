@@ -27,8 +27,14 @@ class ProfileMedicineDosageAddModalContainer extends Component {
   }
 
   handleSubmit = async ({ state: data }) => {
-    const { userId: id, ProfileActions, BaseActions } = this.props;
+    const { userId: id, contentId, ProfileActions, BaseActions } = this.props;
     try {
+      /** 제출 직전 ProfileMedicineDosageAddModal로부터 넘어온 state의 contentId 값을 업데이트.
+       * contentId 전달 경로: ProfileContentListContainer의 contents의 contentId 
+        -> ProfileContentList의 <Content>의 <Button>의 onClick에서 contentId를 store(profile)에 업데이트
+        -> ProfileMedicineDosageAddModalContainer에서 contentId를 store로부터 props로 전달받아 제출(onSubmit) 직전에 data(Modal로부터의 state)를 업데이트
+      */
+      data.contentId = contentId;
       await ProfileActions.postUserMedicineDosage(id, data);
       BaseActions.hideModal('profileMedicineDosageAdd');
       this.getUserMedicineList();
@@ -42,7 +48,6 @@ class ProfileMedicineDosageAddModalContainer extends Component {
   render() {
     const { handleCancel, handleSubmit } = this;
     const { visible, medicineList, contentId, error } = this.props;
-    console.log('contentId in pmdamc: ', contentId);
 
     return (
       <ProfileMedicineDosageAddModal 
