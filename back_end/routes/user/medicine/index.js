@@ -23,7 +23,12 @@ const index = async (req, res, next) => {
                 include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
               },
               {
-                model: MedicineDosageData, as: 'RegisteredMedicineDosageData', attributes: ['id', /** something */ ]
+                model: MedicineDosageData, as: 'RegisteredMedicineDosageData', attributes: [
+                  'id',
+                  'takingStatus',
+                  'recentTakingYear', 'recentTakingMonth', 'recentTakingDay', 'dosageCount', 'dosageMg', 'dosageFrequency', 'additionalDosage',
+                  'stopTakingYear', 'stopTakingMonth', 'stopTakingDay',
+                ]
               }
             ]
         }]
@@ -76,6 +81,37 @@ const index = async (req, res, next) => {
         :
         '-';
 
+        let dosage = '';
+        if (obj.RegisteredMedicineDosageData) {  // MedicineDosageData를 등록한 경우(용량 추가하기를 마친 경우)
+          let { /** variables */ } = obj.RegisteredMedicineDosageData;
+          switch (dosageFrequency) {
+            case 1: dosageFrequency = '매일'; break; case 2: dosageFrequency = '매일 2회씩'; break; case 3: dosageFrequency = '매일 3회씩'; break; case 4: dosageFrequency = '매일 4회씩'; break; case 5: dosageFrequency = '매일 5회씩'; break;
+            case 6: dosageFrequency = '이틀에 1회씩'; break; case 7: dosageFrequency = '매주'; break; case 8: dosageFrequency = '2주에 1회씩'; break; case 9: dosageFrequency = '3주에 1회씩'; break; case 10: dosageFrequency = '매월'; break;
+            case 11: dosageFrequency = '6주에 1회씩'; break; case 12: dosageFrequency = '8주에 1회씩'; break; case 13: dosageFrequency = '3개월에 1회씩'; break; case 14: dosageFrequency = '12주에 1회씩'; break; case 15: dosageFrequency = '6개월에 1회씩'; break;
+            case 16: dosageFrequency = '8개월에 1회씩'; break; case 17: dosageFrequency = '매년'; break; case 18: dosageFrequency = '딱 한 번'; break; case 19: dosageFrequency = '필요할 때마다'; break; default:
+          }
+  
+          if (!takingStatus) {  // 현재 복용 중이지 않은 경우
+            dosage += '(과거 복용 경험)';
+          }
+          dosage += + dosageMg + 'mg / ' + dosageCount + '정(알) / ' + dosageFrequency;
+          if (additionalDosage) dosage += '(필요시 ' + additionalDosage + '정 추가 복용)';
+          dosage += ' / ' + recentTakingYear + '년 ';
+          if (recentTakingMonth) {
+            dosage += recentTakingMonth + '월 ';
+            if (recentTakingDay) dosage += recentTakingDay + '일 ~ ';
+            else dosage += '~';
+          } else dosage += '~';
+          if (!takingStatus) {  // 현재 복용 중이지 않은 경우
+            dosage += stopTakingYear + '년 ';
+            if (stopTakingMonth) {
+              dosage += stopTakingMonth + '월 ';
+              if (stopTakingDay) dosage += stopTakingDay + '일 ~ ';
+              else dosage += '~';
+            } else dosage += '~';
+          }
+        } else dosage = '-';  // MedicineDosageData를 등록하지 않은 경우(용량 추가하기를 하지 않은 경우)
+
       return {
         id,  // 한 User에게 등록된 MedicineData의 id
         contentId,  // medicine의 id (-> ProfileContentList(Container))
@@ -83,7 +119,8 @@ const index = async (req, res, next) => {
         purposeOfPrescription,
         perceivedEffect,
         degreeOfSideEffect,
-        symptomOfSideEffect
+        symptomOfSideEffect,
+        dosage
       }
     });
 
