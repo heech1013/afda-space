@@ -32,14 +32,11 @@ class ProfileContentListContainer extends Component {
           break;
         case 'medicine':
             switch (subType) {
-              /** contentId는 medicine subtype data의 id가 아닌 medicineData의 id임
-               * subtype의 id로의 특정은 backend에서 처리
-               */
               case null:
                 /** */
                 break;
               case 'dosage':
-                ContentActions.deleteContent('medicineDosageData', contentId);
+                await ContentActions.deleteContent('medicineDosageData', contentId);
                 break;
               case 'purpose':
                 /** */

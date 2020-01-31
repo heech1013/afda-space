@@ -73,27 +73,27 @@ const Content = ({
     :
     contentType === 'medicine' ?
       <div>
-        <Button  onDelete={() => onDelete(id)}>삭제하기</Button>
-        <Button  onDelete={() => {
+        <Button  onClick={() => onDelete(id)}>삭제하기</Button>
+        <Button  onClick={() => {
           updateContentId(contentId);
           onModal('profileMedicineEvaluationAdd');
         }}>평가하기</Button>
-        <Button  onDelete={() => {
+        <Button  onClick={() => {
           updateContentId(contentId);
           onModal('profileMedicinePurposeAdd');
         }}>처방목적 추가하기</Button>
         { 
           (dosage === '-') ? 
-            <Button  onDelete={() => {  /** medicineDosageData가 등록되어 있지 않은 경우 */
+            <Button  onClick={() => {  /** medicineDosageData가 등록되어 있지 않은 경우 */
               updateContentId(contentId);
               onModal('profileMedicineDosageAdd');
             }}>용량 추가하기</Button>
             :
-            <Button onDelete={() => onDelete(dosageId, 'dosage')}>용량 삭제하기</Button>  /** medicineDosageData가 등록되어 있는 경우 */
+            <Button onClick={() => onDelete(dosageId, 'dosage')}>용량 삭제하기</Button>  /** medicineDosageData가 등록되어 있는 경우 */
         }
       </div>
       :
-      <Button className={cx('button')} onDelete={() => onDelete(id)}>삭제하기</Button>;
+      <Button className={cx('button')} onClick={() => onDelete(id)}>삭제하기</Button>;
 
   return (
     <div className={cx('content', { updatable })}>
