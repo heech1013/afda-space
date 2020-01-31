@@ -1,0 +1,21 @@
+.form {
+  .close {
+    font-size: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      color: #2C3F77;
+    }
+  }
+  .question {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .error {
+    margin-bottom: 1rem;
+    color: red;
+  }
+}

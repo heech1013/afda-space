@@ -24,24 +24,24 @@ class ProfileContentListContainer extends Component {
     const { type, ContentActions } = this.props;
     try {
       switch (type) {
-        case 'diagnosis':
+        case 'diagnosis':  // 진단명 - 삭제하기
           await ContentActions.deleteContent('diagnosisData', contentId);
           break;
-        case 'symptom':
+        case 'symptom':  // 증상명 - 삭제하기
           await ContentActions.deleteContent('symptomData', contentId);
           break;
         case 'medicine':
             switch (subType) {
-              case null:
+              case null:  // 처방약 - 삭제하기
                 /** */
                 break;
-              case 'dosage':
+              case 'dosage':  // 처방약 - 용량 삭제하기
                 await ContentActions.deleteContent('medicineDosageData', contentId);
                 break;
-              case 'purpose':
+              case 'purpose':  // 처방약 - 처방목적 삭제하기
                 /** */
                 break;
-              case 'evaluation':
+              case 'evaluation':  // 처방약 - 평가 삭제하기
                 /** */
                 break;
               default:

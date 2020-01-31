@@ -21,14 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     dosageMg: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     dosageFrequency: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    additionalDosage: {
+    additionalDosage: {  // (dosage count)
       type: DataTypes.INTEGER,
       allowNull: true
     },
@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     initialDosageMg: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     initialDosageFrequency: {
