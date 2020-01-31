@@ -81,18 +81,31 @@ const index = async (req, res, next) => {
         :
         '-';
 
+        let dosageId = '';
         let dosage = '';
-        if (obj.RegisteredMedicineDosageData) {  // MedicineDosageData를 등록한 경우(용량 추가하기를 마친 경우)
-          let { /** variables */ } = obj.RegisteredMedicineDosageData;
+        /** Medicine:MedicineDosageData = 1:N 임에 따라 SELECT의 결과가 배열로 전달됨. 이에 따라 첫 번째 원소('[0]')로 특정해주어야 한다.
+         * 해당 SELECT 문 결과의 배열에 여러 개의 원소가 담기지 않는 것은 front에서 버튼 변경(용량 추가하기->용량 삭제하기)를 통해 사용자로부터 제한된 입력을 받기 때문인 것도 있고,
+          sequelize의 findOne 조건문을 통해 한 명의 사용자, 한 명의 medicine으로 조건을 제한하기 때문인 것도 있다.
+         * 배열 길이를 통해 데이터 등록 유무를 판단한다.
+         */
+        if (obj.RegisteredMedicineData.RegisteredMedicineDosageData.length) {  // MedicineDosageData를 등록한 경우(용량 추가하기를 마친 경우)
+          let {
+            id,
+            takingStatus,
+            recentTakingYear, recentTakingMonth, recentTakingDay, dosageCount, dosageMg, dosageFrequency, additionalDosage,
+            stopTakingYear, stopTakingMonth, stopTakingDay
+          } = obj.RegisteredMedicineData.RegisteredMedicineDosageData[0];
           switch (dosageFrequency) {
             case 1: dosageFrequency = '매일'; break; case 2: dosageFrequency = '매일 2회씩'; break; case 3: dosageFrequency = '매일 3회씩'; break; case 4: dosageFrequency = '매일 4회씩'; break; case 5: dosageFrequency = '매일 5회씩'; break;
             case 6: dosageFrequency = '이틀에 1회씩'; break; case 7: dosageFrequency = '매주'; break; case 8: dosageFrequency = '2주에 1회씩'; break; case 9: dosageFrequency = '3주에 1회씩'; break; case 10: dosageFrequency = '매월'; break;
             case 11: dosageFrequency = '6주에 1회씩'; break; case 12: dosageFrequency = '8주에 1회씩'; break; case 13: dosageFrequency = '3개월에 1회씩'; break; case 14: dosageFrequency = '12주에 1회씩'; break; case 15: dosageFrequency = '6개월에 1회씩'; break;
             case 16: dosageFrequency = '8개월에 1회씩'; break; case 17: dosageFrequency = '매년'; break; case 18: dosageFrequency = '딱 한 번'; break; case 19: dosageFrequency = '필요할 때마다'; break; default:
           }
+
+          dosageId = id;  // medicineDosageData의 PK id
   
           if (!takingStatus) {  // 현재 복용 중이지 않은 경우
-            dosage += '(과거 복용 경험)';
+            dosage += '(과거 복용 경험) ';
           }
           dosage += + dosageMg + 'mg / ' + dosageCount + '정(알) / ' + dosageFrequency;
           if (additionalDosage) dosage += '(필요시 ' + additionalDosage + '정 추가 복용)';
@@ -106,9 +119,8 @@ const index = async (req, res, next) => {
             dosage += stopTakingYear + '년 ';
             if (stopTakingMonth) {
               dosage += stopTakingMonth + '월 ';
-              if (stopTakingDay) dosage += stopTakingDay + '일 ~ ';
-              else dosage += '~';
-            } else dosage += '~';
+              if (stopTakingDay) dosage += stopTakingDay + '일'; 
+            }
           }
         } else dosage = '-';  // MedicineDosageData를 등록하지 않은 경우(용량 추가하기를 하지 않은 경우)
 
@@ -120,7 +132,7 @@ const index = async (req, res, next) => {
         perceivedEffect,
         degreeOfSideEffect,
         symptomOfSideEffect,
-        dosage
+        dosageId, dosage
       }
     });
 
@@ -172,3 +184,26 @@ uncleanedMedicineData = {
   }
 }
 */
+
+// {
+//   "id":1,
+//   "RegisteredMedicineData":{
+//     "id":1,
+//     "nameKr":"부프로피온",
+//     "RegisteredMedicinePurposeData":[
+//       {
+//         "id":5,"perceivedEffectiveness":1,"UsedMedicineForDiagnosis":{"nameKr":"우울증"},"UsedMedicineForSymptom":null
+//       }
+//     ],
+//     "RegisteredMedicineEvaluationData":[
+//       {"sideEffects":1,"fkMedicineId":1}
+//     ],
+//     "RegisteredMedicineSideEffectsData":[
+//       {"id":1,"SymptomOfSideEffects":{"nameKr":"우울한 기분"}},
+//       {"id":2,"SymptomOfSideEffects":{"nameKr":"수면 장애"}}
+//     ],
+//     "RegisteredMedicineDosageData":[
+//       {"id":7,"takingStatus":false,"recentTakingYear":1904,"recentTakingMonth":1,"recentTakingDay":1,"dosageCount":1,"dosageMg":2,"dosageFrequency":1,"additionalDosage":2,"stopTakingYear":1907,"stopTakingMonth":2,"stopTakingDay":1}
+//     ]
+//   }
+// }

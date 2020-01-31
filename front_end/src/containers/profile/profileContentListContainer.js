@@ -20,7 +20,7 @@ class ProfileContentListContainer extends Component {
     } catch (e) {}
   }
 
-  handleDelete = async (contentId) => {
+  handleDelete = async (contentId, subType = null) => {
     const { type, ContentActions } = this.props;
     try {
       switch (type) {
@@ -29,6 +29,26 @@ class ProfileContentListContainer extends Component {
           break;
         case 'symptom':
           await ContentActions.deleteContent('symptomData', contentId);
+          break;
+        case 'medicine':
+            switch (subType) {
+              /** contentId는 medicine subtype data의 id가 아닌 medicineData의 id임
+               * subtype의 id로의 특정은 backend에서 처리
+               */
+              case null:
+                /** */
+                break;
+              case 'dosage':
+                ContentActions.deleteContent('medicineDosageData', contentId);
+                break;
+              case 'purpose':
+                /** */
+                break;
+              case 'evaluation':
+                /** */
+                break;
+              default:
+            }
           break;
         default:
           break;
@@ -58,7 +78,7 @@ class ProfileContentListContainer extends Component {
         <ProfileContentList
           contents={contents}
           updatable={updatable}
-          onClick={handleDelete}
+          onDelete={handleDelete}
           onModal={handleModal}
           updateContentId={updateContentId}
         />

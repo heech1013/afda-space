@@ -12,10 +12,10 @@ const Content = ({
   contentId,
   contentType,
   updatable,
-  onClick, onModal, updateContentId,
+  onDelete, onModal, updateContentId,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
   symptomName,
-  medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect
+  medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect, dosageId, dosage
 }) => {
   const contentHTML =
     contentType === 'diagnosis' ?
@@ -62,6 +62,10 @@ const Content = ({
               <span className={cx('column-1')}>{'부작용 증상 : '}</span>
               <span className={cx('column-2')}>{symptomOfSideEffect}</span>
             </div>
+            <div className={cx('column')}>
+              <span className={cx('column-1')}>{'용량 : '}</span>
+              <span className={cx('column-2')}>{dosage}</span>
+            </div>
           </div>
           : null;
   const buttonHTML = !updatable ?
@@ -69,22 +73,27 @@ const Content = ({
     :
     contentType === 'medicine' ?
       <div>
-        <Button  onClick={() => onClick(id)}>삭제하기</Button>
-        <Button  onClick={() => {
+        <Button  onDelete={() => onDelete(id)}>삭제하기</Button>
+        <Button  onDelete={() => {
           updateContentId(contentId);
           onModal('profileMedicineEvaluationAdd');
         }}>평가하기</Button>
-        <Button  onClick={() => {
+        <Button  onDelete={() => {
           updateContentId(contentId);
           onModal('profileMedicinePurposeAdd');
         }}>처방목적 추가하기</Button>
-        <Button  onClick={() => {
-          updateContentId(contentId);
-          onModal('profileMedicineDosageAdd');
-        }}>용량 추가하기</Button>
+        { 
+          (dosage === '-') ? 
+            <Button  onDelete={() => {  /** medicineDosageData가 등록되어 있지 않은 경우 */
+              updateContentId(contentId);
+              onModal('profileMedicineDosageAdd');
+            }}>용량 추가하기</Button>
+            :
+            <Button onDelete={() => onDelete(dosageId, 'dosage')}>용량 삭제하기</Button>  /** medicineDosageData가 등록되어 있는 경우 */
+        }
       </div>
       :
-      <Button className={cx('button')} onClick={() => onClick(id)}>삭제하기</Button>;
+      <Button className={cx('button')} onDelete={() => onDelete(id)}>삭제하기</Button>;
 
   return (
     <div className={cx('content', { updatable })}>
@@ -94,14 +103,14 @@ const Content = ({
   )
 }
 
-const ProfileContentList = ({contents, updatable, onClick, onModal, updateContentId, location}) => {
+const ProfileContentList = ({contents, updatable, onDelete, onModal, updateContentId, location}) => {
   const contentList = contents.map((content) => {
     const {
       id,  // data 자체의 id(PK)
       contentId = null,  // diagnosis(아직 추가하지 않았음), symptom(아직 추가하지 않았음), medicine의 id
       diagnosisName = null, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null,
       symptomName = null,
-      medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null
+      medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null, dosageId = null, dosage = null
     } = content.toJS();
     return (
       <div key={id}>
@@ -109,10 +118,10 @@ const ProfileContentList = ({contents, updatable, onClick, onModal, updateConten
           id={id} contentId={contentId}
           contentType={location.pathname.split('/')[3]}
           updatable={updatable}
-          onClick={onClick} onModal={onModal} updateContentId={updateContentId}
+          onDelete={onDelete} onModal={onModal} updateContentId={updateContentId}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
-          medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect}
+          medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect} dosageId={dosageId} dosage={dosage}
         />
         <hr className={cx('hr')}/>
       </div>
