@@ -7,6 +7,7 @@ import ProfileContentListContainer from 'containers/profile/ProfileContentListCo
 import ProfileMedicineAddModalContainer from 'containers/modal/ProfileMedicineAddModalContainer';
 import ProfileMedicineDosageAddModalContainer from 'containers/modal/ProfileMedicineDosageAddModalContainer';
 import ProfileMedicinePurposeAddModalContainer from 'containers/modal/ProfileMedicinePurposeAddModalContainer';
+import ProfileMedicineEvaluationAddModalContainer from 'containers/modal/ProfileMedicineEvaluationAddModalContainer';
 
 const ProfileMedicinePage = ({match}) => {
   const { id } = match.params;  // App.js에서 설정한 params 변수명: id
@@ -24,6 +25,8 @@ const ProfileMedicinePage = ({match}) => {
       <ProfileMedicineDosageAddModalContainer 
         userId={id} />
       <ProfileMedicinePurposeAddModalContainer 
+        userId={id} />
+      <ProfileMedicineEvaluationAddModalContainer 
         userId={id} />
     </PageTemplate>
   )

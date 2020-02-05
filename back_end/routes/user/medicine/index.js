@@ -45,10 +45,12 @@ const index = async (req, res, next) => {
        * 최종 설계에 따라 추후 여러 개의 처방 목적을 등록/조회할 수 있도록 한다.
        */
       let purposeData = '';
+      let purposeId = '';
       let purposeOfPrescription = '';
       let perceivedEffect = '';
       if (obj.RegisteredMedicineData.RegisteredMedicinePurposeData.length) {
         purposeData = obj.RegisteredMedicineData.RegisteredMedicinePurposeData[0];
+        purposeId = purposeData.id;
         purposeOfPrescription = purposeData.UsedMedicineForDiagnosis ?
           purposeData.UsedMedicineForDiagnosis.nameKr
           :
@@ -137,10 +139,8 @@ const index = async (req, res, next) => {
         id,  // 한 User에게 등록된 MedicineData의 id
         contentId,  // medicine의 id (-> ProfileContentList(Container))
         medicineName,
-        purposeOfPrescription,
-        perceivedEffect,
-        degreeOfSideEffect,
-        symptomOfSideEffect,
+        purposeId, purposeOfPrescription, perceivedEffect,
+        degreeOfSideEffect, symptomOfSideEffect,
         dosageId, dosage
       }
     });

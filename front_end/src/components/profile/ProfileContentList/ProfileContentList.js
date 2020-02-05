@@ -15,7 +15,7 @@ const Content = ({
   onDelete, onModal, updateContentId,
   diagnosisName, dateAtFirstSymptom, dateAtFirstDiagnosed,
   symptomName,
-  medicineName, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect, dosageId, dosage
+  medicineName, purposeId, purposeOfPrescription, perceivedEffect, degreeOfSideEffect, symptomOfSideEffect, dosageId, dosage
 }) => {
   const contentHTML =
     contentType === 'diagnosis' ?
@@ -47,7 +47,7 @@ const Content = ({
               <span className={cx('column-2')}>{medicineName}</span>
             </div>
             <div className={cx('column')}>
-              <span className={cx('column-1')}>{'치료 목적 : '}</span>
+              <span className={cx('column-1')}>{'처방 목적 : '}</span>
               <span className={cx('column-2')}>{purposeOfPrescription}</span>
             </div>
             <div className={cx('column')}>
@@ -75,8 +75,12 @@ const Content = ({
       <div>
         <Button  onClick={() => onDelete(id)}>삭제하기</Button>
         <Button  onClick={() => {
-          updateContentId(contentId);
-          onModal('profileMedicineEvaluationAdd');
+          if (purposeOfPrescription === '-') {  // 처방 목적을 등록해야 평가할 수 있다.
+            alert('처방 목적을 먼저 등록해주세요.');
+          } else {
+            updateContentId(contentId);
+            onModal('profileMedicineEvaluationAdd');
+          }
         }}>평가하기</Button>
         {
           (purposeOfPrescription === '-') ?
@@ -85,7 +89,7 @@ const Content = ({
               onModal('profileMedicinePurposeAdd');
             }}>처방목적 추가하기</Button>
             :
-            null// <Button onClick={() => onDelete(dosageId, 'dosage')}>용량 삭제하기</Button>  /** medicineDosageData가 등록되어 있는 경우 */
+            <Button onClick={() => onDelete(purposeId, 'purpose')}>처방목적 삭제하기</Button>  /** medicinePurposeData가 등록되어 있는 경우 */
         }
         { 
           (dosage === '-') ? 
@@ -115,7 +119,7 @@ const ProfileContentList = ({contents, updatable, onDelete, onModal, updateConte
       contentId = null,  // diagnosis(아직 추가하지 않았음), symptom(아직 추가하지 않았음), medicine의 id
       diagnosisName = null, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null,
       symptomName = null,
-      medicineName = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null, dosageId = null, dosage = null
+      medicineName = null, purposeId = null, purposeOfPrescription = null, perceivedEffect = null, degreeOfSideEffect = null, symptomOfSideEffect = null, dosageId = null, dosage = null
     } = content.toJS();
     return (
       <div key={id}>
@@ -126,7 +130,7 @@ const ProfileContentList = ({contents, updatable, onDelete, onModal, updateConte
           onDelete={onDelete} onModal={onModal} updateContentId={updateContentId}
           diagnosisName={diagnosisName} dateAtFirstSymptom={dateAtFirstSymptom} dateAtFirstDiagnosed={dateAtFirstDiagnosed}
           symptomName={symptomName}
-          medicineName={medicineName} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect} dosageId={dosageId} dosage={dosage}
+          medicineName={medicineName} purposeId={purposeId} purposeOfPrescription={purposeOfPrescription} perceivedEffect={perceivedEffect} degreeOfSideEffect={degreeOfSideEffect} symptomOfSideEffect={symptomOfSideEffect} dosageId={dosageId} dosage={dosage}
         />
         <hr className={cx('hr')}/>
       </div>

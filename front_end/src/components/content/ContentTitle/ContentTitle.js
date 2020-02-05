@@ -12,10 +12,10 @@ const ContentTitle = ({ location, nameKr, nameEn, onClick, buttonString}) => {
   const bracket = nameEn ? false: true;
   return (
     <div className={cx('content-title')}>
-      { noTitleName ? <span className={cx('nameKr')}>{nameKr}</span> : null }
+      { noTitleName ? null : <span className={cx('nameKr')}>{nameKr}</span> }
       <Button className={cx('button')} theme={'addToMyProfile'} onClick={onClick}>{buttonString}</Button>
       <br/>
-      { noTitleName ? <span className={cx('nameEn', { bracket })}>({nameEn})</span> : null }
+      { noTitleName ? null : <span className={cx('nameEn', { bracket })}>({nameEn})</span> }
     </div>
   )
   
