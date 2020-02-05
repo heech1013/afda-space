@@ -13,7 +13,7 @@ const GET_FORUM_LIST = 'forum/GET_FORUM_LIST';
 /* action creators */
 export const getForum = createAction(GET_FORUM, api.getContent);
 export const getForumCommentList = createAction(GET_FORUM_COMMENT_LIST, api.getContentCommentList);
-export const getForumList = createAction(GET_FORUM_LIST, api.getContentList);
+// export const getForumList = createAction(GET_FORUM_LIST, api.getContentList);  // content.js(store) 제거 및 세분화(getDiagnosisList... etc.)로 인해 getContentList 역시 제거.
 
 /* initial state */
 const initialState = Map({

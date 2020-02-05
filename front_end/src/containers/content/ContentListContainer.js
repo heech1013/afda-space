@@ -8,9 +8,21 @@ import ContentList from 'components/content/ContentList';
 class ContentListContainer extends Component {
   getContentList = () => {
     const { ContentActions, id, type, subType } = this.props;
-    if (subType === null) ContentActions.getContentList(type);
-    else if (subType === 'symptom') ContentActions.getContentSymptomList(type, id);
-    else if (subType === 'medicine') ContentActions.getContentMedicineList(type, id);
+    switch (subType) {
+      case 'symptom': ContentActions.getContentSymptomList(type, id); break;
+      case 'medicine': ContentActions.getContentMedicineList(type, id); break;
+      case null:
+        switch (type) {
+          case 'diagnosis': ContentActions.getDiagnosisList(); break;
+          case 'symptom': ContentActions.getSymptomList(); break;
+          case 'medicine': ContentActions.getMedicineList(); break;
+          default:
+        } break;
+      default:
+    }
+    // if (subType === null) ContentActions.getContentList(type);
+    // else if (subType === 'symptom') ContentActions.getContentSymptomList(type, id);
+    // else if (subType === 'medicine') ContentActions.getContentMedicineList(type, id);
   }
 
   componentDidMount() {
@@ -20,8 +32,9 @@ class ContentListContainer extends Component {
   render() {
     const {
       type, subType,
-      loading_GET_CONTENT_LIST, loading_GET_CONTENT_SYMPTOM_LIST, loading_GET_CONTENT_MEDICINE_LIST,
-      contentList, contentSymptomList, contentMedicineList
+      loading_GET_DIAGNOSIS_LIST, loading_GET_SYMPTOM_LIST, loading_GET_MEDICINE_LIST, loading_GET_CONTENT_SYMPTOM_LIST, loading_GET_CONTENT_MEDICINE_LIST,
+      // contentList,
+      diagnosisList, symptomList, medicineList, contentSymptomList, contentMedicineList
     } = this.props;
 
     const rowObj = {
@@ -36,7 +49,12 @@ class ContentListContainer extends Component {
       "symptom": contentSymptomList,
       "medicine": contentMedicineList
     };
-    const contents = subType ? contentsObj[subType] : contentList;
+    const contents = subType ? contentsObj[subType]
+      :
+      type === 'diagnosis' ? diagnosisList
+        : type === 'symptom' ? symptomList
+          : type === 'medicine' ? medicineList
+            : null;
 
     // const to = subType ? null : type;
     // const to = (type === 'symptom' || subType === 'symptom') ? null : type;
@@ -46,7 +64,7 @@ class ContentListContainer extends Component {
         :
         null;
 
-    if (loading_GET_CONTENT_LIST || loading_GET_CONTENT_SYMPTOM_LIST || loading_GET_CONTENT_MEDICINE_LIST) return null;
+    if (loading_GET_DIAGNOSIS_LIST || loading_GET_SYMPTOM_LIST || loading_GET_MEDICINE_LIST || loading_GET_CONTENT_SYMPTOM_LIST || loading_GET_CONTENT_MEDICINE_LIST) return null;
     return (
       <div>
         <ContentList
@@ -64,7 +82,10 @@ export default connect(
     loading_GET_CONTENT_LIST: state.pender.pending['content/GET_CONTENT_LIST'],
     loading_GET_CONTENT_SYMPTOM_LIST: state.pender.pending['content/GET_CONTENT_SYMPTOM_LIST'],
     loading_GET_CONTENT_MEDICINE_LIST: state.pender.pending['content/GET_CONTENT_MEDICINE_LIST'],
-    contentList: state.content.get('contentList'),
+    // contentList: state.content.get('contentList'),
+    diagnosisList: state.content.get('diagnosisList'),
+    symptomList: state.content.get('symptomList'),
+    medicineList: state.content.get('medicineList'),
     contentSymptomList: state.content.get('contentSymptomList'),
     contentMedicineList: state.content.get('contentMedicineList')
   }),

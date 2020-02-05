@@ -10,7 +10,7 @@ class ProfileDiagnosisAddModalContainer extends Component {
   /** modal의 진단명 option을 위한 정보 받아오기 */
   getDiagnosisOptionList = () => {
     const { ContentActions } = this.props;
-    ContentActions.getContentList('diagnosis');
+    ContentActions.getDiagnosisList();
   }
 
   /** 진단명 정보 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 진단명 정보를 받아온다.
@@ -56,7 +56,7 @@ class ProfileDiagnosisAddModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileDiagnosisAdd']),
-    diagnosisList: state.content.get('contentList'),
+    diagnosisList: state.content.get('diagnosisList'),
     error: state.profile.getIn(['error', 'userDiagnosisCreate'])
   }),
   (dispatch) => ({

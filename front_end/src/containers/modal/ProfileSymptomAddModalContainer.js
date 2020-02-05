@@ -10,7 +10,7 @@ class ProfileSymptomAddModalContainer extends Component {
   /** modal의 증상 option을 위한 정보 받아오기 */
   getSymptomOptionList = () => {
     const { ContentActions } = this.props;
-    ContentActions.getContentList('symptom');
+    ContentActions.getSymptomList();
   }
 
   /** 증상 정보 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 증상 정보를 받아온다.
@@ -57,7 +57,7 @@ class ProfileSymptomAddModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileSymptomAdd']),
-    symptomList: state.content.get('contentList'),
+    symptomList: state.content.get('symptomList'),
     error: state.profile.getIn(['error', 'userSymptomCreate'])
   }),
   (dispatch) => ({

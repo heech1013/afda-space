@@ -10,7 +10,7 @@ class ProfileMedicineAddModalContainer extends Component {
   /** modal의 증상 option을 위한 정보 받아오기 */
   getMedicineOptionList = () => {
     const { ContentActions } = this.props;
-    ContentActions.getContentList('medicine');
+    ContentActions.getMedicineList();
   }
 
   /** 처방약 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 처방약 리스트를 받아온다.
@@ -58,7 +58,7 @@ class ProfileMedicineAddModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileMedicineAdd']),
-    medicineList: state.content.get('contentList'),
+    medicineList: state.content.get('medicineList'),
     error: state.profile.getIn(['error', 'userMedicineCreate'])
   }),
   (dispatch) => ({
