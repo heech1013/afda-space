@@ -7,47 +7,54 @@ import * as profileActions from 'store/modules/profile/profile';
 import ProfileMedicinePurposeAddModal from 'components/modal/ProfileMedicinePurposeAddModal';
 
 class ProfileMedicinePurposeAddModalContainer extends Component {
-  /** modal의 증상 option을 위한 정보 받아오기 */
-  handleRequest = async (type) => {  // type: diagnosis / symptom
+  /** modal의 진단명, 증상 option을 위한 정보 받아오기 */
+  getPurposeOptionList = () => {
     const { ContentActions } = this.props;
-    // await ContentActions.getContentList(type);
+    ContentActions.getDiagnosisList();
+    ContentActions.getSymptomList();
   }
 
-  /** 증상 정보 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 증상 정보를 받아온다.
+  /** 처방약 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 처방약 리스트를 받아온다.
    * modal과 별개
    */
-  getUserSymptomList = () => {
-    const { userId: id, ProfileActions } = this.props;
-    ProfileActions.getUserContentList('symptom', id);
+  getUserMedicineList = () => {
+    const { userId, ProfileActions } = this.props;
+    ProfileActions.getUserContentList('medicine', userId);
   }
 
   handleCancel = () => {
     const { BaseActions } = this.props;
-    BaseActions.hideModal('profileSymptomAdd');
+    BaseActions.hideModal('profileMedicinePurposeAdd');
   }
 
-  handleSubmit = async (symptomId) => {
-    const { userId: id, ProfileActions, BaseActions } = this.props;
+  handleSubmit = async ({ state: data }) => {
+    const { userId: id, contentId, ProfileActions, BaseActions } = this.props;
     try {
-      await ProfileActions.postUserSymptom(id, symptomId);
-      BaseActions.hideModal('profileSymptomAdd');
-      this.getUserSymptomList();
+      /** 제출 직전 ProfileMedicinePurposeAddModal로부터 넘어온 state의 contentId 값을 업데이트.
+       * contentId 전달 경로: ProfileContentListContainer의 contents의 contentId 
+        -> ProfileContentList의 <Content>의 <Button>의 onClick에서 contentId를 store(profile)에 업데이트
+        -> ProfileMedicineDosageAddModalContainer에서 contentId를 store로부터 props로 전달받아 제출(onSubmit) 직전에 data(Modal로부터의 state)를 업데이트
+      */
+      data.contentId = contentId;
+      await ProfileActions.postUserMedicinePurpose(id, data);
+      BaseActions.hideModal('profileMedicinePurposeAdd');
+      this.getUserMedicineList();
     } catch (e) {}
   }
 
   componentDidMount() {
-    // this.getSymptomOptionList();
+    this.getPurposeOptionList();
   }
 
   render() {
-    const { handleCancel, handleRequest, handleSubmit } = this;
-    const { visible, purposeList } = this.props;
+    const { handleCancel, handleSubmit } = this;
+    const { visible, diagnosisList, symptomList } = this.props;
     return (
       <ProfileMedicinePurposeAddModal
         visible={visible}
-        purposeList={purposeList}
+        diagnosisList={diagnosisList}
+        symptomList={symptomList}
         onCancel={handleCancel}
-        onRequest={handleRequest}
         onSubmit={handleSubmit}
       />
     )
@@ -57,7 +64,10 @@ class ProfileMedicinePurposeAddModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileMedicinePurposeAdd']),
-    // purposeList: state.content.get('contentList')
+    diagnosisList: state.content.get('diagnosisList'),
+    symptomList: state.content.get('symptomList'),
+    contentId: state.profile.get('contentId'),
+    error: state.profile.getIn(['error', 'userMedicinePurposeCreate'])
   }),
   (dispatch) => ({
     ContentActions: bindActionCreators(contentActions, dispatch),

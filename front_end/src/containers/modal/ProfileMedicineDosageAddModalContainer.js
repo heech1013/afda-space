@@ -67,7 +67,7 @@ export default connect(
     visible: state.base.getIn(['modal', 'profileMedicineDosageAdd']),
     medicineList: state.content.get('medicineList'),
     contentId: state.profile.get('contentId'),  // medicineId
-    error: state.profile.getIn(['error', 'userMedicineCreate'])
+    error: state.profile.getIn(['error', 'userMedicineDosageCreate'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

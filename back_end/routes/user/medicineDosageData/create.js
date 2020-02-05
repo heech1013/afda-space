@@ -1,5 +1,6 @@
 const { MedicineDosageData, ReasonOfStop } = require('../../../models');
 const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
+const radioHandler = require('../../../middleware/maker/radioHandler');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 
 const create = async (req, res, next) => {
@@ -17,16 +18,6 @@ const create = async (req, res, next) => {
     if (!fkMedicineId) return next(CustomError('InternalServerError', 'MedicineId is missing.'));
 
     /**  data(state) 안에 val = { yes: false, no: false } 꼴의 값을 의미에 맞게 boolean으로 변환 */
-    const radioHandler = (val) => {    
-      if (val.yes) {
-        val = true;
-        return val;
-      }
-      else if (val.no || (!val.yes && !val.no)) {
-        val = false;
-        return val;
-      }
-    }
     takingStatus = radioHandler(takingStatus);
     switchRadio = radioHandler(switchRadio);
     dosageDifferRadio = radioHandler(dosageDifferRadio);

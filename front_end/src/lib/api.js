@@ -12,6 +12,7 @@ export const postUserDiagnosis = (id, data) => axios.post(`/api/user/${id}/diagn
 export const postUserSymptom = (id, symptomId) => axios.post(`/api/user/${id}/symptom`, { symptomId });
 export const postUserMedicine = (id, medicineId) => axios.post(`/api/user/${id}/medicine`, { medicineId });
 export const postUserMedicineDosage = (id, data) => axios.post(`/api/user/${id}/medicineDosageData`, { data });
+export const postUserMedicinePurpose = (id, data) => axios.post(`/api/user/${id}/medicinePurposeData`, { data });
 
 export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
 

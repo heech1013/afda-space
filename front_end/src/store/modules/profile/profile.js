@@ -14,7 +14,7 @@ const POST_USER_DIAGNOSIS = 'profile/POST_USER_DIAGNOSIS';
 const POST_USER_SYMPTOM = 'profile/POST_USER_SYMPTOM';
 const POST_USER_MEDICINE = 'profile/POST_USER_MEDICINE';
 const POST_USER_MEDICINE_DOSAGE = 'profile/POST_USER_MEDICINE_DOSAGE';
-// const POST_USER_MEDICINE_PURPOSE = 'profile/POST_USER_MEDICINE_PURPOSE';
+const POST_USER_MEDICINE_PURPOSE = 'profile/POST_USER_MEDICINE_PURPOSE';
 // const POST_USER_MEDICINE_EVALUATION = 'profile/POST_USER_MEDICINE_EVALUATION';
 
 /* action creators */
@@ -26,6 +26,7 @@ export const postUserDiagnosis = createAction(POST_USER_DIAGNOSIS, api.postUserD
 export const postUserSymptom = createAction(POST_USER_SYMPTOM, api.postUserSymptom);
 export const postUserMedicine = createAction(POST_USER_MEDICINE, api.postUserMedicine);
 export const postUserMedicineDosage = createAction(POST_USER_MEDICINE_DOSAGE, api.postUserMedicineDosage);
+export const postUserMedicinePurpose = createAction(POST_USER_MEDICINE_PURPOSE, api.postUserMedicinePurpose);
 
 
 /* initial state */
@@ -38,7 +39,9 @@ const initialState = Map({
     userDiagnosisCreate: null,
     userSymptomCreate: null,
     userMedicineCreate: null,
-    userMedicineDosageCreate: null
+    userMedicineDosageCreate: null,
+    userMedicinePurposeCreate: null,
+    userMedicineEvaluationCreate: null
   })
 });
 
@@ -90,6 +93,12 @@ export default handleActions({
     type: POST_USER_MEDICINE_DOSAGE,
     onError: (state, action) => {
       return state.setIn(['error', 'userMedicineDosageCreate'], action.payload.response.data.message);
+    }
+  }),
+  ...pender({
+    type: POST_USER_MEDICINE_PURPOSE,
+    onError: (state, action) => {
+      return state.setIn(['error', 'userMedicinePurposeCreate'], action.payload.response.data.message);
     }
   })
 }, initialState);

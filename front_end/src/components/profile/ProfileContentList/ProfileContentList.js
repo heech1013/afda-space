@@ -78,10 +78,15 @@ const Content = ({
           updateContentId(contentId);
           onModal('profileMedicineEvaluationAdd');
         }}>평가하기</Button>
-        <Button  onClick={() => {
-          updateContentId(contentId);
-          onModal('profileMedicinePurposeAdd');
-        }}>처방목적 추가하기</Button>
+        {
+          (purposeOfPrescription === '-') ?
+            <Button  onClick={() => {
+              updateContentId(contentId);
+              onModal('profileMedicinePurposeAdd');
+            }}>처방목적 추가하기</Button>
+            :
+            null// <Button onClick={() => onDelete(dosageId, 'dosage')}>용량 삭제하기</Button>  /** medicineDosageData가 등록되어 있는 경우 */
+        }
         { 
           (dosage === '-') ? 
             <Button  onClick={() => {  /** medicineDosageData가 등록되어 있지 않은 경우 */

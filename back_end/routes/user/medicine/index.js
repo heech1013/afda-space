@@ -44,24 +44,33 @@ const index = async (req, res, next) => {
        * 그러나 mvp 기능상 하나의 처방 목적만 등록할 수 있도록 되어 있다. 그래서 데이터를 첫 번째 원소([0])로 특정한다.
        * 최종 설계에 따라 추후 여러 개의 처방 목적을 등록/조회할 수 있도록 한다.
        */
-      const purposeData = obj.RegisteredMedicineData.RegisteredMedicinePurposeData[0];
-      const purposeOfPrescription = purposeData.UsedMedicineForDiagnosis ?
-        purposeData.UsedMedicineForDiagnosis.nameKr
-        :
-        purposeData.UsedMedicineForSymptom ?
-          purposeData.UsedMedicineForSymptom.nameKr
+      let purposeData = '';
+      let purposeOfPrescription = '';
+      let perceivedEffect = '';
+      if (obj.RegisteredMedicineData.RegisteredMedicinePurposeData.length) {
+        purposeData = obj.RegisteredMedicineData.RegisteredMedicinePurposeData[0];
+        purposeOfPrescription = purposeData.UsedMedicineForDiagnosis ?
+          purposeData.UsedMedicineForDiagnosis.nameKr
           :
-          '-';
+          purposeData.UsedMedicineForSymptom ?
+            purposeData.UsedMedicineForSymptom.nameKr
+            :
+            '-';
 
-      let perceivedEffect;
-      switch (purposeData.perceivedEffectiveness) {
-        case 1: perceivedEffect = '알 수 없다'; break;
-        case 2: perceivedEffect = '없다'; break;
-        case 3: perceivedEffect = '약간'; break;
-        case 4: perceivedEffect = '보통'; break;
-        case 5: perceivedEffect = '크다'; break;
-        default: perceivedEffect = '-';
+        switch (purposeData.perceivedEffectiveness) {
+          case 1: perceivedEffect = '알 수 없다'; break;
+          case 2: perceivedEffect = '없다'; break;
+          case 3: perceivedEffect = '약간'; break;
+          case 4: perceivedEffect = '보통'; break;
+          case 5: perceivedEffect = '크다'; break;
+          default: perceivedEffect = '-';
+        }
+      } else {
+        purposeData = '-';
+        purposeOfPrescription = '-';
+        perceivedEffect = '-';
       }
+      
 
       let degreeOfSideEffect;
       /** 하나의 처방약에 여러 개의 처방 목적이 있을 수 있음에 따라, 처방 목적에 대한 처방약의 평가도 여러 개가 있을 수 있다.
