@@ -48,7 +48,7 @@ class ProfileMedicineEvaluationAddModal extends Component {
       no: false
     },
     tips: '',
-    costDateUnit: '',
+    costDateUnit: 1,
     cost: '',
     frontError: ''
   }
@@ -63,12 +63,6 @@ class ProfileMedicineEvaluationAddModal extends Component {
   handleInputChange = (e) => {
     let obj = {};
     obj[e.target.name] = e.target.value;
-    this.setState(obj);
-  }
-
-  handleCheckboxChange = (e) => {
-    let obj = {};
-    obj[e.target.name] = e.target.checked;
     this.setState(obj);
   }
 
@@ -155,9 +149,15 @@ class ProfileMedicineEvaluationAddModal extends Component {
           <input type="radio" name="unexpectedPositiveEffects" value="yes" checked={unexpectedPositiveEffects.yes} onChange={handleOptionChange}/>네
           <input type="radio" name="unexpectedPositiveEffects" value="no" checked={unexpectedPositiveEffects.no} onChange={handleOptionChange}/>아니오
 
-          <div className={cx('question')}>조언 & 팁</div>
-          <div>현재 해당 처방약을 고려하고 있거나 복용 중인 사람들과 공유하고 싶은 조언이나 팁이 있나요?</div>
-          <div>다음과 같은 내용을 포함할 수 있어요:</div>
+          <div className={cx('question')}>현재 해당 처방약을 고려하고 있거나 복용 중인 사람들과 공유하고 싶은 조언이나 팁이 있나요?</div>
+          <input name="tips" type="text" value={tips} onChange={handleInputChange} autoFocus />
+
+          <div className={cx('question')}>현재 해당 처방약으로 인해 대략 어느 정도의 비용이 드나요?</div>  {/** optional in PLM */}
+          <select name="costDateUnit" value={costDateUnit} onChange={handleInputChange}>
+            <option key={1} value={1}>매월</option>
+            <option key={2} value={2}>매주</option>
+          </select>
+          <input name="cost" type="number" valeue={cost} onChange={handleInputChange} min="0" step="1"/>원
 
           {/** front단 에러 */}
           { frontError && <div className={cx('error')}>{frontError}</div>}
@@ -167,7 +167,25 @@ class ProfileMedicineEvaluationAddModal extends Component {
         <div>
           <br/>
           <Button onClick={() => {
-            onSubmit({ state });
+            if (
+              !evaluationDate
+              || (!perceivedEffectiveness.canNotTell && !perceivedEffectiveness.none && !perceivedEffectiveness.slight && !perceivedEffectiveness.moderate && !perceivedEffectiveness.major)
+              || (!sideEffects.none && !sideEffects.mild && !sideEffects.moderate && !sideEffects.severe)
+              || ((sideEffects.mild || sideEffects.moderate || sideEffects.severe) && ((!startNoticingWhenStartTaking.yes && !startNoticingWhenStartTaking.no) || (!startNoticingYear)))
+              || (!adherence.never && !adherence.sometimes && !adherence.usually && !adherence.always)
+              || (!burden.notAtAll && !burden.aLittle && !burden.somewhat && !burden.very)
+              || (!unexpectedPositiveEffects.yes && !unexpectedPositiveEffects.no)
+            ) this.setState({ frontError: '평가 항목을 모두 입력해주세요.' });
+            else {
+              onSubmit({ state });
+              this.setState({
+                contentId: '', evaluationDate: '', perceivedEffectiveness: { canNotTell: false, none: false, slight: false, moderate: false, major: false },
+                sideEffects: { none: false, mild: false, moderate: false, severe: false }, symptomId: 1, startNoticingWhenStartTaking: { yes: false, no: false },
+                startNoticingYear: '', startNoticingMonth: '', startNoticingDay: '', adherence: { never: false, sometimes: false, usually: false, always: false },
+                burden: { notAtAll: false, aLittle: false, somewhat: false, very: false }, unexpectedPositiveEffects: { yes: false, no: false }, tips: '',
+                costDateUnit: '', cost: '', frontError: ''
+              });
+            }
             /** 제출 후 form 빈칸으로 초기화 */
           }}>추가</Button>
         </div>
