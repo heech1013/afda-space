@@ -7,6 +7,12 @@ import * as profileActions from 'store/modules/profile/profile';
 import ProfileMedicineEvaluationAddModal from 'components/modal/ProfileMedicineEvaluationAddModal';
 
 class ProfileMedicineEvaluationAddModalContainer extends Component {
+  /** modal의 증상 option을 위한 정보 받아오기 */
+  getSymptomOptionList = () => {
+    const { ContentActions } = this.props;
+    ContentActions.getSymptomList();
+  }
+
   /** 처방약 추가 성공 후 추가한 정보를 포함하여 보여주기 위해 새로 사용자의 처방약 리스트를 받아온다.
    * modal과 별개
    */
@@ -36,16 +42,17 @@ class ProfileMedicineEvaluationAddModalContainer extends Component {
   }
 
   componentDidMount() {
+    this.getSymptomOptionList();
   }
 
   render() {
     const { handleCancel, handleSubmit } = this;
-    const { visible, medicineList, contentId, error } = this.props;
+    const { visible, symptomList, contentId, error } = this.props;
 
     return (
       <ProfileMedicineEvaluationAddModal 
         visible={visible}
-        medicineList={medicineList}
+        symptomList={symptomList}
         contentId={contentId}
         onCancel={handleCancel}
         onSubmit={handleSubmit}
@@ -58,6 +65,7 @@ class ProfileMedicineEvaluationAddModalContainer extends Component {
 export default connect(
   (state) => ({
     visible: state.base.getIn(['modal', 'profileMedicineEvaluationAdd']),
+    symptomList: state.content.get('symptomList'),
     contentId: state.profile.get('contentId'),  // medicineId
     error: state.profile.getIn(['error', 'userMedicineEvaluationCreate'])
   }),
