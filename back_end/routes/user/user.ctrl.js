@@ -6,5 +6,6 @@ router.use('/:id/symptom', require('./symptom/user.symptom.ctrl'));
 router.use('/:id/medicine', require('./medicine/user.medicine.ctrl'));
 router.use('/:id/medicineDosageData', require('./medicineDosageData/user.medicineDosageData.ctrl'));
 router.use('/:id/medicinePurposeData', require('./medicinePurposeData/user.medicinePurposeData.ctrl'));
+router.use('/:id/medicineEvaluationData', require('./medicineEvaluationData/user.medicineEvaluationData.ctrl'));
 
 module.exports = router;

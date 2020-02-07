@@ -150,7 +150,7 @@ class ProfileMedicineEvaluationAddModal extends Component {
           <input type="radio" name="unexpectedPositiveEffects" value="no" checked={unexpectedPositiveEffects.no} onChange={handleOptionChange}/>아니오
 
           <div className={cx('question')}>현재 해당 처방약을 고려하고 있거나 복용 중인 사람들과 공유하고 싶은 조언이나 팁이 있나요?</div>
-          <input name="tips" type="text" value={tips} onChange={handleInputChange} autoFocus />
+          <textarea className={cx('tips')} name="tips" type="text" value={tips} onChange={handleInputChange} autoFocus />
 
           <div className={cx('question')}>현재 해당 처방약으로 인해 대략 어느 정도의 비용이 드나요?</div>  {/** optional in PLM */}
           <select name="costDateUnit" value={costDateUnit} onChange={handleInputChange}>
@@ -178,13 +178,13 @@ class ProfileMedicineEvaluationAddModal extends Component {
             ) this.setState({ frontError: '평가 항목을 모두 입력해주세요.' });
             else {
               onSubmit({ state });
-              this.setState({
-                contentId: '', evaluationDate: '', perceivedEffectiveness: { canNotTell: false, none: false, slight: false, moderate: false, major: false },
-                sideEffects: { none: false, mild: false, moderate: false, severe: false }, symptomId: 1, startNoticingWhenStartTaking: { yes: false, no: false },
-                startNoticingYear: '', startNoticingMonth: '', startNoticingDay: '', adherence: { never: false, sometimes: false, usually: false, always: false },
-                burden: { notAtAll: false, aLittle: false, somewhat: false, very: false }, unexpectedPositiveEffects: { yes: false, no: false }, tips: '',
-                costDateUnit: '', cost: '', frontError: ''
-              });
+              // this.setState({
+              //   contentId: '', evaluationDate: '', perceivedEffectiveness: { canNotTell: false, none: false, slight: false, moderate: false, major: false },
+              //   sideEffects: { none: false, mild: false, moderate: false, severe: false }, symptomId: 1, startNoticingWhenStartTaking: { yes: false, no: false },
+              //   startNoticingYear: '', startNoticingMonth: '', startNoticingDay: '', adherence: { never: false, sometimes: false, usually: false, always: false },
+              //   burden: { notAtAll: false, aLittle: false, somewhat: false, very: false }, unexpectedPositiveEffects: { yes: false, no: false }, tips: '',
+              //   costDateUnit: '', cost: '', frontError: ''
+              // });
             }
             /** 제출 후 form 빈칸으로 초기화 */
           }}>추가</Button>

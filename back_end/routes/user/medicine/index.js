@@ -74,20 +74,22 @@ const index = async (req, res, next) => {
       }
       
 
-      let degreeOfSideEffect;
+      let degreeOfSideEffect = '';
       /** 하나의 처방약에 여러 개의 처방 목적이 있을 수 있음에 따라, 처방 목적에 대한 처방약의 평가도 여러 개가 있을 수 있다.
        * DB 설계 상 Medicine:MedicineEvaluationData = 1:N
        * 그러나 mvp 기능 상 하나의 처방 목적만 등록할 수 있게 제한함에 따라, 평가 역시 하나만 등록이 된다. 데이터를 배열의 첫 번째 원소([0])만 조회한다.
       */
-      switch (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData[0].sideEffects) {
-        case 1: degreeOfSideEffect = '없다'; break;
-        case 2: degreeOfSideEffect = '약간'; break;
-        case 3: degreeOfSideEffect = '중간'; break;
-        case 4: degreeOfSideEffect = '심각'; break;
-        default: degreeOfSideEffect = '-';
-      }
+      if (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.length) {
+        switch (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData[0].sideEffects) {
+          case 1: degreeOfSideEffect = '없다'; break;
+          case 2: degreeOfSideEffect = '약간'; break;
+          case 3: degreeOfSideEffect = '중간'; break;
+          case 4: degreeOfSideEffect = '심각'; break;
+          default: degreeOfSideEffect = '-';
+        }
+      } else degreeOfSideEffect = '-';
       
-      const symptomOfSideEffect = obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData ? 
+      const symptomOfSideEffect = obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData.length ? 
         obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData[0].SymptomOfSideEffects.nameKr + ' 등'
         :
         '-';

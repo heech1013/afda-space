@@ -15,7 +15,7 @@ const POST_USER_SYMPTOM = 'profile/POST_USER_SYMPTOM';
 const POST_USER_MEDICINE = 'profile/POST_USER_MEDICINE';
 const POST_USER_MEDICINE_DOSAGE = 'profile/POST_USER_MEDICINE_DOSAGE';
 const POST_USER_MEDICINE_PURPOSE = 'profile/POST_USER_MEDICINE_PURPOSE';
-// const POST_USER_MEDICINE_EVALUATION = 'profile/POST_USER_MEDICINE_EVALUATION';
+const POST_USER_MEDICINE_EVALUATION = 'profile/POST_USER_MEDICINE_EVALUATION';
 
 /* action creators */
 export const getProfile = createAction(GET_PROFILE, api.getProfile);
@@ -27,7 +27,7 @@ export const postUserSymptom = createAction(POST_USER_SYMPTOM, api.postUserSympt
 export const postUserMedicine = createAction(POST_USER_MEDICINE, api.postUserMedicine);
 export const postUserMedicineDosage = createAction(POST_USER_MEDICINE_DOSAGE, api.postUserMedicineDosage);
 export const postUserMedicinePurpose = createAction(POST_USER_MEDICINE_PURPOSE, api.postUserMedicinePurpose);
-
+export const postUserMedicineEvaluation = createAction(POST_USER_MEDICINE_EVALUATION, api.postUserMedicineEvaluation);
 
 /* initial state */
 const initialState = Map({
@@ -99,6 +99,12 @@ export default handleActions({
     type: POST_USER_MEDICINE_PURPOSE,
     onError: (state, action) => {
       return state.setIn(['error', 'userMedicinePurposeCreate'], action.payload.response.data.message);
+    }
+  }),
+  ...pender({
+    type: POST_USER_MEDICINE_EVALUATION,
+    onError: (state, action) => {
+      return state.setIn(['error', 'userMedicineEvaluationCreate'], action.payload.response.data.message);
     }
   })
 }, initialState);
