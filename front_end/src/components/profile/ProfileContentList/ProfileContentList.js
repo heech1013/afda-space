@@ -74,14 +74,22 @@ const Content = ({
     contentType === 'medicine' ?
       <div>
         <Button  onClick={() => onDelete(id)}>삭제하기</Button>
-        <Button  onClick={() => {
-          if (purposeOfPrescription === '-') {  // 처방 목적을 등록해야 평가할 수 있다.
-            alert('처방 목적을 먼저 등록해주세요.');
-          } else {
-            updateContentId(contentId);
-            onModal('profileMedicineEvaluationAdd');
-          }
-        }}>평가하기</Button>
+        {
+          (perceivedEffect === '-') ?
+            <Button  onClick={() => {
+              if (purposeOfPrescription === '-') {  // 처방 목적을 등록해야 평가할 수 있다.
+                alert('처방 목적을 먼저 등록해주세요.');
+              } else {
+                updateContentId(contentId);
+                onModal('profileMedicineEvaluationAdd');
+              }
+            }}>평가하기</Button>
+            :
+            /** medicineEvaluationData가 등록되어 있는 경우
+             * purposeId를 전달해 해당 데이터의 fkUserId, fkMedicineId를 조회하여 관련 데이터를 삭제한다.
+             */
+            <Button onClick={() => onDelete(purposeId, 'evaluation')}>평가 삭제하기</Button>
+        }
         {
           (purposeOfPrescription === '-') ?
             <Button  onClick={() => {

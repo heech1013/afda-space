@@ -7,7 +7,6 @@ import * as api from 'lib/api';
 
 /* action types */
 const GET_CONTENT = 'content/GET_CONTENT';
-// const GET_CONTENT_LIST = 'content/GET_CONTENT_LIST';
 const GET_DIAGNOSIS_LIST = 'content/GET_DIAGNOSIS_LIST';
 const GET_SYMPTOM_LIST = 'content/GET_SYMPTOM_LIST';
 const GET_MEDICINE_LIST = 'content/GET_MEDICINE_LIST';
@@ -17,7 +16,6 @@ const DELETE_CONTENT = 'content/DELETE_CONTENT';
 
 /* action creators */
 export const getContent = createAction(GET_CONTENT, api.getContent);
-// export const getContentList = createAction(GET_CONTENT_LIST, api.getContentList);
 export const getDiagnosisList = createAction(GET_DIAGNOSIS_LIST, api.getDiagnosisList);
 export const getSymptomList = createAction(GET_SYMPTOM_LIST, api.getSymptomList);
 export const getMedicineList = createAction(GET_MEDICINE_LIST, api.getMedicineList);
@@ -29,7 +27,6 @@ export const deleteContent = createAction(DELETE_CONTENT, api.deleteContent);
 /* initial state */
 const initialState = Map({
   content: Map(),
-  // contentList: List(),  // 수정(제거) 검토
   diagnosisList: List(),
   symptomList: List(),
   medicineList: List(),
@@ -46,13 +43,6 @@ export default handleActions({
       return state.set('content', fromJS(content));
     }
   }),
-  // ...pender({
-  //   type: GET_CONTENT_LIST,
-  //   onSuccess: (state, action) => {
-  //     const { contentList } = action.payload.data;
-  //     return state.set('contentList', fromJS(contentList));
-  //   }
-  // }),
   ...pender({
     type: GET_DIAGNOSIS_LIST,
     onSuccess: (state, action) => {

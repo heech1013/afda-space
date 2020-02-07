@@ -69,6 +69,9 @@ const create = async (req, res, next) => {
 
       /** 부작용을 mild 이상으로 응답한 경우 */
       if ((sideEffects == 3) || (sideEffects == 4) || (sideEffects == 5)) {
+        /** [평가하기]에서 유일하게 null string('')이 발생하는 지점. sql insertion 위해 null로 바꾸어준다. */
+        if (startNoticingMonth === '') startNoticingMonth = null;
+        if (startNoticingDay === '') startNoticingDay = null;
         await MedicineSideEffectsData.create({
           fkSymptomId: symptomId, fkUserId, fkMedicineId,
           startNoticingWhenStartTaking, startNoticingYear, startNoticingMonth, startNoticingDay

@@ -178,13 +178,13 @@ class ProfileMedicineEvaluationAddModal extends Component {
             ) this.setState({ frontError: '평가 항목을 모두 입력해주세요.' });
             else {
               onSubmit({ state });
-              // this.setState({
-              //   contentId: '', evaluationDate: '', perceivedEffectiveness: { canNotTell: false, none: false, slight: false, moderate: false, major: false },
-              //   sideEffects: { none: false, mild: false, moderate: false, severe: false }, symptomId: 1, startNoticingWhenStartTaking: { yes: false, no: false },
-              //   startNoticingYear: '', startNoticingMonth: '', startNoticingDay: '', adherence: { never: false, sometimes: false, usually: false, always: false },
-              //   burden: { notAtAll: false, aLittle: false, somewhat: false, very: false }, unexpectedPositiveEffects: { yes: false, no: false }, tips: '',
-              //   costDateUnit: '', cost: '', frontError: ''
-              // });
+              this.setState({
+                contentId: '', evaluationDate: '', perceivedEffectiveness: { canNotTell: false, none: false, slight: false, moderate: false, major: false },
+                sideEffects: { none: false, mild: false, moderate: false, severe: false }, symptomId: 1, startNoticingWhenStartTaking: { yes: false, no: false },
+                startNoticingYear: '', startNoticingMonth: '', startNoticingDay: '', adherence: { never: false, sometimes: false, usually: false, always: false },
+                burden: { notAtAll: false, aLittle: false, somewhat: false, very: false }, unexpectedPositiveEffects: { yes: false, no: false }, tips: '',
+                costDateUnit: '', cost: '', frontError: ''
+              });
             }
             /** 제출 후 form 빈칸으로 초기화 */
           }}>추가</Button>

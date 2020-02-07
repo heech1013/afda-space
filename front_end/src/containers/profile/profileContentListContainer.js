@@ -42,7 +42,7 @@ class ProfileContentListContainer extends Component {
                 await ContentActions.deleteContent('medicinePurposeData', contentId);
                 break;
               case 'evaluation':  // 처방약 - 평가 삭제하기
-                /** */
+                await ContentActions.deleteContent('medicineEvaluationData', contentId);
                 break;
               default:
             }
