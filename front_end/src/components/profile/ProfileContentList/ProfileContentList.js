@@ -73,7 +73,7 @@ const Content = ({
     :
     contentType === 'medicine' ?
       <div>
-        <Button  onClick={() => onDelete(id)}>삭제하기</Button>
+        <Button  onClick={() => onDelete(id)}>삭제하기</Button>  {/** medicineData의 PK(id) */}
         {
           (perceivedEffect === '-') ?
             <Button  onClick={() => {

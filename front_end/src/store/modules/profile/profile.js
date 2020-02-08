@@ -56,6 +56,9 @@ export default handleActions({
   }),
   ...pender({
     type: UPDATE_PROFILE_CARD,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'profileCardUpdate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'profileCardUpdate'], action.payload.response.data.message);
     }
@@ -73,36 +76,54 @@ export default handleActions({
   },
   ...pender({
     type: POST_USER_DIAGNOSIS,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'userDiagnosisCreate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'userDiagnosisCreate'], action.payload.response.data.message);
     }
   }),
   ...pender({
     type: POST_USER_SYMPTOM,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'userSymptomCreate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'userSymptomCreate'], action.payload.response.data.message);
     }
   }),
   ...pender({
     type: POST_USER_MEDICINE,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'userMedicineCreate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'userMedicineCreate'], action.payload.response.data.message);
     }
   }),
   ...pender({
     type: POST_USER_MEDICINE_DOSAGE,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'userMedicineDosageCreate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'userMedicineDosageCreate'], action.payload.response.data.message);
     }
   }),
   ...pender({
     type: POST_USER_MEDICINE_PURPOSE,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'userMedicinePurposeCreate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'userMedicinePurposeCreate'], action.payload.response.data.message);
     }
   }),
   ...pender({
     type: POST_USER_MEDICINE_EVALUATION,
+    onSuccess: (state, action) => {
+      return state.setIn(['error', 'userMedicineEvaluationCreate'], null);
+    },
     onError: (state, action) => {
       return state.setIn(['error', 'userMedicineEvaluationCreate'], action.payload.response.data.message);
     }

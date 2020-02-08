@@ -171,7 +171,8 @@ class ProfileMedicineEvaluationAddModal extends Component {
               !evaluationDate
               || (!perceivedEffectiveness.canNotTell && !perceivedEffectiveness.none && !perceivedEffectiveness.slight && !perceivedEffectiveness.moderate && !perceivedEffectiveness.major)
               || (!sideEffects.none && !sideEffects.mild && !sideEffects.moderate && !sideEffects.severe)
-              || ((sideEffects.mild || sideEffects.moderate || sideEffects.severe) && ((!startNoticingWhenStartTaking.yes && !startNoticingWhenStartTaking.no) || (!startNoticingYear)))
+              || ((sideEffects.mild || sideEffects.moderate || sideEffects.severe) && (!startNoticingWhenStartTaking.yes && !startNoticingWhenStartTaking.no))
+              || (startNoticingWhenStartTaking.no && !startNoticingYear)
               || (!adherence.never && !adherence.sometimes && !adherence.usually && !adherence.always)
               || (!burden.notAtAll && !burden.aLittle && !burden.somewhat && !burden.very)
               || (!unexpectedPositiveEffects.yes && !unexpectedPositiveEffects.no)

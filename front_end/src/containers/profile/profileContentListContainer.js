@@ -33,7 +33,7 @@ class ProfileContentListContainer extends Component {
         case 'medicine':
             switch (subType) {
               case null:  // 처방약 - 삭제하기
-                /** */
+                await ContentActions.deleteContent('medicineData', contentId);
                 break;
               case 'dosage':  // 처방약 - 용량 삭제하기
                 await ContentActions.deleteContent('medicineDosageData', contentId);

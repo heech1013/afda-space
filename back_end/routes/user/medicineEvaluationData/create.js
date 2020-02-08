@@ -1,5 +1,5 @@
 const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData } = require('../../../models');
-// const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
+const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 // const radioHandler = require('../../../middleware/maker/radioHandler');
 // const CustomError = require('../../../middleware/errorHandler/CustomError');
 
@@ -8,6 +8,9 @@ const create = async (req, res, next) => {
     const { id: fkUserId } = req.params;
     let { data } = req.body;
 
+    /** null string('')을 모두 null로 변환해준다. */
+    await nullStringHandler(data);
+    
     let {
       contentId: fkMedicineId, evaluationDate, perceivedEffectiveness, sideEffects, symptomId, startNoticingWhenStartTaking, startNoticingYear, startNoticingMonth, startNoticingDay, adherence, burden, unexpectedPositiveEffects, tips, costDateUnit, cost
     } = data;
@@ -69,9 +72,6 @@ const create = async (req, res, next) => {
 
       /** 부작용을 mild 이상으로 응답한 경우 */
       if ((sideEffects == 3) || (sideEffects == 4) || (sideEffects == 5)) {
-        /** [평가하기]에서 유일하게 null string('')이 발생하는 지점. sql insertion 위해 null로 바꾸어준다. */
-        if (startNoticingMonth === '') startNoticingMonth = null;
-        if (startNoticingDay === '') startNoticingDay = null;
         await MedicineSideEffectsData.create({
           fkSymptomId: symptomId, fkUserId, fkMedicineId,
           startNoticingWhenStartTaking, startNoticingYear, startNoticingMonth, startNoticingDay

@@ -10,7 +10,7 @@ const destroy = async (req, res, next) => {
 
     /** (mvp) 하나의 처방약에 대해 하나의 처방 목적만 등록 가능하다.
      * 하나의 처방약에 대해 하나의 평가만 등록 가능하다.
-     * (mvp) 하나의 처방약에 대해 하나의 부작용만 등록 가능하다(등록하지 않은 경우 없을 수 있다).
+     * (mvp) 하나의 처방약에 대해 하나의 부작용만 등록 가능하다(평가를 진행한 후여도 부작용을 등록하지 않은 경우 없을 수 있다).
      * 처방 목적 데이터를 통해 user id와 medicine id를 조회하면 해당 사용자, 처방약에 대해
       각 한 개씩의 purpose, evaluation, side effect 데이터를 조회할 수 있다. */
     const registeredPurposeData = await MedicinePurposeData.findOne({
