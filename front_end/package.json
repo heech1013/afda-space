@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@toast-ui/react-chart": "^1.0.2",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "cross-env": "^5.2.0",
