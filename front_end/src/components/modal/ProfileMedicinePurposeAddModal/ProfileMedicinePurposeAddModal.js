@@ -38,8 +38,7 @@ class ProfileMedicinePurposeAddModal extends Component {
 
     /** 존재하는 진단명 리스트를 조회하여 select의 option list를 생성한다. */
     const diagnosisOptionList = diagnosisList.map((diagnosis) => {
-      const { fkDiagnosisId: id } = diagnosis.toJS();  // diagnosis의 id
-      const { nameKr } = diagnosis.toJS().RegisteredDiagnosisData;
+      const { id, nameKr } = diagnosis.toJS();  // diagnosis의 id, nameKr
       return <option key={id} value={id}>{nameKr}</option>
     });
     /** 존재하는 증상 리스트를 조회하여 select의 option list를 생성한다. */

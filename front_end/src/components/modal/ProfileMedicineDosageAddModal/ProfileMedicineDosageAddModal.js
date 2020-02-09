@@ -75,8 +75,7 @@ class ProfileMedicineDosageAddModal extends Component {
 
     /** 존재하는 처방약 리스트를 조회하여 select의 option list를 생성한다. */
     const medicineOptionList = medicineList.map((medicine) => {
-      const { fkMedicineId: id } = medicine.toJS();
-      const { nameKr } = medicine.toJS().RegisteredMedicinePurposeData;
+      const { id, nameKr } = medicine.toJS();
       return <option key={id} value={id}>{nameKr}</option>
     });
 

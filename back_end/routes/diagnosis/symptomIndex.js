@@ -1,28 +1,37 @@
 const { Sequelize, DiagnosisData, Symptom, SymptomData } = require('../../models');
-const userIdArrMaker = require('../../middleware/maker/userIdArrMaker');
 
 const symptomIndex = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const diagnosedUserList = await DiagnosisData.findAll({
-      attributes: ['id'],
+      attributes: ['fkUserId'],
       where: { 'fkDiagnosisId': id }
     });
 
-    const userIdArr = await userIdArrMaker(diagnosedUserList);
+    const userIdArrMaker = (objArr) => {
+      return new Promise((resolve, reject) => {
+        let idArr = [];
+        objArr.map((obj) => {
+          idArr.push(obj.fkUserId);
+        });
+        resolve(idArr);
+      });
+    };
 
-    const contentSymptomList = await SymptomData.findAll({
-      attributes: ['fkSymptomId', [Sequelize.fn('COUNT', Sequelize.col('fkSymptomId')), 'count']],
-      where: {'fkUserId': { [Sequelize.Op.in]: userIdArr }},
-      include: [
-        {
-          model: Symptom,
-          as: 'RegisteredSymptomData',
-          attributes: ['nameKr']
-        }
-      ],
-      group: ['fkSymptomId']
+    const userIdArr = await userIdArrMaker(diagnosedUserList);  
+
+    const contentSymptomList = await Symptom.findAll({
+      attributes: ['id', 'nameKr', [Sequelize.fn("COUNT", Sequelize.col("RegisteredSymptomData.id")), "count"]],
+      include: [{
+        model: SymptomData,
+        as: "RegisteredSymptomData",
+        attributes: [],
+        where: { 'fkUserId': { [Sequelize.Op.in]: userIdArr }},
+        required: false
+      }],
+      group: ['id', 'nameKr'],
+      order: [[Sequelize.fn("COUNT", Sequelize.col("RegisteredSymptomData.id")), "DESC"]]
     });
     
     return res.status(200).json({ contentSymptomList });

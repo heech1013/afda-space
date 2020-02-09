@@ -20,26 +20,10 @@ const ContentItem = ({id, nameKr, nameEn, to, count}) => {
 };
 
 const ContentList = ({row_1, row_2, to, contents}) => {
-  const contentList = contents.map((content) => {
-    let id, nameKr, nameEn;
+  const contentList = contents.map((content) => {    
     const {
-      fkDiagnosisId = null, fkMedicineId = null,
-      count,
-      RegisteredDiagnosisData = null, RegisteredMedicinePurposeData = null, RegisteredSymptomData = null
+      id, nameKr, nameEn = null, /** symptom의 경우 nameEn을 (굳이?) 전달하지 않음 */ count
     } = content.toJS();
-
-    if (to === 'diagnosis') {
-      id = fkDiagnosisId;
-      nameKr = RegisteredDiagnosisData.nameKr;
-      nameEn = RegisteredDiagnosisData.nameEn;
-    } else if (to === 'medicine') {
-      id = fkMedicineId;
-      nameKr = RegisteredMedicinePurposeData.nameKr;
-      nameEn = RegisteredMedicinePurposeData.nameEn;
-    } else if (to === null) {  // type or subType === 'symptom'
-      id = null;
-      nameKr = RegisteredSymptomData.nameKr;
-    }
 
     return (
       <div className={cx('content-item-wrapper')} key={id}>
