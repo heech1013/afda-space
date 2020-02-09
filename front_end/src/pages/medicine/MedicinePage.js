@@ -7,7 +7,6 @@ import ContentListContainer from 'containers/content/ContentListContainer';
 const MedicinePage = () => {
   return (
     <PageTemplate>
-      {/* <MedicineListContainer/> */}
       <ContentListContainer
         type={'medicine'}
         subType={null}/>

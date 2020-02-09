@@ -13,7 +13,7 @@ const DiagnosisSymptomPage = ({match}) => {
         type={'diagnosis'}
         id={id}
         onClick={() => console.log('addToMyProfile')}
-        buttonString={"내 프로필에 추가"}
+        // buttonString={"내 프로필에 추가"}
       />
       <ContentListContainer
         type={'diagnosis'}

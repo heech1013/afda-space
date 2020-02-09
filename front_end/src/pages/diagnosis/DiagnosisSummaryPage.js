@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-// import DiagnosisSummaryContainer from 'containers/diagnosis/DiagnosisSummaryContainer';
 import ContentTitleContainer from 'containers/content/ContentTitleContainer';
 import DescriptionContainer from 'containers/content/DescriptionContainer';
 import MiniMenu from 'components/common/MiniMenu';
@@ -10,8 +9,6 @@ const DiagnosisSummaryPage = ({match}) => {
   const { id } = match.params;
   return (
     <PageTemplate>
-      {/* <DiagnosisSummaryContainer
-        diagnosisId={diagnosisId}/> */}
       <ContentTitleContainer
         type={'diagnosis'}
         id={id}/>
