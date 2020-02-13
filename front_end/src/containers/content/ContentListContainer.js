@@ -82,7 +82,6 @@ export default connect(
     loading_GET_CONTENT_LIST: state.pender.pending['content/GET_CONTENT_LIST'],
     loading_GET_CONTENT_SYMPTOM_LIST: state.pender.pending['content/GET_CONTENT_SYMPTOM_LIST'],
     loading_GET_CONTENT_MEDICINE_LIST: state.pender.pending['content/GET_CONTENT_MEDICINE_LIST'],
-    // contentList: state.content.get('contentList'),
     diagnosisList: state.content.get('diagnosisList'),
     symptomList: state.content.get('symptomList'),
     medicineList: state.content.get('medicineList'),
