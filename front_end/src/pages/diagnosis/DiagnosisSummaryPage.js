@@ -17,7 +17,10 @@ const DiagnosisSummaryPage = ({match}) => {
         type={'diagnosis'}
         id={id}/>
       <MiniMenu buttonArr={["개요", "증상", "처방약", "뉴스피드"]}/>
-      <DiagnosisSummaryChart/>
+      <DiagnosisSummaryChart
+        nameKr={'주요 우울증'}
+        count={163}
+      />
     </PageTemplate>
 
   );

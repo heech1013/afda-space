@@ -20,7 +20,8 @@
     "react-scripts": "3.0.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
-    "redux-pender": "^2.0.12"
+    "redux-pender": "^2.0.12",
+    "tui-chart": "^3.10.0"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src react-scripts start",
