@@ -131,7 +131,7 @@ const DiagnosisSummaryChart = ({nameKr, count}) => {
       colors: ['#FFB341', '#FFD08A'],
       label: {
         fontWeight: 'bold',
-        color: '#707070'
+        color: '#000000'
       }
     }
   }

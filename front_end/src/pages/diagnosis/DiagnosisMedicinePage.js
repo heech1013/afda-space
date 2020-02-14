@@ -2,7 +2,7 @@ import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
 import ContentTitleContainer from 'containers/content/ContentTitleContainer';
-import ContentListContainer from 'containers/content/ContentListContainer';
+// import ContentListContainer from 'containers/content/ContentListContainer';
 import MiniMenu from 'components/common/MiniMenu';
 import DiagnosisMedicineChart from 'components/content/DiagnosisMedicineChart';
 
