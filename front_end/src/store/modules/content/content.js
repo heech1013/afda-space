@@ -13,6 +13,9 @@ const GET_MEDICINE_LIST = 'content/GET_MEDICINE_LIST';
 const GET_CONTENT_SYMPTOM_LIST = 'content/GET_CONTENT_SYMPTOM_LIST';
 const GET_CONTENT_MEDICINE_LIST = 'content/GET_CONTENT_MEDICINE_LIST';
 const DELETE_CONTENT = 'content/DELETE_CONTENT';
+const GET_DIAGNOSIS_SUMMARY_CHART_DATA = 'content/GET_DIAGNOSIS_SUMMARY_CHART_DATA';
+const GET_DIAGNOSIS_MEDICINE_CHART_DATA = 'content/GET_DIAGNOSIS_MEDICINE_CHART_DATA';
+const GET_MEDICINE_SUMMARY_CHART_DATA = 'content/GET_MEDICINE_SUMMARY_CHART_DATA';
 
 /* action creators */
 export const getContent = createAction(GET_CONTENT, api.getContent);
@@ -22,7 +25,9 @@ export const getMedicineList = createAction(GET_MEDICINE_LIST, api.getMedicineLi
 export const getContentSymptomList = createAction(GET_CONTENT_SYMPTOM_LIST, api.getContentSymptomList);
 export const getContentMedicineList = createAction(GET_CONTENT_MEDICINE_LIST, api.getContentMedicineList);
 export const deleteContent = createAction(DELETE_CONTENT, api.deleteContent);
-
+export const getDiagnosisSummaryChartData = createAction(GET_DIAGNOSIS_SUMMARY_CHART_DATA, api.getDiagnosisSummaryChartData);
+export const getDiagnosisMedicineChartData = createAction(GET_DIAGNOSIS_MEDICINE_CHART_DATA, api.getDiagnosisMedicineChartData);
+export const getMedicineSummaryChartData = createAction(GET_MEDICINE_SUMMARY_CHART_DATA, api.getMedicineSummaryChartData);
 
 /* initial state */
 const initialState = Map({
@@ -31,7 +36,10 @@ const initialState = Map({
   symptomList: List(),
   medicineList: List(),
   contentSymptomList: List(),
-  contentMedicineList: List()
+  contentMedicineList: List(),
+  diagnosisSummaryChartData: Map(),
+  diagnosisMedicineChartData: Map(),
+  medicineSummaryChartData: Map(),
 });
 
 /* reducer */
@@ -76,6 +84,27 @@ export default handleActions({
     onSuccess: (state, action) => {
       const { contentMedicineList } = action.payload.data;
       return state.set('contentMedicineList', fromJS(contentMedicineList));
+    }
+  }),
+  ...pender({
+    type: GET_DIAGNOSIS_SUMMARY_CHART_DATA,
+    onSuccess: (state, action) => {
+      const { chartData } = action.payload.data;
+      return state.set('diagnosisSummaryChartData', fromJS(chartData));
+    }
+  }),
+  ...pender({
+    type: GET_DIAGNOSIS_MEDICINE_CHART_DATA,
+    onSuccess: (state, action) => {
+      const { chartData } = action.payload.data;
+      return state.set('diagnosisMedicineChartData', fromJS(chartData));
+    }
+  }),
+  ...pender({
+    type: GET_MEDICINE_SUMMARY_CHART_DATA,
+    onSuccess: (state, action) => {
+      const { chartData } = action.payload.data;
+      return state.set('medicineSummaryChartData', fromJS(chartData));
     }
   })
 }, initialState);
