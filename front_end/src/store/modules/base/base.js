@@ -43,11 +43,6 @@ const initialState =  Map({
     token: null,
     authId: null
   }),
-  joinForm: Map({
-    nick: '',
-    sex: 1,
-    age: 1
-  }),
   modal: Map({
     profileCardUpdate: false,
     profileDiagnosisAdd: false,
@@ -82,18 +77,6 @@ export default handleActions({
                   .set('auth', fromJS(auth));
     }
   }),
-  [CHANGE_NICK_INPUT]: (state, action) => {
-    const { payload: value } = action;
-    return state.setIn(['joinForm', 'nick'], value);
-  },
-  [CHANGE_AGE_INPUT]: (state, action) => {
-    const { payload: value } = action;
-    return state.setIn(['joinForm', 'age'], value);
-  },
-  [CHANGE_SEX_INPUT]: (state, action) => {
-    const { payload: value } = action;
-    return state.setIn(['joinForm', 'sex'], value);
-  },
   ...pender({
     type: CHECK_JWT,
     onSuccess: (state, action) => {

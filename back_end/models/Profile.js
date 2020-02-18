@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    age: {
-      type: DataTypes.INTEGER,
+    birthDate: {
+      type: DataTypes.DATE,
       allowNull: false
     },
     introduction: {
