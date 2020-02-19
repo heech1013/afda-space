@@ -6,6 +6,8 @@ const index = async (req, res, next) => {
      * the primary key of the included models must be excluded with 'attributes: []'.
      * the aggregation must be done on the main model.
      * https://stackoverflow.com/questions/28206680/using-group-by-and-joins-in-sequelize
+     * 
+     * eager loading is outer join - except for using 'where' in include(-> inner join)
      */
     const contentList = await Diagnosis.findAll({
       attributes: ['id', 'nameKr', 'nameEn', [Sequelize.fn("COUNT", Sequelize.col("RegisteredDiagnosisData.id")), "count"]],
