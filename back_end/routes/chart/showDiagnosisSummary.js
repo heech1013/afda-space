@@ -6,31 +6,27 @@ const showDiagnosisSummary = async (req, res, next) => {
 
     let chartData = {};
 
-    /** transaction */
     const { Op } = Sequelize;
 
-    /** eager loading
-     * the use of 'include' only when you are calling 'find' of 'findAll'
-     */
-    const val_1 = await Diagnosis.findAll({
-      where: { id: diagnosisId },
-      attributes: [
-        'nameKr',
-        [Sequelize.fn("COUNT", Sequelize.col("DiagnosisData.id")), "count"]
-      ],
-      include: [{
-        model: DiagnosisData,
-        attributes: []
-      }],
-      group: ['nameKr']
+    /** nameKr */
+    const val_1 = await Diagnosis.findOne({
+      attributes: ['nameKr'],
+      where: { id: diagnosisId }
     });
-    console.log(JSON.stringify(val_1));
 
-    chartData["nameKr"] = val_1[0].nameKr;
-    chartData["count"] = val_1[0].count;
-    console.log(chartData);
+    chartData["nameKr"] = val_1.nameKr;
 
-    // '0-19살', '20-29살', '30-30살', '40-49살', '50-59살', '60-69살', '70살 이상'
+    /** count */
+    const val_2 = await DiagnosisData.findAndCountAll({
+      attributes: ['id'],
+      where: { fkDiagnosisId: diagnosisId }
+    });
+
+    chartData["count"] = val_2.count;
+
+    /** ageArr
+     * '0-19살', '20-29살', '30-30살', '40-49살', '50-59살', '60-69살', '70살 이상'
+     */
     const currentYear = new Date().getFullYear();
     const birthYear19 = new Date(((currentYear + 1) - 19).toString());
     const birthYear29 = new Date(((currentYear + 1) - 29).toString());
@@ -39,7 +35,12 @@ const showDiagnosisSummary = async (req, res, next) => {
     const birthYear59 = new Date(((currentYear + 1) - 59).toString());
     const birthYear69 = new Date(((currentYear + 1) - 69).toString());
 
-    const val_2_1 = await DiagnosisData.findAndCountAll({
+    chartData["ageArr"] = [];
+
+    /** eager loading
+     * the use of 'include' only when you are calling 'find' of 'findAll' (근데 findAndCountAll도 되네.)
+     */
+    const val_3_1 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
       where: { fkDiagnosisId: diagnosisId },
       include: [{
@@ -55,12 +56,10 @@ const showDiagnosisSummary = async (req, res, next) => {
         }]
       }]
     });
-     
-    chartData["ageArr"] = [];
-    chartData["ageArr"].push(val_2_1.count);
-    console.log(chartData);
 
-    const val_2_2 = await DiagnosisData.findAndCountAll({
+    chartData["ageArr"].push(val_3_1.count);
+
+    const val_3_2 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
       where: { fkDiagnosisId: diagnosisId },
       include: [{
@@ -78,10 +77,9 @@ const showDiagnosisSummary = async (req, res, next) => {
       }]
     });
      
-    chartData["ageArr"].push(val_2_2.count);
-    console.log(chartData);
+    chartData["ageArr"].push(val_3_2.count);
 
-    const val_2_3 = await DiagnosisData.findAndCountAll({
+    const val_3_3 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
       where: { fkDiagnosisId: diagnosisId },
       include: [{
@@ -99,10 +97,9 @@ const showDiagnosisSummary = async (req, res, next) => {
       }]
     });
      
-    chartData["ageArr"].push(val_2_3.count);
-    console.log(chartData);
+    chartData["ageArr"].push(val_3_3.count);
 
-    const val_2_4 = await DiagnosisData.findAndCountAll({
+    const val_3_4 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
       where: { fkDiagnosisId: diagnosisId },
       include: [{
@@ -120,10 +117,9 @@ const showDiagnosisSummary = async (req, res, next) => {
       }]
     });
 
-    chartData["ageArr"].push(val_2_4.count);
-    console.log(chartData);
+    chartData["ageArr"].push(val_3_4.count);
 
-    const val_2_5 = await DiagnosisData.findAndCountAll({
+    const val_3_5 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
       where: { fkDiagnosisId: diagnosisId },
       include: [{
@@ -141,10 +137,9 @@ const showDiagnosisSummary = async (req, res, next) => {
       }]
     });
      
-    chartData["ageArr"].push(val_2_5.count);
-    console.log(chartData);
+    chartData["ageArr"].push(val_3_5.count);
 
-    const val_2_6 = await DiagnosisData.findAndCountAll({
+    const val_3_6 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
       where: { fkDiagnosisId: diagnosisId },
       include: [{
@@ -161,8 +156,70 @@ const showDiagnosisSummary = async (req, res, next) => {
       }]
     });
      
-    chartData["ageArr"].push(val_2_6.count);
-    console.log(chartData);
+    chartData["ageArr"].push(val_3_6.count);
+
+    // ageAtFirstSymptomArr - 생략. 어떻게 해야 할 지 감도 안온다.
+
+    /** menVal */
+    const val_4_1 = await DiagnosisData.findAndCountAll({
+      attributes: ['id'],
+      where: { fkDiagnosisId: diagnosisId },
+      include: [{
+        model: User,
+        attributes: ['id'],
+        required: true,  // inner join
+        include: [{
+          model: Profile,
+          attributes: ['id'],
+          where: { sex: 1 }
+        }]
+      }]
+    })
+    
+    chartData["menVal"] = val_4_1.count
+
+    /** womenVal */
+    const val_4_2 = await DiagnosisData.findAndCountAll({
+      attributes: ['id'],
+      where: { fkDiagnosisId: diagnosisId },
+      include: [{
+        model: User,
+        attributes: ['id'],
+        required: true,  // inner join
+        include: [{
+          model: Profile,
+          attributes: ['id'],
+          where: { sex: 2 }
+        }]
+      }]
+    })
+
+    chartData["womenVal"] = val_4_2.count;
+
+    /** diagnosedVal */
+    const val_5_1 = await DiagnosisData.findAndCountAll({
+      attributes: ['id'],
+      where: {
+        fkDiagnosisId: diagnosisId,
+        [Op.or]: [
+          { firstDiagnosedYear: {[Op.ne]: null}},  // firstDiagnosedYear가 null이 아니거나
+          { firstDiagnosedUnknown: {[Op.ne]: null}},  // firstDiagnosedUnknown((진단은 받았지만 진단 받은 날짜를)잘 모르겠습니다)가 null이 아니거나
+        ]
+      }
+    })
+
+    chartData["diagnosedVal"] = val_5_1.count;
+
+    /** undiagnosedVal */
+    const val_5_2 = await DiagnosisData.findAndCountAll({
+      attributes: ['id'],
+      where: {
+        fkDiagnosisId: diagnosisId,
+        firstDiagnosedUnaware: {[Op.ne]: null}  // firstDiagnosedUnaware(진단을 받은 적은 없지만 가지고 있는 것 같습니다)가 null이 아닌 경우
+      }
+    })
+    
+    chartData["undiagnosedVal"] = val_5_2.count;
 
     return res.status(200).json({ chartData });
   } catch (e) {
@@ -174,11 +231,11 @@ module.exports = showDiagnosisSummary;
 
 /** chartData = 
 {
-  nameKr,  // Diagnosis.nameKr
-  count,  // Diagnosis(where: diagnosisId) -> count(DiagnosisData)
-  ageArr,  // Diagnosis -> DiagnosisData -> User -> Profile.birthDate
-  ageAtFirstSymptomArr,  // Diagnosis -> DiagnosisData.firstNoticeYear & Profile.birthDate
-  menVal, womenVal,  // Diagnosis -> DiagnosisData -> User -> Profile.sex
-  diagnosedVal, undiagnosedVal  // Diagnosis -> DiagnosisData.diagnosedSomething..
+  nameKr,
+  count,
+  ageArr,
+  ageAtFirstSymptomArr,
+  menVal, womenVal,
+  diagnosedVal, undiagnosedVal
 }
  */
