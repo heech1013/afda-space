@@ -9,14 +9,13 @@ const index = async (req, res, next) => {
      * https://stackoverflow.com/questions/28206680/using-group-by-and-joins-in-sequelize
      */
     const contentList = await Medicine.findAll({
-        attributes: ['id', 'nameKr', 'nameEn', [Sequelize.fn("COUNT", Sequelize.col("RegisteredMedicineData.id")), "count"]],
+        attributes: ['id', 'nameKr', 'nameEn', [Sequelize.fn("COUNT", Sequelize.col("medicineData.id")), "count"]],
         include: [{
           model: MedicineData,
-          as: "RegisteredMedicineData",
           attributes: [],
         }],
         group: ['id', 'nameKr', 'nameEn'],
-        order: [[Sequelize.fn("COUNT", Sequelize.col("RegisteredMedicineData.id")), 'DESC']]
+        order: [[Sequelize.fn("COUNT", Sequelize.col("medicineData.id")), 'DESC']]
       });
 
     return res.status(200).json({ contentList });

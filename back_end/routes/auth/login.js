@@ -6,7 +6,7 @@ const { User, Profile } = require('../../models');
 const login = async (req, res, next) => {
   const { id : authId } = req.body;
   try {
-    const user = await User.findOne({ where: { authId }, include: [{ model: Profile, as: 'Profile', attributes: ['nick'] }]});
+    const user = await User.findOne({ where: { authId }, include: [{ model: Profile, attributes: ['nick'] }]});
     /* 회원가입이 되어 있지 않을 경우 */
     if (!user) res.status(200).json({ logged: false, auth: { authId, token: null }});
     /* 회원가입이 되어 있는 사용자일 경우 */
@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
         {
           id: user.id,
           userType: user.userType,
-          nick: user.Profile.nick
+          nick: user.profile.nick
         },
         process.env.JWT_SECRET,
         {

@@ -22,16 +22,15 @@ const symptomIndex = async (req, res, next) => {
     const userIdArr = await userIdArrMaker(diagnosedUserList);  
 
     const contentSymptomList = await Symptom.findAll({
-      attributes: ['id', 'nameKr', [Sequelize.fn("COUNT", Sequelize.col("RegisteredSymptomData.id")), "count"]],
+      attributes: ['id', 'nameKr', [Sequelize.fn("COUNT", Sequelize.col("symptomData.id")), "count"]],
       include: [{
         model: SymptomData,
-        as: "RegisteredSymptomData",
         attributes: [],
         where: { 'fkUserId': { [Sequelize.Op.in]: userIdArr }},
         required: false
       }],
       group: ['id', 'nameKr'],
-      order: [[Sequelize.fn("COUNT", Sequelize.col("RegisteredSymptomData.id")), "DESC"]]
+      order: [[Sequelize.fn("COUNT", Sequelize.col("symptomData.id")), "DESC"]]
     });
     
     return res.status(200).json({ contentSymptomList });

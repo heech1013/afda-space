@@ -48,9 +48,9 @@ const create = async (req, res, next) => {
       switchRadio, switchTo,
       dosageDifferRadio, firstTakingYear, firstTakingMonth, firstTakingDay, initialDosageCount, initialDosageMg, initialDosageFrequency,
       stopTakingYear, stopTakingMonth, stopTakingDay,
-      ReasonOfStop: { noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other, reasonText }
+      reasonOfStop: { noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other, reasonText }
     }, {
-      include: [{ model: ReasonOfStop, as: 'ReasonOfStop'}]
+      include: [{ model: ReasonOfStop }]
     });
 
     return res.json({ success: true });

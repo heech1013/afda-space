@@ -6,24 +6,24 @@ const index = async (req, res, next) => {
     const uncleanedMedicineData = await User.findOne({
       attributes: ['id'], where: { id },
       include: [{
-        model: MedicineData, as: 'RegisteringMedicineData', attributes: ['id'],
+        model: MedicineData, attributes: ['id'],
         include: [{
-            model: Medicine, as: 'RegisteredMedicineData', attributes: ['id', 'nameKr'],
+            model: Medicine, attributes: ['id', 'nameKr'],
             include: [
               {
-                model: MedicinePurposeData, as: 'RegisteredMedicinePurposeData', attributes: ['id', 'perceivedEffectiveness'],
+                model: MedicinePurposeData, attributes: ['id', 'perceivedEffectiveness'],
                 include: [
-                  { model: Diagnosis, as: 'UsedMedicineForDiagnosis', attributes: ['nameKr']},
-                  { model: Symptom, as: 'UsedMedicineForSymptom', attributes: ['nameKr']},
+                  { model: Diagnosis, attributes: ['nameKr']},
+                  { model: Symptom, attributes: ['nameKr']},
                 ]
               },
-              { model: MedicineEvaluationData, as: 'RegisteredMedicineEvaluationData', attributes: ['sideEffects', 'fkMedicineId']},
+              { model: MedicineEvaluationData, attributes: ['sideEffects', 'fkMedicineId']},
               {
-                model: MedicineSideEffectsData, as: 'RegisteredMedicineSideEffectsData', attributes: ['id'],
-                include: [{ model: Symptom, as: 'SymptomOfSideEffects', attributes: ['nameKr']}]
+                model: MedicineSideEffectsData, attributes: ['id'],
+                include: [{ model: Symptom, attributes: ['nameKr']}]
               },
               {
-                model: MedicineDosageData, as: 'RegisteredMedicineDosageData', attributes: [
+                model: MedicineDosageData, attributes: [
                   'id',
                   'takingStatus',
                   'recentTakingYear', 'recentTakingMonth', 'recentTakingDay', 'dosageCount', 'dosageMg', 'dosageFrequency', 'additionalDosage',
@@ -35,10 +35,10 @@ const index = async (req, res, next) => {
       }]
     });
 
-    const contents = uncleanedMedicineData.RegisteringMedicineData.map((obj) => {
+    const contents = uncleanedMedicineData.medicineData.map((obj) => {
       const { id } = obj;
-      const contentId = obj.RegisteredMedicineData.id;  // medicineId
-      const medicineName = obj.RegisteredMedicineData.nameKr;  // 이름 혹은 null
+      const contentId = obj.medicine.id;  // medicineId
+      const medicineName = obj.medicine.nameKr;  // 이름 혹은 null
 
       /** 하나의 처방약이 여러 개의 처방 목적을 가질 수 있다. 따라서 DB 설계 상 MedicineData:MedicinePurposeData = 1:N
        * 그러나 mvp 기능상 하나의 처방 목적만 등록할 수 있도록 되어 있다. 그래서 데이터를 첫 번째 원소([0])로 특정한다.
@@ -48,14 +48,14 @@ const index = async (req, res, next) => {
       let purposeId = '';
       let purposeOfPrescription = '';
       let perceivedEffect = '';
-      if (obj.RegisteredMedicineData.RegisteredMedicinePurposeData.length) {
-        purposeData = obj.RegisteredMedicineData.RegisteredMedicinePurposeData[0];
+      if (obj.medicine.medicinePurposeData.length) {
+        purposeData = obj.medicine.medicinePurposeData[0];
         purposeId = purposeData.id;
-        purposeOfPrescription = purposeData.UsedMedicineForDiagnosis ?
-          purposeData.UsedMedicineForDiagnosis.nameKr
+        purposeOfPrescription = purposeData.diagnosis ?
+          purposeData.diagnosis.nameKr
           :
-          purposeData.UsedMedicineForSymptom ?
-            purposeData.UsedMedicineForSymptom.nameKr
+          purposeData.symptom ?
+            purposeData.symptom.nameKr
             :
             '-';
 
@@ -79,8 +79,8 @@ const index = async (req, res, next) => {
        * DB 설계 상 Medicine:MedicineEvaluationData = 1:N
        * 그러나 mvp 기능 상 하나의 처방 목적만 등록할 수 있게 제한함에 따라, 평가 역시 하나만 등록이 된다. 데이터를 배열의 첫 번째 원소([0])만 조회한다.
       */
-      if (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData.length) {
-        switch (obj.RegisteredMedicineData.RegisteredMedicineEvaluationData[0].sideEffects) {
+      if (obj.medicine.medicineEvaluationData.length) {
+        switch (obj.medicine.medicineEvaluationData[0].sideEffects) {
           case 1: degreeOfSideEffect = '없다'; break;
           case 2: degreeOfSideEffect = '약간'; break;
           case 3: degreeOfSideEffect = '중간'; break;
@@ -89,8 +89,8 @@ const index = async (req, res, next) => {
         }
       } else degreeOfSideEffect = '-';
       
-      const symptomOfSideEffect = obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData.length ? 
-        obj.RegisteredMedicineData.RegisteredMedicineSideEffectsData[0].SymptomOfSideEffects.nameKr + ' 등'
+      const symptomOfSideEffect = obj.medicine.medicineSideEffectsData.length ? 
+        obj.medicine.medicineSideEffectsData[0].symptom.nameKr + ' 등'
         :
         '-';
 
@@ -101,13 +101,13 @@ const index = async (req, res, next) => {
           sequelize의 findOne 조건문을 통해 한 명의 사용자, 한 명의 medicine으로 조건을 제한하기 때문인 것도 있다.
          * 배열 길이를 통해 데이터 등록 유무를 판단한다.
          */
-        if (obj.RegisteredMedicineData.RegisteredMedicineDosageData.length) {  // MedicineDosageData를 등록한 경우(용량 추가하기를 마친 경우)
+        if (obj.medicine.medicineDosageData.length) {  // MedicineDosageData를 등록한 경우(용량 추가하기를 마친 경우)
           let {
             id,
             takingStatus,
             recentTakingYear, recentTakingMonth, recentTakingDay, dosageCount, dosageMg, dosageFrequency, additionalDosage,
             stopTakingYear, stopTakingMonth, stopTakingDay
-          } = obj.RegisteredMedicineData.RegisteredMedicineDosageData[0];
+          } = obj.medicine.medicineDosageData[0];
           switch (dosageFrequency) {
             case 1: dosageFrequency = '매일'; break; case 2: dosageFrequency = '매일 2회씩'; break; case 3: dosageFrequency = '매일 3회씩'; break; case 4: dosageFrequency = '매일 4회씩'; break; case 5: dosageFrequency = '매일 5회씩'; break;
             case 6: dosageFrequency = '이틀에 1회씩'; break; case 7: dosageFrequency = '매주'; break; case 8: dosageFrequency = '2주에 1회씩'; break; case 9: dosageFrequency = '3주에 1회씩'; break; case 10: dosageFrequency = '매월'; break;

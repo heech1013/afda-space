@@ -10,14 +10,13 @@ const index = async (req, res, next) => {
      * eager loading is outer join - except for using 'where' in include(-> inner join)
      */
     const contentList = await Diagnosis.findAll({
-      attributes: ['id', 'nameKr', 'nameEn', [Sequelize.fn("COUNT", Sequelize.col("RegisteredDiagnosisData.id")), "count"]],
+      attributes: ['id', 'nameKr', 'nameEn', [Sequelize.fn("COUNT", Sequelize.col("diagnosisData.id")), "count"]],
       include: [{
         model: DiagnosisData,
-        as: "RegisteredDiagnosisData",
         attributes: []
       }],
       group: ['id', 'nameKr', 'nameEn'],
-      order: [[Sequelize.fn("COUNT", Sequelize.col("RegisteredDiagnosisData.id")), 'DESC']]
+      order: [[Sequelize.fn("COUNT", Sequelize.col("diagnosisData.id")), 'DESC']]
     })
 
     return res.status(200).json({ contentList });

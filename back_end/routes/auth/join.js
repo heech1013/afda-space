@@ -10,12 +10,12 @@ const join = async (req, res, next) => {
     const existingNick = await Profile.findAll({ where: { nick }});
     if (existingNick.length) next(CustomError("BadRequest", "이미 존재하는 닉네임입니다."));
     else {
-      const user = await User.create({ authId, userType: 'patient', provider: 'kakao', Profile: { nick, sex, age }}, { include: [{ model: Profile, as: 'Profile' }]});
+      const user = await User.create({ authId, userType: 'patient', provider: 'kakao', Profile: { nick, sex, age }}, { include: [{ model: Profile }]});
       const token = jwt.sign(  // Synchronously sign
         {
           id: user.id,
           userType: user.userType,
-          nick: user.Profile.nick
+          nick: user.profile.nick
         },
         process.env.JWT_SECRET,
         {

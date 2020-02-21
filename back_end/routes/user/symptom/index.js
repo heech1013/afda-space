@@ -6,15 +6,15 @@ const index = async (req, res, next) => {
     const a = await User.findOne({
       attributes: ['id'], where: { id },
       include: [{
-        model: SymptomData, as: 'RegisteringSymptomData', attributes: ['id'],
-        include: [{ model: Symptom, as: 'RegisteredSymptomData', attributes: ['nameKr']}]
+        model: SymptomData, attributes: ['id'],
+        include: [{ model: Symptom, attributes: ['nameKr']}]
       }]
     });
 
-    const contents = a.RegisteringSymptomData.map((obj) => {
+    const contents = a.symptomData.map((obj) => {
       return {
         id: obj.id,
-        symptomName: obj.RegisteredSymptomData.nameKr
+        symptomName: obj.symptom.nameKr
       }
     });
 
