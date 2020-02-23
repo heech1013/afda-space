@@ -2,11 +2,11 @@ module.exports = (sequelize, DataTypes) => {
   const Medicine = sequelize.define('medicine', {
     nameKr: {
       type: DataTypes.STRING(30),
-      allowNull: false
+      allowNull: true
     },
     nameEn: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     description: {
       type: DataTypes.TEXT,
