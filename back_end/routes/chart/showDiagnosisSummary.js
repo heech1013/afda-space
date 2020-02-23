@@ -2,7 +2,7 @@ const { Sequelize, Diagnosis, DiagnosisData, User, Profile } = require('../../mo
 
 const showDiagnosisSummary = async (req, res, next) => {
   try {
-    const { diagnosisId } = req.body;
+    const { diagnosisId } = req.query;
 
     let chartData = {};
 

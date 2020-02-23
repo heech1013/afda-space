@@ -9,7 +9,7 @@ import TuiChart from 'tui-chart';
 const cx = classNames.bind(styles);
 
 const DiagnosisSummaryChart = ({chartData}) => {
-  const { nameKr, count, ageArr, menVal, womenVal, diagnosedVal, undiagnosedVal } = chartData;
+  const { nameKr, count, ageArr, menVal, womenVal, diagnosedVal, undiagnosedVal } = chartData.toJS();
 
   /** 나이 */
   const ageData = {
@@ -92,7 +92,8 @@ const DiagnosisSummaryChart = ({chartData}) => {
     <div className={cx('frame')}>
       <div className={cx('main-title')}>아프다 스페이스에서 {nameKr}을(를) 가진 사람들은 어떤 사람들일까요?</div>
       <div className={cx('explanation')}>
-        <span className={cx('count')}>{count}</span>명의 사람들이 {nameKr}을(를) 가지고 있습니다.</div>
+        <span className={cx('count')}>{count}</span>명의 사람들이 {nameKr}을(를) 가지고 있습니다.
+      </div>
       <hr className={cx('hr')}/>
 
       <div className={cx('title')}>나이</div>

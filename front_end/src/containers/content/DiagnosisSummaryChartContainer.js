@@ -15,7 +15,8 @@ class DiagnosisSummaryChartContainer extends Component {
   }
 
   render () {
-    const { chartData } = this.props;
+    const { loading, chartData } = this.props;
+    if (loading) return null;
     return (
       <DiagnosisSummaryChart
         chartData={chartData}
@@ -26,6 +27,7 @@ class DiagnosisSummaryChartContainer extends Component {
 
 export default connect(
   (state) => ({
+    loading: state.pender.pending['content/GET_DIAGNOSIS_SUMMARY_CHART_DATA'],
     chartData: state.content.get('diagnosisSummaryChartData')
   }),
   (dispatch) => ({
