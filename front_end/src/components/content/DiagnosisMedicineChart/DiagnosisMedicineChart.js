@@ -9,7 +9,6 @@ import TuiChart from 'tui-chart';
 const cx = classNames.bind(styles);
 
 const DiagnosisMedicineChart = ({chartData}) => {
-  console.log(chartData);
   const { nameKr, medicineArr, effectMajorArr, effectModerateArr, effectSlightArr, effectNoneArr, effectCanNotTellArr, sideEffectSevereArr, sideEffectModerateArr, sideEffectMildArr, sideEffectNoneArr } = chartData.toJS();
   const data = {
     categories: medicineArr,  // 상위 10개 항목: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']

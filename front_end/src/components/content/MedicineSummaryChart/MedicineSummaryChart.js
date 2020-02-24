@@ -8,59 +8,25 @@ import TuiChart from 'tui-chart';
 
 const cx = classNames.bind(styles);
 
-const MedicineSummaryChart = ({nameKr}) => {
-  const purposeData = {  // 정확히는, purpose & perceived effectiveness data
-    categories: ['A', 'B', 'C', 'D', 'E'],
+const MedicineSummaryChart = ({chartData}) => {
+  const {} = chartData;
+
+  const purposeData = {  // purpose & perceived effectiveness data
+    categories: purposeArr,  // ex: ['A', 'B', 'C', 'D', 'E']
     series: [
-      {
-        name: '크다',
-        data: [12, 64, 34, 52, 8]
-      },
-      {
-        name: '보통',
-        data: [34,63,23,12,54]
-      },
-      {
-        name: '약간 있다',
-        data: [16,35,86,46,8]
-      },
-      {
-        name: '없다',
-        data: [4,35,2,76,3]
-      },
-      {
-        name: '모르겠다',
-        data: [1,5,7,4,12]
-      },
+      { name: '크다',      data: effectMajorArr },  // ex: [12, 64, 34, 52, 8]
+      { name: '보통',      data: effectModerateArr },  // ex: [34,63,23,12,54]
+      { name: '약간 있다', data: effectSlightArr },  // ex: [16,35,86,46,8]
+      { name: '없다',      data: effectNoneArr },  // ex: [4,35,2,76,3]
+      { name: '모르겠다',  data: effectCanNotTellArr },  // ex: [1,5,7,4,12]
     ]
   };
   const purposeOptions = {
-    chart: {
-      width: 1000,
-      height: 300,
-    },
-    yAxis: {
-      // title: '나이'
-    },
-    xAxis: {
-        // title: '사람 수',
-        // min: 0,
-        // max: 10000,
-        suffix: '명'
-    },
-    series: {
-      stackType: 'normal',
-      showLabel: true,
-      // allowSelect: true
-    },
-    legend: {
-      // align: 'right'
-      // visible: false,
-      showCheckbox: false
-    },
-    chartExportMenu: {
-      visible: false
-    },
+    chart: { width: 1000, height: 300 },
+    xAxis: { suffix: '명' },
+    series: { stackType: 'normal', showLabel: true },
+    legend: { showCheckbox: false },
+    chartExportMenu: { visible: false },
     theme: 'purposeTheme'
   }
   const purposeTheme = {
@@ -73,37 +39,15 @@ const MedicineSummaryChart = ({nameKr}) => {
   const sideEffectData = {
     categories: ['심각하다', '보통', '약간 있다', '없다'],
     series: [
-      {
-        name: '평가 수',
-        data: [12, 64, 32, 25]
-      }
+      { name: '평가 수', data: sideEffectArr }  // ex: [12, 64, 32, 25]
     ]
   };
   const sideEffectOptions = {
-    chart: {
-      width: 1000,
-      height: 200,
-    },
-    yAxis: {
-      // title: '나이'
-    },
-    xAxis: {
-        // title: '사람 수',
-        // min: 0,
-        // max: 10000,
-        suffix: '명'
-    },
-    series: {
-      showLabel: true,
-    },
-    legend: {
-      // align: 'right'
-      visible: false,
-      // showCheckbox: false
-    },
-    chartExportMenu: {
-      visible: false
-    },
+    chart: { width: 1000, height: 200 },
+    xAxis: { suffix: '명' },
+    series: { showLabel: true },
+    legend: { visible: false },
+    chartExportMenu: { visible: false },
     theme: 'sideEffectTheme'
   }
   const sideEffectTheme = {
@@ -114,87 +58,34 @@ const MedicineSummaryChart = ({nameKr}) => {
   TuiChart.registerTheme('sideEffectTheme', sideEffectTheme);
 
   const sideEffectRankData = {
-    categories: ['A', 'B', 'C', 'D', 'E'],
-    series: [
-      {
-        name: '평가 수',
-        data: [93, 83, 62, 45, 23]
-      }
-    ]
+    categories: sideEffectRankArr,  // ex: ['A', 'B', 'C', 'D', 'E']
+    series: [{ name: '평가 수', data: sideEffectRankCountArr }]  // ex: [93, 83, 62, 45, 23]
   };
   const sideEffectRankOptions = {
-    chart: {
-      width: 1000,
-      height: 300,
-    },
-    yAxis: {
-      // title: '나이'
-    },
-    xAxis: {
-        // title: '사람 수',
-        // min: 0,
-        // max: 10000,
-        suffix: '명'
-    },
-    series: {
-      showLabel: true,
-    },
-    legend: {
-      // align: 'right'
-      visible: false,
-      // showCheckbox: false
-    },
-    chartExportMenu: {
-      visible: false
-    },
+    chart: { width: 1000, height: 300 },
+    xAxis: { suffix: '명' },
+    series: { showLabel: true },
+    legend: { visible: false },
+    chartExportMenu: { visible: false },
     theme: 'barTheme'
   }
 
   const dosageData = {
-    categories: ['A', 'B', 'C', 'D', 'E'],
-    series: [
-      {
-        name: '사람 수',
-        data: [93, 83, 62, 45, 23]
-      }
-    ]
+    categories: dosageArr,  // ex: ['A', 'B', 'C', 'D', 'E']
+    series: [{ name: '사람 수', data: dosageCountArr }]
   };
   const dosageOptions = {
-    chart: {
-      width: 1000,
-      height: 300,
-    },
-    yAxis: {
-      // title: '나이'
-    },
-    xAxis: {
-        // title: '사람 수',
-        // min: 0,
-        // max: 10000,
-        suffix: '명'
-    },
-    series: {
-      showLabel: true,
-    },
-    legend: {
-      // align: 'right'
-      visible: false,
-      // showCheckbox: false
-    },
-    chartExportMenu: {
-      visible: false
-    },
+    chart: { width: 1000, height: 300 },
+    xAxis: { suffix: '명' },
+    series: { showLabel: true },
+    legend: { visible: false },
+    chartExportMenu: { visible: false },
     theme: 'barTheme'
   }
 
   const reasonOfStopData = {
     categories: ['효과가 없는 것 같아서', '가격이 비싸서', '개인적인 판단 하에', '전문가의 권유로', '부작용이 너무 심해서', '치료 과정이 모두 마무리 되어서', '기타'],
-    series: [
-      {
-        name: '사람 수',
-        data: [93, 83, 62, 45, 23, 12, 6]
-      }
-    ]
+    series: [{ name: '사람 수', data: reasonOfStopArr }] // ex: [93, 83, 62, 45, 23, 12, 6]
   };
 
   const reasonOfStopOptions = {
