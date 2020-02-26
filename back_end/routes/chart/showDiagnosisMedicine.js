@@ -79,7 +79,7 @@ const showDiagnosisMedicine = async (req, res, next) => {
         countVal = await MedicineEvaluationData.count({ where: {'fkMedicineId': id, 'sideEffects': 2 }});
         chartData["sideEffectNoneArr"].push(countVal);
       }
-      return res.status(200).json({ chartData });
+      return res.status(200).json({ chartData });  // 밖으로 빼고 싶으면 showMedicineSummary.js 참고
     })();
   } catch (e) {
     next(e);
@@ -87,47 +87,3 @@ const showDiagnosisMedicine = async (req, res, next) => {
 }
 
 module.exports = showDiagnosisMedicine;
-
-
-/** chartData = 
-{
-  nameKr,
-  medicineArr,
-  effectMajorArr,
-  effectModerateArr,
-  effectSlightArr,
-  effectNoneArr,
-  effectCanNotTellArr,
-  sideEffectSevereArr,
-  sideEffectModerateArr,
-  sideEffectMildArr,
-  sideEffectNoneArr
-} */
-
-// SELECT `medicine`.`id`, `medicine`.`nameKr`, COUNT(`medicinePurposeData`.`id`) AS `count`
-// FROM `medicines` AS `medicine` INNER JOIN `medicinePurposeData` AS `medicinePurposeData`
-//   ON `medicine`.`id` = `medicinePurposeData`.`fkMedicineId`
-//     AND `medicinePurposeData`.`fkDiagnosisId` = '1'
-// GROUP BY `nameKr` 
-// ORDER BY COUNT(`medicinePurposeData`.`id`) DESC;
-
-// SELECT `medicine`.*
-// FROM (
-//   SELECT `medicine`.`id`, `medicine`.`nameKr`, COUNT(`medicinePurposeData`.`id`) AS `count` 
-//   FROM `medicines` AS `medicine`
-//   WHERE (
-//     SELECT `fkMedicineId`
-//     FROM `medicinePurposeData` AS `medicinePurposeData`
-//     WHERE (
-//       `medicinePurposeData`.`fkDiagnosisId` = \'1\'
-//         AND `medicinePurposeData`.`fkMedicineId` = `medicine`.`id`
-//     ) 
-//     LIMIT 1
-//   ) IS NOT NULL
-//   GROUP BY `nameKr`
-//   ORDER BY COUNT(`medicinePurposeData`.`id`) DESC
-//   LIMIT 10
-// ) AS `medicine` INNER JOIN `medicinePurposeData` AS `medicinePurposeData`
-//   ON `medicine`.`id` = `medicinePurposeData`.`fkMedicineId`
-//     AND `medicinePurposeData`.`fkDiagnosisId` = \'1\'
-// ORDER BY COUNT(`medicinePurposeData`.`id`) DESC;

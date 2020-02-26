@@ -109,6 +109,9 @@ db.MedicineDosageData.belongsTo(db.User, { foreignKey: 'fkUserId' });
 /** ReasonOfStop:MedicineDosageData = 1:1 */
 db.MedicineDosageData.hasOne(db.ReasonOfStop, { foreignKey: 'fkMedicineDosageDataId'});
 db.ReasonOfStop.belongsTo(db.MedicineDosageData, { foreignKey: 'fkMedicineDosageDataId'});
+/** ReasonOfStop:Medicine = 1:1 */
+db.Medicine.hasOne(db.ReasonOfStop, { foreignKey: 'fkMedicineId'});
+db.ReasonOfStop.belongsTo(db.Medicine, { foreignKey: 'fkMedicineId'});
 
 /* Medicine:MedicinePurposeData = 1:N */
 /** 하나의 처방약이 여러 개의 진단명/증상에 대해 처방될 수 있는 것이 최종 설계이지만 mvp에서는 기능상 처방 목적을 하나만 등록할 수 있다.
