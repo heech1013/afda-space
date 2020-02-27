@@ -1,14 +1,16 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import ContentTitle from 'components/content/ContentTitle';
+// import ContentTitle from 'components/content/ContentTitle';
 import MiniMenu from 'components/common/MiniMenu';
-import PostList from 'components/post/PostList';
+// import PostList from 'components/post/PostList';
+import CloseNotice from 'components/common/CloseNotice';
 
 const MedicineNewspeedPage = () => {
   return (
     <PageTemplate>
-      <ContentTitle
+      <CloseNotice/>
+      {/* <ContentTitle
         nameKr={"부프로피온"}
         nameEn={"Bupropion"}
         onClick={() => console.log('addToMyProfile')}
@@ -64,7 +66,7 @@ const MedicineNewspeedPage = () => {
           ]
           }
         ]
-      }/>
+      }/> */}
       <MiniMenu buttonArr={["개요","뉴스피드"]}/>
     </PageTemplate>
 

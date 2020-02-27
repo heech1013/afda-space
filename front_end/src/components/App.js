@@ -4,10 +4,8 @@ import {
   // NewsPeedPage,
   LoginPage, JoinPage,
   ProfilePage, ProfileDiagnosisPage, ProfileSymptomPage, ProfileMedicinePage,
-  DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, 
-  // DiagnosisNewsPeedPage,
-  MedicinePage, MedicineSummaryPage, 
-  // MedicineNewspeedPage,
+  DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
+  MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
   // CenterPage, CenterPostPage,
   // StationPage, StationPostPage,
   ClosedPage
@@ -32,13 +30,11 @@ const App = () => {
         <Route exact path="/diagnosis/:id/summary" component={DiagnosisSummaryPage}/>
         <Route exact path="/diagnosis/:id/symptom" component={DiagnosisSymptomPage}/>
         <Route exact path="/diagnosis/:id/medicine" component={DiagnosisMedicinePage}/>
-        {/* <Route exact path="/diagnosis/:id/newspeed" component={DiagnosisNewsPeedPage}/> */}
-        {/** Closed pages... */} <Route exact path="/diagnosis/:id/newspeed" component={ClosedPage}/>
+        {/** closed */} <Route exact path="/diagnosis/:id/newspeed" component={DiagnosisNewsPeedPage}/>
         
         <Route exact path="/medicine" component={MedicinePage}/>
         <Route exact path="/medicine/:id/summary" component={MedicineSummaryPage}/>
-        {/* <Route exact path="/medicine/:id/newspeed" component={MedicineNewspeedPage}/> */}
-        {/** Closed pages... */} <Route exact path="/medicine/:id/newspeed" component={ClosedPage}/>
+        {/** closed */} <Route exact path="/medicine/:id/newspeed" component={MedicineNewspeedPage}/>
         
         {/* <Route exact path="/center" component={CenterPage}/>
         <Route exact path="/center/:id" component={CenterPostPage}/> */}
