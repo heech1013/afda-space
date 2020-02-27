@@ -12,7 +12,7 @@ const Header = ({logged, id, onLogout}) => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
-        <img className={cx('brand')} src={logo} alt='아프다 스페이스' height='60' width='154.02'/> {/* height : width = 1 : 2.567 */}
+        <img className={cx('brand')} src={logo} alt='아프다 스페이스' height='40' width='212'/> {/** 1 : 5.3 */}
       </Link>
       <div className={cx('menu')}>
         <Button theme={'menu'} to='/'>뉴스피드</Button>
@@ -29,7 +29,7 @@ const Header = ({logged, id, onLogout}) => (
         :
         <div className={cx('auth')}>
           <Button to='/login'>로그인</Button>
-          <Button to='/join'>회원가입</Button>
+          {/* <Button to='/join'>회원가입</Button> */}
         </div>
       }
       

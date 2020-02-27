@@ -23,3 +23,5 @@ export { default as CenterPostPage } from './center/CenterPostPage';
 
 export { default as StationPage } from './station/StationPage';
 export { default as StationPostPage } from './station/StationPostPage';
+
+export { default as ClosedPage } from './ClosedPage';

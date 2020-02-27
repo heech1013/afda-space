@@ -5,8 +5,7 @@
   text-align: center;
 
   .header-content {
-    height: 4.7rem;
-    // width: 1765px;
+    height: 4rem;
     margin: 0 auto;  // 가운데 정렬
     padding-top: 0.5rem;
     padding-left: 5rem;
@@ -17,12 +16,12 @@
     align-items: center;
 
     .brand {
-
+      margin-top: 0.9rem;
     }
 
     .menu {
       margin: 0 auto;
-      margin-top: 0.7rem;
+      margin-top: 0.4rem;
     }
     
     .auth {
