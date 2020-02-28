@@ -1,4 +1,3 @@
-import Kakao from 'kakaojs';
 import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 import styles from './KakaoLogin.scss';
@@ -6,8 +5,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import * as baseActions from 'store/modules/base/base';
+import dotenv from 'dotenv';
 
 const cx = classNames.bind(styles);
+dotenv.config();
 
 class KakaoLogin extends Component {
 
@@ -27,12 +28,13 @@ class KakaoLogin extends Component {
   
   componentDidMount() {
     const { history } = this.props;
-    Kakao.cleanup();  // kakao.init을 두 번 이상 실행(로그인 페이지에 두 번 이상 접속)하면 에러가 나기 때문에, init하기 전 sdk 리소스를 비워준다.
-    Kakao.init('2ef83b139c92fbb8798d07febee20bbf');
-    Kakao.Auth.createLoginButton({
+    /** public/index.html 내부 <script> 태그 내에서 kakao cdn 로드. window 전역 객체를 통해 Kakao 객체에 접근할 수 있다. */
+    window.Kakao.cleanup();  // kakao.init을 두 번 이상 실행(로그인 페이지에 두 번 이상 접속)하면 에러가 나기 때문에, init하기 전 sdk 리소스를 비워준다.
+    window.Kakao.init(process.env.REACT_APP_KAKAO_APP_KEY);
+    window.Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: (authObj) => {  // 사용자가 성공적으로 카카오 로그인을 진행하였을 경우. 자동으로 access_token을 사용하여 Kakao.API를 사용할 수 있게 된다.
-        Kakao.API.request({
+        window.Kakao.API.request({
           url: '/v2/user/me',
           success: (res) => {
             this.loginOrJoin(res.id);
@@ -44,6 +46,7 @@ class KakaoLogin extends Component {
         })
       },
       fail: function(err) {
+        console.log(err);
         alert('로그인에 실패하였습니다. 다시 시도해주세요.');
         history.push('/');
       }

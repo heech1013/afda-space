@@ -2,7 +2,7 @@ import axios from 'axios';
 // import queryString from 'query-string';
 
 export const login = (id, expires_in) => axios.post(`/api/auth/login`, { id, expires_in });
-export const join = (authId, nick, sex, age) => axios.post(`/api/auth/join`, { authId, nick, sex, age });
+export const join = (authId, nick, sex, birthDate) => axios.post(`/api/auth/join`, { authId, nick, sex, birthDate });
 export const checkJWT = (token) => axios.post(`/api/auth/checkJWT`, {token});
 
 export const getProfile = (id) => axios.get(`/api/user/${id}/profile`);

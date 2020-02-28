@@ -35,10 +35,10 @@ export const hideModal = createAction(HIDE_MODAL);
 
 /* initial state */
 const initialState =  Map({
-  // logged: false,
-  // id: null,
-  logged: true,  // 임시
-  id: 5,  // 임시
+  logged: false,
+  id: null,
+  // logged: true,  // 임시
+  // id: 5,  // 임시
   auth: Map({
     token: null,
     authId: null
@@ -51,6 +51,9 @@ const initialState =  Map({
     profileMedicineDosageAdd: false,
     profileMedicinePurposeAdd: false,
     profileMedicineEvaluationAdd: false
+  }),
+  error: Map({
+    join: null
   })
 });
 
@@ -75,6 +78,9 @@ export default handleActions({
       return state.set('logged', logged)
                   .set('id', id)
                   .set('auth', fromJS(auth));
+    },
+    onError: (state, action) => {
+      return state.setIn(['error', 'join'], action.payload.response.data.message);
     }
   }),
   ...pender({

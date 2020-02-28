@@ -12,7 +12,7 @@ const Header = ({logged, id, onLogout}) => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <Link to="/">
-        <img className={cx('brand')} src={logo} alt='아프다 스페이스' height='40' width='212'/> {/** 1 : 5.3 */}
+        <img className={cx('brand')} src={logo} alt='아프다 스페이스' height='35' width='185.5'/> {/** 1 : 5.3 */}
       </Link>
       <div className={cx('menu')}>
         <Button theme={'menu'} to='/'>뉴스피드</Button>

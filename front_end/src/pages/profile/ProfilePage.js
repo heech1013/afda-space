@@ -3,7 +3,7 @@ import React from 'react';
 import PageTemplate from 'components/common/PageTemplate';
 import ProfileCardContainer from 'containers/profile/ProfileCardContainer';
 import MiniMenu from 'components/common/MiniMenu';
-import PostListContainer from 'containers/post/PostListContainer';
+// import PostListContainer from 'containers/post/PostListContainer';
 import ProfileUpdateModalContainer from 'containers/modal/ProfileUpdateModalContainer';
 
 const ProfilePage = ({match}) => {
@@ -14,8 +14,8 @@ const ProfilePage = ({match}) => {
         userId={id}/>
       <MiniMenu 
         buttonArr={['프로필', '진단명', '증상', '처방약']}/>
-      <PostListContainer
-        userId={id}/>
+      {/* <PostListContainer
+        userId={id}/> */}
       <ProfileUpdateModalContainer
         userId={id}/>
     </PageTemplate>

@@ -20,9 +20,11 @@ class JoinFormContainer extends Component {
   }
   render () {
     const { handleJoin } = this;
+    const { error } = this.props;
     return (
       <JoinForm
         onJoin={handleJoin}
+        error={error}
       />
     );
   }
@@ -30,7 +32,8 @@ class JoinFormContainer extends Component {
 
 export default connect(
   (state) => ({
-    auth: state.base.get('auth')
+    auth: state.base.get('auth'),
+    error: state.base.getIn(['error', 'join'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch)

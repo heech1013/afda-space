@@ -3035,9 +3035,10 @@ dotenv@6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
 
-dotenv@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-7.0.0.tgz#a2be3cd52736673206e8a85fb5210eea29628e7c"
+dotenv@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 duplexer@^0.1.1:
   version "0.1.1"
@@ -5295,11 +5296,6 @@ just-curry-it@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/just-curry-it/-/just-curry-it-3.1.0.tgz#ab59daed308a58b847ada166edd0a2d40766fbc5"
 
-kakaojs@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/kakaojs/-/kakaojs-1.2.0.tgz#45e591df622b727495fc0976ce130b5ba540aaec"
-  integrity sha1-ReWR32IrcnSV/Al2zhMLW6VAquw=
-
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -7319,12 +7315,6 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
-"raphael@git+https://github.com/nhn/raphael.git#2.2.0-c":
-  version "2.2.0-c"
-  resolved "git+https://github.com/nhn/raphael.git#78a6ed3ec269f33b6457b0ec66f8c3d1f2ed70e0"
-  dependencies:
-    eve "git://github.com/adobe-webplatform/eve.git#eef80ed"
-
 "raphael@https://github.com/nhn/raphael.git#2.2.0-c":
   version "2.2.0-c"
   resolved "https://github.com/nhn/raphael.git#78a6ed3ec269f33b6457b0ec66f8c3d1f2ed70e0"
@@ -8816,7 +8806,7 @@ tui-chart@^3.10.0, tui-chart@^3.5.0:
   integrity sha512-RdLAgUrKRxzhd1/2fkY78oBRwHQruplwIUDs/UudHuAyjavxYJR6jq3tDZl4u5QvO+o12zJFjgSKCXSOsEFVlQ==
   dependencies:
     babel-polyfill "^6.26.0"
-    raphael "git+https://github.com/nhn/raphael.git#2.2.0-c"
+    raphael "https://github.com/nhn/raphael.git#2.2.0-c"
     tui-code-snippet "^1.5.0"
 
 tui-code-snippet@^1.5.0:

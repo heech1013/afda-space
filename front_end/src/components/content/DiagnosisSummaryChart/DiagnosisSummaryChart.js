@@ -9,8 +9,10 @@ import TuiChart from 'tui-chart';
 const cx = classNames.bind(styles);
 
 const DiagnosisSummaryChart = ({chartData}) => {
-  const { nameKr, count, ageArr, menVal, womenVal, diagnosedVal, undiagnosedVal } = chartData.toJS();
-
+  const {
+    nameKr, count, ageArr, menVal, womenVal, diagnosedVal, undiagnosedVal
+  } = chartData.toJS();
+  console.log(chartData.toJS());
   /** 나이 */
   const ageData = {
     categories: ['0-19살', '20-29살', '30-30살', '40-49살', '50-59살', '60-69살', '70살 이상'],
@@ -41,12 +43,16 @@ const DiagnosisSummaryChart = ({chartData}) => {
   const barTheme = { series: { colors: ['#FFB341']}}
   TuiChart.registerTheme('barTheme', barTheme);
 
+  /** PieChart
+   * barChart와 다르게 데이터를 받아오기 전 undefined가 전달되면 map을 돌리다가 오류가 남.
+   * 이를 방지하기 위해 데이터를 받아오는 동안은 0을 전달. 데이터가 전달되고 나면 정상 생성됨.
+   */
   /** 성별 */
   const sexData = {
     categories: ['성별'],
     series: [
-      { name: '남자', data: menVal },  // ex: 324
-      { name: '여자', data: womenVal }  // ex: 532
+      { name: '남자', data: menVal ? menVal : 0 },  // ex: 324
+      { name: '여자', data: womenVal ? womenVal : 0 }  // ex: 532
     ]
   }
   const sexOptions = {
@@ -61,8 +67,8 @@ const DiagnosisSummaryChart = ({chartData}) => {
   const diagnosedData = {
     categories: ['진단여부'],
     series: [
-      { name: '진단 받음', data: diagnosedVal },  // ex: 324
-      { name: '진단 받지 않음', data: undiagnosedVal }  // ex: 124
+      { name: '진단 받음', data: diagnosedVal ? diagnosedVal : 0 },  // ex: 324
+      { name: '진단 받지 않음', data: undiagnosedVal ? undiagnosedVal : 0 }  // ex: 124
     ]
   }
   const diagnosedOptions = {
