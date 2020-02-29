@@ -215,7 +215,7 @@ const showDiagnosisSummary = async (req, res, next) => {
       attributes: ['id'],
       where: {
         fkDiagnosisId: diagnosisId,
-        firstDiagnosedUnaware: {[Op.ne]: null}  // firstDiagnosedUnaware(진단을 받은 적은 없지만 가지고 있는 것 같습니다)가 null이 아닌 경우
+        firstDiagnosedUnaware: {[Op.notIn]: [null, 0]}  // firstDiagnosedUnaware(진단을 받은 적은 없지만 가지고 있는 것 같습니다)가 null이나 0(체크했다가 취소한 경우 0이 됨) 아닌 경우
       }
     })
     
