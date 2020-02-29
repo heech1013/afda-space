@@ -18,8 +18,19 @@ const normalizePort = (val) => {
   }
 };
 
-const port = normalizePort(process.env.PORT || '3000');
-const httpServer = new http.Server(app);
-httpServer.listen(port, () => {
-  console.log(`Server started on ${port}`);
-});
+if (process.env.NODE_ENV === 'production') {
+  const port = normalizePort(process.env.PORT || '443');
+  https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/api.afdaspace.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/api.afdaspace.com/fullchain.pem')
+  }, app).listen(port, () => {
+    console.log(`Server started on ${port}`);
+  });
+}
+else {  // development
+  const port = normalizePort(process.env.PORT || 3000);
+  const httpServer = new http.Server(app);
+  httpServer.listen(port, () => {
+    console.log(`Server started on ${port}`);
+  });
+}
