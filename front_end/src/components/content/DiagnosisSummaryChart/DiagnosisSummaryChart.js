@@ -12,7 +12,7 @@ const DiagnosisSummaryChart = ({chartData}) => {
   const {
     nameKr, count, ageArr, menVal, womenVal, diagnosedVal, undiagnosedVal
   } = chartData.toJS();
-  console.log(chartData.toJS());
+
   /** 나이 */
   const ageData = {
     categories: ['0-19살', '20-29살', '30-30살', '40-49살', '50-59살', '60-69살', '70살 이상'],
@@ -51,8 +51,8 @@ const DiagnosisSummaryChart = ({chartData}) => {
   const sexData = {
     categories: ['성별'],
     series: [
-      { name: '남자', data: menVal ? menVal : 0 },  // ex: 324
-      { name: '여자', data: womenVal ? womenVal : 0 }  // ex: 532
+      { name: '남자', data: menVal },  // ex: 324
+      { name: '여자', data: womenVal }  // ex: 532
     ]
   }
   const sexOptions = {
@@ -67,8 +67,8 @@ const DiagnosisSummaryChart = ({chartData}) => {
   const diagnosedData = {
     categories: ['진단여부'],
     series: [
-      { name: '진단 받음', data: diagnosedVal ? diagnosedVal : 0 },  // ex: 324
-      { name: '진단 받지 않음', data: undiagnosedVal ? undiagnosedVal : 0 }  // ex: 124
+      { name: '진단 받음', data: diagnosedVal },  // ex: 324
+      { name: '진단 받지 않음', data: undiagnosedVal }  // ex: 124
     ]
   }
   const diagnosedOptions = {
@@ -113,15 +113,27 @@ const DiagnosisSummaryChart = ({chartData}) => {
           options={barOptions}
         /> */}
       <div className={cx('title')}>성별</div>
-      <PieChart
-        data={sexData}
-        options={sexOptions}
-      />
+      { 
+        (
+          (sexData["series"][0]["data"] && sexData["series"][1]["data"])  // store로부터 어떤 데이터를 받아 온 상태이고
+          && !((sexData["series"][0]["data"] === 0) && (sexData["series"][1]["data"] === 0))  // 두 val 모두 0이 아닐 때
+        ) ?
+          <PieChart
+          data={sexData}
+          options={sexOptions}
+          /> : '등록된 데이터가 없습니다.'
+      }
       <div className={cx('title')}>진단 여부</div>
-      <PieChart
-        data={diagnosedData}
-        options={diagnosedOptions}
-      />
+      { 
+        (
+          (diagnosedData["series"][0]["data"] && diagnosedData["series"][1]["data"])  // store로부터 어떤 데이터를 받아 온 상태이고
+          && !((diagnosedData["series"][0]["data"] === 0) && (diagnosedData["series"][1]["data"] === 0))  // 두 val 모두 0이 아닐 때
+        ) ?
+          <PieChart
+          data={diagnosedData}
+          options={diagnosedOptions}
+          /> : '등록된 데이터가 없습니다.'
+      }
     </div>
   )
 };

@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 
 const DiagnosisMedicineChart = ({chartData}) => {
   const { nameKr, medicineArr, effectMajorArr, effectModerateArr, effectSlightArr, effectNoneArr, effectCanNotTellArr, sideEffectSevereArr, sideEffectModerateArr, sideEffectMildArr, sideEffectNoneArr } = chartData.toJS();
+  
   const data = {
     categories: medicineArr,  // 상위 10개 항목: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
     series: [
@@ -60,10 +61,12 @@ const DiagnosisMedicineChart = ({chartData}) => {
       <hr className={cx('hr')}/>
 
       <div className={cx('title')}>효과/부작용</div>
-        <ColumnChart
-          data={data}
-          options={options}
-        />
+        { ( data["categories"] && data["categories"].length ) ?  // store로부터 어떤 데이터를 받아 왔고, 그 데이터의 카테고리 배열에 길이가 있을 때
+          <ColumnChart
+            data={data}
+            options={options}
+          /> : '등록된 데이터가 없습니다.'
+        }
     </div>
   )
 };

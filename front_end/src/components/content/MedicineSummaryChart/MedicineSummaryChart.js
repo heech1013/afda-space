@@ -209,14 +209,22 @@ const MedicineSummaryChart = ({chartData}) => {
   TuiChart.registerTheme('barTheme', barTheme);
 
   return (
+    /** 등록된 데이터가 존재하지 않는 그래프에 대하여
+     * 카테고리는 정해져 있고 데이터만 없는 경우: 숫자 값(0)이 들어가서 그래프가 정상 생성되므로 문제 없다.
+     * 데이터 순위에 따라 상위 카테고리도 가져오는 경우: Chart 컴포넌트 내에서 map을 돌릴 수 없어 오류가 나므로 그래프를 렌더링하지 않는다.
+     * 
+     * 초반 store로부터 정보를 받아오기 전까지 카테고리에 대한 배열이 존재하지 않아 길이를 읽을 수 없으므로 배열이 존재할 때, 길이를 읽어 렌더링 여부를 판단한다.
+     */
     <div className={cx('frame')}>
       <div className={cx('title')}>처방 목적 & 인지된 효과</div>
       <div className={cx('explanation')}>평가 수 기준 상위 5개 항목(처방 목적이 진단명인 경우에 한하여)</div>
       <div className={cx('chart')}>
-        <BarChart
-          data={purposeData}
-          options={purposeOptions}
-        />
+        { (purposeData["categories"] && purposeData["categories"].length) ?
+          <BarChart
+            data={purposeData}
+            options={purposeOptions}
+          /> : '등록된 데이터가 없습니다.'
+        }
       </div>
 
       <div className={cx('title')}>부작용</div>
@@ -231,19 +239,21 @@ const MedicineSummaryChart = ({chartData}) => {
       <div className={cx('title')}>부작용 증상</div>
       <div className={cx('explanation')}>주로 나타나는 진단명/증상</div>
       <div className={cx('chart')}>
-        <BarChart
-          data={sideEffectRankData}
-          options={sideEffectRankOptions}
-        />
+        { (sideEffectRankData["categories"] && sideEffectRankData["categories"].length) ?
+          <BarChart
+            data={sideEffectRankData}
+            options={sideEffectRankOptions}
+          /> : '등록된 데이터가 없습니다.'
+        }
       </div>
 
       {/* <div className={cx('title')}>복용량</div>
       <div className={cx('explanation')}>현재 복용 중인 사람 수 기준 상위 5개 항목</div>
       <div className={cx('chart')}>
         <BarChart
-          data={dosageData}
-          options={dosageOptions}
-        />
+        data={dosageData}
+        options={dosageOptions}
+          />
       </div> */}
 
       <div className={cx('title')}>복용을 그만 둔 이유</div>
@@ -258,7 +268,7 @@ const MedicineSummaryChart = ({chartData}) => {
       {/* <div className={cx('title')}>복용 기간</div>
       <div className={cx('explanation')}>현재 복용 중인 사람 수 기준</div>
       <div className={cx('chart')}>
-        <BarChart
+          <BarChart
           data={durationNowData}
           options={durationNowOptions}
         />
@@ -267,7 +277,7 @@ const MedicineSummaryChart = ({chartData}) => {
       <div className={cx('title')}>복용 기간</div>
       <div className={cx('explanation')}>복용을 그만 둔 사람 수 기준</div>
       <div className={cx('chart')}>
-        <BarChart
+          <BarChart
           data={durationExData}
           options={durationExOptions}
         />
@@ -303,19 +313,23 @@ const MedicineSummaryChart = ({chartData}) => {
       <div className={cx('title')}>처방약 변경</div>
       <div className={cx('explanation')}>사람들은 아래 처방약 복용을 그만 둔 뒤 {nameKr}을 복용하기 시작했습니다.</div>
       <div className={cx('chart')}>
-        <BarChart
-          data={switchFromData}
-          options={switchFromOptions}
-        />
+        { (switchFromData["categories"] && switchFromData["categories"].length) ?
+          <BarChart
+            data={switchFromData}
+            options={switchFromOptions}
+          /> : '등록된 데이터가 없습니다.'
+        }
       </div>
 
       <div className={cx('title')}>처방약 변경</div>
     <div className={cx('explanation')}>사람들은 {nameKr} 복용을 그만 둔 뒤 아래 처방약을 복용하기 시작했습니다.</div>
       <div className={cx('chart')}>
-        <BarChart
-          data={switchToData}
-          options={switchToOptions}
-        />
+        { (switchToData["categories"] && switchToData["categories"].length) ?
+          <BarChart
+            data={switchToData}
+            options={switchToOptions}
+          /> : '등록된 데이터가 없습니다.'
+        }
       </div>
     </div>
   )
