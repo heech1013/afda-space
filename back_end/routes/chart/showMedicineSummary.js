@@ -224,7 +224,7 @@ const showMedicineSummary = async (req, res, next) => {
     });
 
     for (let i = 0; i < 5; i++) {
-      if (!val_12[i]) break;  // 배열 요소가 5개 이하일 경우를 대비
+      if (!val_12[i].count) break;  // 배열 요소가 5개 이하일 경우를 대비 ( 여기서는 데이터가 없을 때 결과가 []이 아니라 [{"switchTo":null, "count":0}] 으로 출력됨. )
       else {
         chartData['switchFromCountArr'].push(val_12[i].dataValues.count);
         switchFromIdArr.push(val_12[i].dataValues.switchTo);
