@@ -9,6 +9,7 @@ import CloseNotice from 'components/common/CloseNotice';
 const DiagnosisNewspeedPage = () => {
   return (
     <PageTemplate>
+      <MiniMenu buttonArr={["개요", "증상", "처방약", "뉴스피드"]}/>
       <CloseNotice/>
       {/* <ContentTitle
         nameKr={"주요 우울증"}
@@ -67,7 +68,6 @@ const DiagnosisNewspeedPage = () => {
           }
         ]
       }/> */}
-      <MiniMenu buttonArr={["개요", "증상", "처방약", "뉴스피드"]}/>
     </PageTemplate>
 
   );

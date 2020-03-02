@@ -10,13 +10,13 @@ const MedicineSummaryPage = ({match}) => {
   const { id } = match.params;
   return (
     <PageTemplate>
+      <MiniMenu buttonArr={["개요", "뉴스피드"]}/>
       <ContentTitleContainer
         type={'medicine'}
         id={id} />
       <DescriptionContainer
         type={'medicine'}
         id={id} />
-      <MiniMenu buttonArr={["개요", "뉴스피드"]}/>
       <MedicineSummaryChartContainer
         id={id} />
     </PageTemplate>

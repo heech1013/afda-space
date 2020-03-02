@@ -3,7 +3,8 @@
     color: #707070;
     font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
     background: #FAFAFA;
-    min-height: calc(100vh - 4.7rem);  // (페이지 전체 높이 - 헤더 높이)
+    min-height: calc(100vh - 8rem);  // (페이지 전체 높이 - 헤더 높이 - main 자체 padding)
+    min-width: 73rem;
     padding-top: 1.5rem;
     padding-bottom: 2rem;
   }
