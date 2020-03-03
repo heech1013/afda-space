@@ -8,7 +8,7 @@
   z-index: 5;
 }
 .modal-wrapper {
-  position: fixed;
+  position: absolute;
   top: 10%;
   left: 25%;
   max-height: 700px;
@@ -18,5 +18,5 @@
   border: 1px solid #2C3F77;
   border-radius: 1.5rem;
   padding: 2rem;
-  width: 60rem;
+  width: 54rem;
 }
