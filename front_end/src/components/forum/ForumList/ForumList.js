@@ -2,10 +2,15 @@ import React from 'react';
 import styles from './ForumList.scss';
 import classNames from 'classnames/bind';
 import { Link, withRouter } from 'react-router-dom';
+import Button from 'components/common/Button';
 
 const cx = classNames.bind(styles);
 
-const ContentItem = ({pathname, id, count, si, gu, centerName, doctorName, title}) => {
+const ContentItem = ({
+  pathname, id, count,  // common
+  si, gu, centerName, doctorName,  // center
+  title  // station
+}) => {
   const row =
     (pathname === '/center') ?
       <Link className={cx('content-link')} to={`${pathname}/${id}`}>
@@ -29,7 +34,7 @@ const ContentItem = ({pathname, id, count, si, gu, centerName, doctorName, title
   )
 }
 
-const ForumList = ({contents, location}) => {
+const ForumList = ({contents, location, onModal, buttonString}) => {
   const row =
     (location.pathname === '/center') ?
       <div className={cx('row')}>
@@ -38,13 +43,13 @@ const ForumList = ({contents, location}) => {
         <span className={cx('row-doctor-name')}>{'전문의 / 상담사 이름'}</span>
         <span className={cx('row-eval-count')}>{'평가 수'}</span>
       </div>
-      : (location.pathname === '/station') ?
+      :
+      (location.pathname === '/station') ?
         <div className={cx('row')}>
           <span className={cx('row-subject')}>{'주제'}</span>
           {/* <span className={cx('row-helpful-count')}>{'유용해요'}</span> */}
           <span className={cx('row-answer-count')}>{'답변 수'}</span>
-        </div>
-        : null;
+        </div> : null;
   
   const contentList = contents.map((content) => {
     const {
@@ -70,10 +75,15 @@ const ForumList = ({contents, location}) => {
   });
   
   return (
-    <div className={cx('forum-list')}>
-      {row}
-      <hr className={cx('row-hr')}/>
-      {contentList}
+    <div className={cx('station-main-frame')}>
+      
+      <div className={cx('station-main-button')}><Button theme={'addToMyProfile'} onClick={onModal}>{buttonString}</Button></div>
+      
+      <div className={cx('forum-list')}>
+        {row}
+        <hr className={cx('row-hr')}/>
+        {contentList}
+      </div>
     </div>
 
     

@@ -1,10 +1,7 @@
 import axios from 'axios';
 // import queryString from 'query-string';
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'production' ?
-    'https://api.afdaspace.com:443'
-    : 'http://localhost:3000';
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://api.afdaspace.com:443' : 'http://localhost:3000';
 
 export const login = (id, expires_in) => axios.post(`/api/auth/login`, { id, expires_in });
 export const join = (authId, nick, sex, birthDate) => axios.post(`/api/auth/join`, { authId, nick, sex, birthDate });
@@ -20,9 +17,8 @@ export const postUserMedicineDosage = (id, data) => axios.post(`/api/user/${id}/
 export const postUserMedicinePurpose = (id, data) => axios.post(`/api/user/${id}/medicinePurposeData`, { data });
 export const postUserMedicineEvaluation = (id, data) => axios.post(`/api/user/${id}/medicineEvaluationData`, { data });
 
-export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
-
 export const getContent = (type, id) => axios.get(`/api/${type}/${id}`);
+export const deleteContent = (type, id) => axios.delete(`/api/${type}/${id}`);
 export const getDiagnosisList = () => axios.get(`/api/diagnosis`);
 export const getSymptomList = () => axios.get(`/api/symptom`);
 export const getMedicineList = () => axios.get(`/api/medicine`);
@@ -34,4 +30,8 @@ export const getDiagnosisSummaryChartData = (diagnosisId) => axios.get(`/api/cha
 export const getDiagnosisMedicineChartData = (diagnosisId) => axios.get(`/api/chart/diagnosisMedicine?diagnosisId=${diagnosisId}`);
 export const getMedicineSummaryChartData = (medicineId) => axios.get(`/api/chart/medicineSummary?medicineId=${medicineId}`);
 
-export const deleteContent = (type, id) => axios.delete(`/api/${type}/${id}`);
+export const getStationList = () => axios.get(`/api/station`);
+
+
+
+export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);

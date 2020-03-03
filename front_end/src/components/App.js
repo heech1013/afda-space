@@ -7,7 +7,7 @@ import {
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
   MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
   // CenterPage, CenterPostPage,
-  // StationPage, StationPostPage,
+  StationPage, StationPostPage,
   ClosedPage
 } from 'pages';
 
@@ -41,10 +41,9 @@ const App = () => {
         {/** Closed pages... */} <Route exact path="/center" component={ClosedPage}/>
         {/** Closed pages... */} <Route exact path="/center/:id" component={ClosedPage}/>
         
-        {/* <Route exact path="/station" component={StationPage}/>
-        <Route exact path="/station/:id" component={StationPostPage}/> */}
-        {/** Closed pages... */} <Route exact path="/station" component={ClosedPage}/>
-        {/** Closed pages... */} <Route exact path="/station/:id" component={ClosedPage}/>  
+        <Route exact path="/station" component={StationPage}/>
+        <Route exact path="/station/:id" component={StationPostPage}/>
+
       </Switch>
     </div>
   );
