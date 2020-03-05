@@ -27,8 +27,10 @@ const ContentItem = ({
         </Link>
         : null;
   return (
-    <div className={cx('content-item')} to={`${pathname}/${id}`}>
-      {row}
+    <div>
+      <div className={cx('content-item')} to={`${pathname}/${id}`}>
+        {row}
+      </div>
       <hr className={cx('content-hr')}/>
     </div>
   )
@@ -77,7 +79,13 @@ const ForumList = ({contents, location, onModal, buttonString}) => {
   return (
     <div className={cx('station-main-frame')}>
       
-      <div className={cx('station-main-button')}><Button theme={'addToMyProfile'} onClick={onModal}>{buttonString}</Button></div>
+      <div className={cx('station-main-button')}>
+        <Button
+          theme={'addToMyProfile'}
+          onClick={onModal}>
+            {buttonString}
+        </Button>
+      </div>
       
       <div className={cx('forum-list')}>
         {row}

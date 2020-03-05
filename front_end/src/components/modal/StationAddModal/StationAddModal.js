@@ -31,18 +31,20 @@ class StationAddModal extends Component {
           <div className={cx('question')}>제목</div>
           <input className={cx('')} name="title" value={title} onChange={handleInputChange}/>
           <div className={cx('question')}>본문</div>
-          <textarea className={cx('')} name="title" value={body} onChange={handleInputChange}/>
+          <textarea className={cx('')} name="body" value={body} onChange={handleInputChange}/>
 
           {/** front단 에러 */}
           { frontError && <div className={cx('error')}>{frontError}</div>}
-          <Button onClick={() => {
-            if (!title) this.setState({ frontError: "제목을 입력해주세요."});
-            else if (!body) this.setState({ frontError: "본문을 입력해주세요."});
-            else {
-              onSubmit({ state });
-              this.setState({ title: '', body: '', frontError: '' });
-            }
-          }}>등록</Button>
+          <div className={cx('station-add-button')}>
+            <Button onClick={() => {
+              if (!title) this.setState({ frontError: "제목을 입력해주세요."});
+              else if (!body) this.setState({ frontError: "본문을 입력해주세요."});
+              else {
+                onSubmit({ state });
+                this.setState({ title: '', body: '', frontError: '' });
+              }
+            }}>등록</Button>
+          </div>
         </div>
       </ModalWrapper>
     )

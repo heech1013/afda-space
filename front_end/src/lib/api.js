@@ -9,6 +9,7 @@ export const checkJWT = (token) => axios.post(`/api/auth/checkJWT`, {token});
 
 export const getProfile = (id) => axios.get(`/api/user/${id}/profile`);
 export const updateProfileCard = (id, nick, introduction) => axios.patch(`/api/user/${id}/profile`, { nick, introduction });
+
 export const getUserContentList = (type, id) => axios.get(`/api/user/${id}/${type}`);
 export const postUserDiagnosis = (id, data) => axios.post(`/api/user/${id}/diagnosis`, { data });
 export const postUserSymptom = (id, symptomId) => axios.post(`/api/user/${id}/symptom`, { symptomId });
@@ -19,9 +20,11 @@ export const postUserMedicineEvaluation = (id, data) => axios.post(`/api/user/${
 
 export const getContent = (type, id) => axios.get(`/api/${type}/${id}`);
 export const deleteContent = (type, id) => axios.delete(`/api/${type}/${id}`);
+
 export const getDiagnosisList = () => axios.get(`/api/diagnosis`);
 export const getSymptomList = () => axios.get(`/api/symptom`);
 export const getMedicineList = () => axios.get(`/api/medicine`);
+
 export const getContentCommentList = (type, id) => axios.get(`/api/${type}/${id}/comment`);
 export const getContentSymptomList = (type, id) => axios.get(`/api/${type}/${id}/symptom`);
 export const getContentMedicineList = (type, id) => axios.get(`/api/${type}/${id}/medicine`);
@@ -30,8 +33,8 @@ export const getDiagnosisSummaryChartData = (diagnosisId) => axios.get(`/api/cha
 export const getDiagnosisMedicineChartData = (diagnosisId) => axios.get(`/api/chart/diagnosisMedicine?diagnosisId=${diagnosisId}`);
 export const getMedicineSummaryChartData = (medicineId) => axios.get(`/api/chart/medicineSummary?medicineId=${medicineId}`);
 
+export const getStation = (id) => axios.get(`/api/station/${id}`);
 export const getStationList = () => axios.get(`/api/station`);
-
-
+export const postStation = (data) => axios.post(`/api/station`, { data });
 
 export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
