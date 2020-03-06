@@ -8,7 +8,8 @@ import ForumTitle from 'components/forum/ForumTitle';
 class ForumTitleContainer extends Component {
   getForum = () => {
     const { ForumActions, type, id } = this.props;
-    ForumActions.getForum(type, id);
+    if (type === 'center') {}
+    else if (type === 'station') ForumActions.getStation(id);
   }
 
   componentDidMount() {
@@ -16,9 +17,14 @@ class ForumTitleContainer extends Component {
   }
 
   render() {
-    const { loading, forum } = this.props;
+    const {
+      type,
+      loading_GET_STATION, loading_GET_CENTER,
+      station, center
+    } = this.props;
+    const forum = (type === 'center') ? center : (type === 'station') ? station: null;
 
-    if (loading) return null;
+    if (loading_GET_STATION || loading_GET_CENTER) return null;
     return (
       <div>
         <ForumTitle
@@ -30,8 +36,10 @@ class ForumTitleContainer extends Component {
 
 export default connect(
   (state) => ({
-    loading: state.pender.pending['forum/GET_FORUM'],
-    forum: state.forum.get('forum')
+    loading_GET_STATION: state.pender.pending['forum/GET_STATION'],
+    loading_GET_CENTER: state.pender.pending['forum/GET_CENTER'],
+    station: state.forum.get('station'),
+    center: state.forum.get('center')
   }),
   (dispatch) => ({
     ForumActions: bindActionCreators(forumActions, dispatch)

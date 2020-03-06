@@ -1,26 +1,22 @@
 .forum-title {
   border: 1px solid #707070;
   border-radius: 1.5rem;
-  margin-left: 23rem;
-  margin-right: 23rem;
+  margin: 0 auto;
+  width: 69rem;
   margin-bottom: 1.5rem;
   .row {
-    margin-left: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem auto;
+    width: 65rem;
     .row-1 {
       font-weight: bold;
     }
     .enroller {
-      position: absolute;
-      margin-left: 12rem;
+      float: right;
     }
     .nick {
-      position: absolute;
-      margin-left: 18.5rem;
       text-decoration: none;
       font-weight: bold;
-      color: #2C3F77;
+      color: #707070;
     }
   }
   .hr {

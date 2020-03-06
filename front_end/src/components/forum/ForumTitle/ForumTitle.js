@@ -1,27 +1,26 @@
 import React from 'react';
 import styles from './ForumTitle.scss';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const ForumTitle = ({forum}) => {
+const ForumTitle = ({ forum }) => {
   const {
-    RegisteringCenter = null, si = null, gu = null, centerName = null, doctorName = null,
-    RegisteringStation = null, title = null, body = null,
+    user,
+    si = null, gu = null, centerName = null, doctorName = null,  // center
+    title = null, body = null,  // station
   } = forum.toJS();
   
-  let enrollerNick, enrollerId;
-  if (RegisteringCenter || RegisteringStation) {
-    enrollerNick = title ? RegisteringStation.Profile.nick : RegisteringCenter.Profile.nick;
-    enrollerId = title ? RegisteringStation.id : RegisteringCenter.id;
-  }
+  const enrollerNick = user ? user.profile.nick : '';
+  // const enrollerId = user ? user.id;
+  
   const row_1 = title ? title : '기관 정보';
   const contentUnderRow =
-    title ?
+    title ?  // station
       <div className={'column'}>{body}</div>
-      :
-      <div>
+      :  // center
+      <div> 
         <div className={cx('column')}>
           <span className={cx('column-1')}>{'지역 : '}</span>
           <span>{si + ' ' + gu}</span>
@@ -40,8 +39,10 @@ const ForumTitle = ({forum}) => {
     <div className={cx('forum-title')}>
       <div className={cx('row')}>
         <span className={cx('row-1')}>{row_1}</span>
-        <span className={cx('enroller')}>{'등록한 사람 : '}</span>
-        <Link className={cx('nick')} to={`/profile/${enrollerId}`}>{enrollerNick}</Link>
+        <div className={cx('enroller')}>
+          <span>{'등록한 사람 : '}</span>
+          <span className={cx('nick')}>{enrollerNick}</span>  {/* <Link className={cx('nick')} to={`/profile/${enrollerId}`}>{enrollerNick}</Link> */}
+        </div>
       </div>
       <hr className={cx('hr')}/>
       {contentUnderRow}
