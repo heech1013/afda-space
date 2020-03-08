@@ -25,7 +25,7 @@ export const getDiagnosisList = () => axios.get(`/api/diagnosis`);
 export const getSymptomList = () => axios.get(`/api/symptom`);
 export const getMedicineList = () => axios.get(`/api/medicine`);
 
-export const getContentCommentList = (type, id) => axios.get(`/api/${type}/${id}/comment`);
+// export const getContentCommentList = (type, id) => axios.get(`/api/${type}/${id}/comment`);
 export const getContentSymptomList = (type, id) => axios.get(`/api/${type}/${id}/symptom`);
 export const getContentMedicineList = (type, id) => axios.get(`/api/${type}/${id}/medicine`);
 
@@ -36,5 +36,6 @@ export const getMedicineSummaryChartData = (medicineId) => axios.get(`/api/chart
 export const getStation = (id) => axios.get(`/api/station/${id}`);
 export const getStationList = () => axios.get(`/api/station`);
 export const postStation = (data) => axios.post(`/api/station`, { data });
+export const getStationCommentList = (id) => axios.get(`/api/station/${id}/comment`);
 
 export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);

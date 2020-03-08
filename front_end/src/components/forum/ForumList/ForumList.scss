@@ -31,11 +31,17 @@
       }
       .row-subject {
       }
-      .row-helpful-count {
-        margin-left: 32rem;
+      // .row-helpful-count {
+      //   margin-left: 32rem;
+      // }
+      .row-title {
       }
       .row-answer-count {
+        margin-left: 46rem;
+      }
+      .row-createdAt {
         float: right;
+        width: 10rem;
       }
     }
     .row-hr {
@@ -45,42 +51,47 @@
     .content-item {
       margin: 1rem auto;
       width: 65rem;
-      .content-link {
-        text-decoration: none;
-        color: #707070;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        padding-right: 1rem;
-        .area {
-          color: #2C3F77;
-          font-weight: bold;
-          margin-left: 2rem;
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-        }
-        .center-name {
-          color: #2C3F77;
-          font-weight: bold;
-          margin-left: 3.5rem;
-        }
-        .doctor-name {
-          color: #2C3F77;
-          font-weight: bold;
-          margin-left: 5rem;
-        }
-        .eval-count {
-          margin-left: 16rem;
-        }
-        .title {
-          color: #2C3F77;
-          font-weight: bold;
-          
-        }
-        // .helpful-count {
-        //   margin-left: 18rem;
-        // }
-        .answer-count {
-          float: right;
+      .content-title-block {
+        display: inline-block;
+        width: 46.5rem;
+        margin-right: 4rem;
+        .content-link {
+          text-decoration: none;
+          color: #707070;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          padding-right: 1rem;
+          .area {
+            color: #2C3F77;
+            font-weight: bold;
+            margin-left: 2rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+          }
+          .center-name {
+            color: #2C3F77;
+            font-weight: bold;
+            margin-left: 3.5rem;
+          }
+          .doctor-name {
+            color: #2C3F77;
+            font-weight: bold;
+            margin-left: 5rem;
+          }
+          .eval-count {
+            margin-left: 16rem;
+          }
+          .title {
+            color: #2C3F77;
+            font-weight: bold;
+            
+          }
+          // .helpful-count {
+          //   margin-left: 18rem;
+          // }
+          .answer-count {
+            float: right;
+          }
         }
       }
     }

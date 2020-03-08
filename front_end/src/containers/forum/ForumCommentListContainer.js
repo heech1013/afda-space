@@ -8,7 +8,8 @@ import ForumCommentList from 'components/forum/ForumCommentList';
 class ForumCommentListContainer extends Component {
   getForumCommentList = () => {
     const { ForumActions, type, id } = this.props;
-    ForumActions.getForumCommentList(type, id);
+    if (type === 'center') {}
+    else if (type === 'station') ForumActions.getStationCommentList(id);
   }
 
   componentDidMount() {

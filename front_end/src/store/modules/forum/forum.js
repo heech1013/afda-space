@@ -13,7 +13,7 @@ const POST_STATION = 'forum/POST_STATION';
 
 /* action creators */
 export const getStation = createAction(GET_STATION, api.getStation);
-/* @ */export const getStationCommentList = createAction(GET_STATION_COMMENT_LIST, api.getContentCommentList);
+export const getStationCommentList = createAction(GET_STATION_COMMENT_LIST, api.getStationCommentList);
 export const getStationList = createAction(GET_STATION_LIST, api.getStationList);
 export const postStation = createAction(POST_STATION, api.postStation);
 

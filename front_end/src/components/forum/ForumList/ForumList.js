@@ -7,7 +7,7 @@ import Button from 'components/common/Button';
 const cx = classNames.bind(styles);
 
 const ContentItem = ({
-  pathname, id, count,  // common
+  pathname, id, count, createdAt,  // common
   si, gu, centerName, doctorName,  // center
   title  // station
 }) => {
@@ -20,11 +20,15 @@ const ContentItem = ({
         <span className={cx('eval-count')}>{count}</span>
       </Link>
       : (pathname === '/station') ?
-        <Link className={cx('content-link')} to={`${pathname}/${id}`}>
-          <span className={cx('title')}>{title}</span>
+        <div>
+          <div className={cx('content-title-block')}>
+            <Link className={cx('content-link')} to={`${pathname}/${id}`}>
+              <span className={cx('title')}>{title}</span>
+            </Link>
+          </div>
           {/* <span className={cx('helpful-count')}>{helpfulCount}</span> */}
           <span className={cx('answer-count')}>{count}</span>
-        </Link>
+        </div>
         : null;
   return (
     <div>
@@ -48,14 +52,15 @@ const ForumList = ({contents, location, onModal, buttonString}) => {
       :
       (location.pathname === '/station') ?
         <div className={cx('row')}>
-          <span className={cx('row-subject')}>{'주제'}</span>
+          <span className={cx('row-title')}>{'주제'}</span>
           {/* <span className={cx('row-helpful-count')}>{'유용해요'}</span> */}
           <span className={cx('row-answer-count')}>{'답변 수'}</span>
+          <span className={cx('row-createdAt')}>{'등록 일자'}</span>
         </div> : null;
   
   const contentList = contents.map((content) => {
     const {
-      id, count,
+      id, count, createdAt,
       si = null, gu = null, centerName = null, doctorName = null,  // center
       title = null  // station
     } = content.toJS();
@@ -65,6 +70,7 @@ const ForumList = ({contents, location, onModal, buttonString}) => {
           key={id}
           pathname={location.pathname}
           count={count}
+          createdAt={createdAt}
           // center
           si={si}
           gu={gu}
