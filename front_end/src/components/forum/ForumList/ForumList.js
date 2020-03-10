@@ -27,7 +27,8 @@ const ContentItem = ({
             </Link>
           </div>
           {/* <span className={cx('helpful-count')}>{helpfulCount}</span> */}
-          <span className={cx('answer-count')}>{count}</span>
+          <div className={cx('answer-count')}>{count}</div>
+          <div className={cx('content-createdAt')}>{createdAt}</div>
         </div>
         : null;
   return (

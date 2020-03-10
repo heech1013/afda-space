@@ -41,26 +41,37 @@
       }
       .row-createdAt {
         float: right;
-        width: 10rem;
+        width: 8rem;
       }
     }
     .row-hr {
       border-bottom: 0;
       margin-bottom: 1rem;
     }
+
     .content-item {
       margin: 1rem auto;
       width: 65rem;
       .content-title-block {
+      display: inline-block;
+      width: 46.5rem;
+      margin-right: 4rem;
+      .content-link {
+        text-decoration: none;
+        .title {
+          color: #2C3F77;
+          font-weight: bold;    
+        }
+      }
+    }
+      .answer-count {
         display: inline-block;
-        width: 46.5rem;
-        margin-right: 4rem;
-        .content-link {
-          text-decoration: none;
-          color: #707070;
-          padding-top: 1rem;
-          padding-bottom: 1rem;
-          padding-right: 1rem;
+      }
+      .content-createdAt {
+        display: inline-block;
+        margin-left: 4.5rem;
+      }
+          
           .area {
             color: #2C3F77;
             font-weight: bold;
@@ -81,19 +92,9 @@
           .eval-count {
             margin-left: 16rem;
           }
-          .title {
-            color: #2C3F77;
-            font-weight: bold;
-            
-          }
-          // .helpful-count {
-          //   margin-left: 18rem;
-          // }
-          .answer-count {
-            float: right;
-          }
-        }
-      }
+          
+        
+      
     }
     .content-hr {
       border-bottom: 0;

@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 const ForumTitle = ({ forum }) => {
   const {
-    user,
+    user, createdAt,
     si = null, gu = null, centerName = null, doctorName = null,  // center
     title = null, body = null,  // station
   } = forum.toJS();
@@ -38,11 +38,12 @@ const ForumTitle = ({ forum }) => {
   return (
     <div className={cx('forum-title')}>
       <div className={cx('row')}>
-        <span className={cx('row-1')}>{row_1}</span>
+        <div className={cx('row-1')}>{row_1}</div>
         <div className={cx('enroller')}>
           <span>{'등록한 사람 : '}</span>
           <span className={cx('nick')}>{enrollerNick}</span>  {/* <Link className={cx('nick')} to={`/profile/${enrollerId}`}>{enrollerNick}</Link> */}
         </div>
+        <div className={cx('createdAt')}>{createdAt}</div>
       </div>
       <hr className={cx('hr')}/>
       {contentUnderRow}
