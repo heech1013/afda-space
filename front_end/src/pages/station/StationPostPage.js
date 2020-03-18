@@ -2,8 +2,8 @@ import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
 import ForumTitleContainer from 'containers/forum/ForumTitleContainer';
-import Writer from 'components/common/Writer';
 import ForumCommentListContainer from 'containers/forum/ForumCommentListContainer';
+import WriterContainer from 'containers/common/WriterContainer';
 
 const StationPostPage = ({match}) => {
   const { id } = match.params;
@@ -12,10 +12,11 @@ const StationPostPage = ({match}) => {
       <ForumTitleContainer
         type={'station'}
         id={id}/>
-      {/* <ForumCommentListContainer
+      <ForumCommentListContainer
         type={'station'}
-        id={id}/> */}
-      <Writer theme={'post-writer'}/>
+        id={id}/>
+      <WriterContainer
+        id={id}/>
     </PageTemplate>
   )
 };

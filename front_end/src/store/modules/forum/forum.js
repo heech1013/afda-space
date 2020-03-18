@@ -6,16 +6,20 @@ import { pender } from 'redux-pender';
 import * as api from 'lib/api';
 
 /* action types */
-const GET_STATION = 'forum/GET_STATION';
-const GET_STATION_COMMENT_LIST = 'forum/GET_STATION_COMMENT_LIST';
 const GET_STATION_LIST = 'forum/GET_STATION_LIST';
+const GET_STATION = 'forum/GET_STATION';
 const POST_STATION = 'forum/POST_STATION';
 
+const GET_STATION_COMMENT_LIST = 'forum/GET_STATION_COMMENT_LIST';
+const POST_STATION_COMMENT = 'forum/POST_STATION_COMMENT';
+
 /* action creators */
-export const getStation = createAction(GET_STATION, api.getStation);
-export const getStationCommentList = createAction(GET_STATION_COMMENT_LIST, api.getStationCommentList);
 export const getStationList = createAction(GET_STATION_LIST, api.getStationList);
+export const getStation = createAction(GET_STATION, api.getStation);
 export const postStation = createAction(POST_STATION, api.postStation);
+
+export const getStationCommentList = createAction(GET_STATION_COMMENT_LIST, api.getStationCommentList);
+export const postStationComment = createAction(POST_STATION_COMMENT, api.postStationComment);
 
 /* initial state */
 const initialState = Map({

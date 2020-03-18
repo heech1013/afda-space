@@ -4,7 +4,7 @@ const commentIndex = async (req, res, next) => {
   try {
     const { id } = req.params;
     const stationCommentList = await StationComment.findAll({
-      attributes: ['body', 'createdAt'], where: { fkStationId: id },
+      attributes: ['id', 'body', 'createdAt'], where: { fkStationId: id },
       include: [{ 
         model: User, attributes: ['id'],
         include: [{ model: Profile, attributes: ['nick']}]

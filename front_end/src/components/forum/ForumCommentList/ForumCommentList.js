@@ -1,47 +1,37 @@
 import React from 'react';
 import styles from './ForumCommentList.scss';
 import classNames from 'classnames/bind';
-import { Link, withRouter } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
 const cx = classNames.bind(styles);
 
-const Comment = ({nick, updatedAt, body}) => (
+const Comment = ({nick, createdAt, body}) => (
   <div className={cx('comment')}>
-    <Link className={cx('nick')} to={`/profile/${nick}`}>{nick}</Link>
-    <span className={cx('updatedAt')}>{updatedAt}</span>
+    {/* <Link className={cx('nick')} to={`/profile/${nick}`}>{nick}</Link> */}
+    <span className={cx('nick')} to={`/profile/${nick}`}>{nick}</span>
+    <span className={cx('createdAt')}>{createdAt}</span>
     <div className={cx('body')}>{body}</div>
   </div>
 )
 
-const ForumCommentList = ({comments, location}) => {
-  let row;
-  if (location.pathname.split('/')[1] === 'center') {
-    row = '후기'
-  } else if (location.pathname.split('/')[1] === 'station') {
-    row = '답변'
-  }
-
+const ForumCommentList = ({type, comments}) => {
+  const row = (type === 'center') ? '후기' : (type === 'station') ? '답변' : null;
+  
   const commentList = comments.map((comment) => {
-    const { updatedAt, body, RegisteringCenterComment = null, RegisteringStationComment = null } = comment.toJS();
-    
-    let id, nick;
-    if (location.pathname.split('/')[1] === 'center') {  // center
-      id = RegisteringCenterComment.id;
-      nick = RegisteringCenterComment.Profile.nick;
-    } else if (location.pathname.split('/')[1] === 'station') {  // station
-      id = RegisteringStationComment.id;
-      nick = RegisteringStationComment.Profile.nick;
-    }
+    const { id, createdAt, body, user } = comment.toJS();
+    const { id: userId, profile } = user;
+    const { nick } = profile;
 
     return (
       <div>
         <Comment
           key={id}
+          userId={userId}
           nick={nick}
-          updatedAt={format(updatedAt, 'YYYY.MM.DD HH:mm')}
+          createdAt={format(createdAt, 'YYYY.MM.DD HH:mm')}
           body={body}
-          />
+        />
         <hr className={cx('hr')}/>
       </div>
     );
@@ -56,4 +46,4 @@ const ForumCommentList = ({comments, location}) => {
   )
 };
 
-export default withRouter(ForumCommentList);
+export default ForumCommentList;
