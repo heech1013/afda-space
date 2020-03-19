@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
+  MainPage,
   // NewsPeedPage,
   LoginPage, JoinPage,
   ProfilePage, ProfileDiagnosisPage, ProfileSymptomPage, ProfileMedicinePage,
@@ -15,8 +16,7 @@ const App = () => {
   return (
     <div>
       <Switch>
-        {/* <Route exact path="/" component={NewsPeedPage}/> */}
-        {/** Closed pages... */} <Route exact path="/" component={ClosedPage}/>
+        <Route exact path="/" component={MainPage}/>
 
         <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/join" component={JoinPage}/>
@@ -43,6 +43,8 @@ const App = () => {
         
         <Route exact path="/station" component={StationPage}/>
         <Route exact path="/station/:id" component={StationPostPage}/>
+
+        <Route exact path="/newspeed" component={ClosedPage}/>
 
       </Switch>
     </div>
