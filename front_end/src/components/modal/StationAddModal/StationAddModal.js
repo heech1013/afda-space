@@ -29,9 +29,9 @@ class StationAddModal extends Component {
         <div className={cx('station-add-modal')}>
           <div className={cx('close')} onClick={() => onCancel()}>&times;</div>
           <div className={cx('question')}>제목</div>
-          <input className={cx('')} name="title" value={title} onChange={handleInputChange}/>
+          <input className={cx('station-title')} name="title" value={title} onChange={handleInputChange}/>
           <div className={cx('question')}>본문</div>
-          <textarea className={cx('')} name="body" value={body} onChange={handleInputChange}/>
+          <textarea className={cx('station-body')} name="body" value={body} onChange={handleInputChange}/>
 
           {/** front단 에러 */}
           { frontError && <div className={cx('error')}>{frontError}</div>}
