@@ -62,13 +62,13 @@ const showMedicineSummary = async (req, res, next) => {
         for(let id of diagnosisIdArr) {
           countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 5 }});
           chartData["effectMajorArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 4 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 4 }});
           chartData["effectModerateArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 3 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 3 }});
           chartData["effectSlightArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 2 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 2 }});
           chartData["effectNoneArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 1 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 1 }});
           chartData["effectCanNotTellArr"].push(countVal);
         }
         resolve();
@@ -149,6 +149,7 @@ const showMedicineSummary = async (req, res, next) => {
     /** cost */
     const val_11_1 = await MedicineEvaluationData.count({
       where: {
+        'fkMedicineId': medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -165,6 +166,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_11_2 = await MedicineEvaluationData.count({
       where: {
+        'fkMedicineId': medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -181,6 +183,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_11_3 = await MedicineEvaluationData.count({
       where: {
+        'fkMedicineId': medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -197,6 +200,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_11_4 = await MedicineEvaluationData.count({
       where: {
+        'fkMedicineId': medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -224,7 +228,12 @@ const showMedicineSummary = async (req, res, next) => {
     });
 
     for (let i = 0; i < 5; i++) {
-      if (!val_12[i].count) break;  // 배열 요소가 5개 이하일 경우를 대비 ( 여기서는 데이터가 없을 때 결과가 []이 아니라 [{"switchTo":null, "count":0}] 으로 출력됨. )
+      /** if 조건
+       * 배열 요소가 5개 이하일 경우를 대비.
+       * 등록된 medicineDosageData가 하나도 없을 경우: val_12[i]는 []가 됨.
+       * 등록된 medicineDosageData가 존재하는데, switchTo 데이터를 등록하지 않았을 경우: [{"switchTo":null, "count":0}] 로 출력됨. */
+      if (!val_12[i]) break;
+      else if (!val_12[i].dataValues.count) break;
       else {
         chartData['switchFromCountArr'].push(val_12[i].dataValues.count);
         switchFromIdArr.push(val_12[i].dataValues.switchTo);
@@ -236,6 +245,7 @@ const showMedicineSummary = async (req, res, next) => {
     await (  // Promise를 리턴하는 함수를 즉시 실행 + await 비동기 처리
       () => new Promise(async (resolve, reject) => {
         for(let id of switchFromIdArr) {  // switchFromIdArr에 담긴 만큼(최대 5개) 반복
+          console.log('2');
           nameVal = await Medicine.findOne({ attributes: ['nameKr'], where: { id }});
           chartData['switchFromArr'].push(nameVal.nameKr);
         }
@@ -250,7 +260,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_13 = await MedicineDosageData.findAll({
       attributes: ['fkMedicineId', [Sequelize.fn('COUNT', Sequelize.col('fkMedicineId')), 'count']],
-      where: { switchTo: medicineId },
+      where: { switchTo: medicineId },  // '바꾸기 전 원래 복용하던 처방약이 무엇인가요?'
       group: ['fkMedicineId'],
       order: [[Sequelize.fn('COUNT', Sequelize.col('fkMedicineId')), 'DESC']]
     });
