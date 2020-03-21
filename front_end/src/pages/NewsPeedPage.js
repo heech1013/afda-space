@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import Writer from 'components/post/Writer';
+import Writer from 'components/common/Writer';
 // import PostList from 'components/post/PostList';
 import PostListContainer from 'containers/post/PostListContainer';
 

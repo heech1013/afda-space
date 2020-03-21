@@ -8,7 +8,8 @@ import ForumCommentList from 'components/forum/ForumCommentList';
 class ForumCommentListContainer extends Component {
   getForumCommentList = () => {
     const { ForumActions, type, id } = this.props;
-    ForumActions.getForumCommentList(type, id);
+    if (type === 'center') {}
+    else if (type === 'station') ForumActions.getStationCommentList(id);
   }
 
   componentDidMount() {
@@ -16,11 +17,19 @@ class ForumCommentListContainer extends Component {
   }
 
   render() {
-    const { loading, forumCommentList } = this.props;
-    if (loading) return null;
+    const {
+      type,
+      loading_GET_CENTER_COMMENT_LIST, loading_GET_STATION_COMMENT_LIST,
+      stationCommentList, centerCommentList
+    } = this.props;
+
+    const forumCommentList = (type === 'center') ? centerCommentList : (type === 'station') ? stationCommentList : null;
+
+    if (loading_GET_CENTER_COMMENT_LIST || loading_GET_STATION_COMMENT_LIST) return null;
     return (
       <div>
         <ForumCommentList
+          type={type}
           comments={forumCommentList}/>
       </div>
     )
@@ -29,8 +38,10 @@ class ForumCommentListContainer extends Component {
 
 export default connect(
   (state) => ({
-    loading: state.pender.pending['forum/GET_FORUM_COMMENT_LIST'],
-    forumCommentList: state.forum.get('forumCommentList')
+    loading_GET_CENTER_COMMENT_LIST: state.pender.pending['forum/GET_CENTER_COMMENT_LIST'],
+    loading_GET_STATION_COMMENT_LIST: state.pender.pending['forum/GET_STATION_COMMENT_LIST'],
+    centerCommentList: state.forum.get('centerCommentList'),
+    stationCommentList: state.forum.get('stationCommentList')
   }),
   (dispatch) => ({
     ForumActions: bindActionCreators(forumActions, dispatch)

@@ -1,23 +1,40 @@
 const { Sequelize, Station, StationComment } = require('../../models');
+const format = require('date-fns/format');
 
 const index = async (req, res, next) => {
   try {
-    const forumList = await Station.findAll({
-      attributes: ['id', 'title', [Sequelize.fn('COUNT', Sequelize.col('RegisteredStationComment.id')), 'count']],
-      include: [
-        {
-          model: StationComment, as: 'RegisteredStationComment', attributes: []  // attributes에 빈 배열을 할당하는 것이 중요.
-        }
-      ],
-      group: ['id']
-    })
+    const stationListBefore = await Station.findAll({
+      /** 왜 diagnosisData는 diagnosisData고 stationComment는 stationComments죠? */
+      attributes: ['id', 'title', 'createdAt', [Sequelize.fn('COUNT', Sequelize.col('stationComments.id')), 'count']],
+      include: [{
+        model: StationComment,
+        attributes: []
+      }],
+      group: ['id', 'title'],
+      order: [['createdAt', 'DESC']]
+    });
+    
+    let stationList = [];
 
-    return res.status(200).json({ forumList });
+    await (  // Promise 리턴 함수 + 즉시 실행 + await 비동기 처리
+      () => new Promise(async (resolve, reject) => {
+        for(let obj of stationListBefore) {
+          const skippedTitle = obj["title"].length > 50 ? obj["title"].substring(0, 53) + " ..." : obj["title"]
+          stationList.push({
+            "id": obj["id"],
+            "title": skippedTitle,
+            "createdAt": format(obj["createdAt"], "yyyy-MM-dd HH:mm"),
+            "count": obj.dataValues["count"]  // 왠지 모르겠다 왜 dataValues를 거치지 않고 접근하면 undefined로 뜨는지..
+          });
+        }
+        resolve();
+      })
+    )();
+
+    return res.status(200).json({ stationList });
   } catch (e) {
     next(e);
   }
 };
 
 module.exports = index;
-
-// https://stackoverflow.com/questions/37817808/counting-associated-entries-with-sequelize

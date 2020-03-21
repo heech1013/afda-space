@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
+  MainPage,
   // NewsPeedPage,
   LoginPage, JoinPage,
   ProfilePage, ProfileDiagnosisPage, ProfileSymptomPage, ProfileMedicinePage,
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
   MedicinePage, MedicineSummaryPage, MedicineNewspeedPage,
   // CenterPage, CenterPostPage,
-  // StationPage, StationPostPage,
+  StationPage, StationPostPage,
   ClosedPage
 } from 'pages';
 
@@ -15,8 +16,7 @@ const App = () => {
   return (
     <div>
       <Switch>
-        {/* <Route exact path="/" component={NewsPeedPage}/> */}
-        {/** Closed pages... */} <Route exact path="/" component={ClosedPage}/>
+        <Route exact path="/" component={MainPage}/>
 
         <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/join" component={JoinPage}/>
@@ -41,10 +41,11 @@ const App = () => {
         {/** Closed pages... */} <Route exact path="/center" component={ClosedPage}/>
         {/** Closed pages... */} <Route exact path="/center/:id" component={ClosedPage}/>
         
-        {/* <Route exact path="/station" component={StationPage}/>
-        <Route exact path="/station/:id" component={StationPostPage}/> */}
-        {/** Closed pages... */} <Route exact path="/station" component={ClosedPage}/>
-        {/** Closed pages... */} <Route exact path="/station/:id" component={ClosedPage}/>  
+        <Route exact path="/station" component={StationPage}/>
+        <Route exact path="/station/:id" component={StationPostPage}/>
+
+        <Route exact path="/newspeed" component={ClosedPage}/>
+
       </Switch>
     </div>
   );

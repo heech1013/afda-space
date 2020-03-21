@@ -50,7 +50,9 @@ const initialState =  Map({
     profileMedicineAdd: false,
     profileMedicineDosageAdd: false,
     profileMedicinePurposeAdd: false,
-    profileMedicineEvaluationAdd: false
+    profileMedicineEvaluationAdd: false,
+
+    stationAdd: false
   }),
   error: Map({
     join: null
