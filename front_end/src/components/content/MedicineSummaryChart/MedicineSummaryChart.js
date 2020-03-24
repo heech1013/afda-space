@@ -217,7 +217,7 @@ const MedicineSummaryChart = ({chartData}) => {
      */
     <div className={cx('frame')}>
       <div className={cx('title')}>처방 목적 & 인지된 효과</div>
-      <div className={cx('explanation')}>평가 수 기준 상위 5개 항목(처방 목적이 진단명인 경우에 한하여)</div>
+      <div className={cx('explanation')}>평가 수 기준 상위 5개 항목</div>
       <div className={cx('chart')}>
         { (purposeData["categories"] && purposeData["categories"].length) ?
           <BarChart

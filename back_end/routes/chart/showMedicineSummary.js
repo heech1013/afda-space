@@ -28,21 +28,38 @@ const showMedicineSummary = async (req, res, next) => {
     /** purpose & perceivedEffectiveness
      * mvp에서는 처방목적을 진단명으로 등록한 경우만 다룬다. 추후 증상에 대한 purpose 차트를 아예 하나 더 파는 방향으로 발전(미정).
      */
-    let diagnosisIdArr = [];  // 처방목적으로 등록된 수 기준 내림차순으로 diagnosis의 id만 담기는 배열.
+    let diagnosisOrSymptomIdArr = [];  // 처방목적으로 등록된 수 기준 내림차순으로 diagnosis 또는 symptom의 id만 담기는 배열.
 
     const val_2 = await MedicinePurposeData.findAll({
       attributes: [[Sequelize.fn('COUNT', Sequelize.col('fkDiagnosisId')), 'count']],
       where: { fkMedicineId: medicineId },
-      include: [{ model: Diagnosis, attributes: ['id', 'nameKr'] }],
+      include: [
+        { model: Diagnosis, attributes: ['id', 'nameKr'] },
+        { model: Symptom, attributes: ['id', 'nameKr']}
+      ],
       group: ['fkDiagnosisId'],
       order: [[Sequelize.fn('COUNT', Sequelize.col('fkDiagnosisId')), 'DESC']]
     });
     
     for (let i = 0; i < 5; i++) {
       if (!val_2[i]) break;  // (결과 배열 요소가 없을 경우 탈출. 5개 이하일 경우를 대비)
-      else {
+      else if (val_2[i].diagnosis) {  // purpose 데이터가 존재하며 처방 목적을 진단명으로 등록해놓은 경우
         chartData["purposeArr"].push(val_2[i].diagnosis.nameKr);
-        diagnosisIdArr.push(val_2[i].diagnosis.id);
+        diagnosisOrSymptomIdArr.push(
+          {
+            'diagnosisId': val_2[i].diagnosis.id,
+            'symptomId': null
+          }
+        );
+      }
+      else if (val_2[i].symptom) {  // purpose 데이터가 존재하며 처방 목적을 증상으로 등록해놓은 경우
+        chartData["purposeArr"].push(val_2[i].symptom.nameKr);
+        diagnosisOrSymptomIdArr.push(
+          {
+            'diagnosisId': null,
+            'symptomId': val_2[i].symptom.id
+          }
+        );
       }
     }
 
@@ -59,16 +76,16 @@ const showMedicineSummary = async (req, res, next) => {
 
     await (  // Promise를 리턴하는 함수를 즉시 실행 + await 비동기 처리
       () => new Promise(async (resolve, reject) => {
-        for(let id of diagnosisIdArr) {
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 5 }});
+        for(let obj of diagnosisOrSymptomIdArr) {
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 5, 'fkDiagnosisId': obj['diagnosisId'], 'fkSymptomId': obj['symptomId'] }});
           chartData["effectMajorArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 4 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 4, 'fkDiagnosisId': obj['diagnosisId'], 'fkSymptomId': obj['symptomId'] }});
           chartData["effectModerateArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 3 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 3, 'fkDiagnosisId': obj['diagnosisId'], 'fkSymptomId': obj['symptomId'] }});
           chartData["effectSlightArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 2 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 2, 'fkDiagnosisId': obj['diagnosisId'], 'fkSymptomId': obj['symptomId'] }});
           chartData["effectNoneArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 1 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 1, 'fkDiagnosisId': obj['diagnosisId'], 'fkSymptomId': obj['symptomId'] }});
           chartData["effectCanNotTellArr"].push(countVal);
         }
         resolve();
