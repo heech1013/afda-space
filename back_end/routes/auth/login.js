@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
     if (!user) res.status(200).json({ logged: false, auth: { authId, token: null }});
     /* 회원가입이 되어 있는 사용자일 경우 */
     else if (user) {
-      const token = await jwt.sign(
+      const token = jwt.sign(  // Synchronously sign
         {
           id: user.id,
           userType: user.userType,

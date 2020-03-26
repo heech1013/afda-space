@@ -262,7 +262,6 @@ const showMedicineSummary = async (req, res, next) => {
     await (  // Promise를 리턴하는 함수를 즉시 실행 + await 비동기 처리
       () => new Promise(async (resolve, reject) => {
         for(let id of switchFromIdArr) {  // switchFromIdArr에 담긴 만큼(최대 5개) 반복
-          console.log('2');
           nameVal = await Medicine.findOne({ attributes: ['nameKr'], where: { id }});
           chartData['switchFromArr'].push(nameVal.nameKr);
         }
