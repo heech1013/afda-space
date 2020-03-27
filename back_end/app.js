@@ -15,7 +15,8 @@ sequelize.sync();
 
 process.env.NODE_ENV === 'production' ?
   app.use(morgan('combined')) && app.use(helmet())
-  : app.use(morgan('dev'));
+  // : app.use(morgan('dev'));
+  : app.use(morgan('combined'))
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
