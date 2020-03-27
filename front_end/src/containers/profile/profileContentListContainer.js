@@ -8,9 +8,12 @@ import * as contentActions from 'store/modules/content/content';
 import ProfileContentList from 'components/profile/ProfileContentList';
 
 class ProfileContentListContainer extends Component {
-  getContentList = () => {
+  getContentList = async() => {
     const { type, ProfileActions, userId: id } = this.props;
-    if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
+    // if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
+    if (type === 'diagnosis') await ProfileActions.getUserDiagnosisList(id);
+    else if (type === 'medicine') await ProfileActions.getUserMedicineList(id);
+    else if (type === 'symptom') await ProfileActions.getUserSymptomList(id);
   }
 
   updateContentId = async (contentId) => {
@@ -65,15 +68,22 @@ class ProfileContentListContainer extends Component {
   }
 
   render() {
-    const { userId, storeId, loading, contents } = this.props;
+    const {
+      userId, storeId,
+      // loading,
+      diagnosisList = null, medicineList = null, symptomList = null
+    } = this.props;
     const { handleDelete, handleModal, updateContentId } = this;
-    if (loading) return null;
+    // if (loading) return null;
     // eslint-disable-next-line eqeqeq
     const updatable = userId == storeId;
     return (
       <div>
         <ProfileContentList
-          contents={contents}
+          // contents={contents}
+          diagnosisList={diagnosisList}
+          medicineList={medicineList}
+          symptomList={symptomList}
           updatable={updatable}
           onDelete={handleDelete}
           onModal={handleModal}
@@ -88,8 +98,11 @@ export default connect(
   (state) => ({
     logged: state.base.get('logged'),
     storeId: state.base.get('id'),
-    loading: state.pender.pending['profile/GET_USER_DIAGNOSIS_LIST'],
-    contents: state.profile.get('contents')
+    // loading: state.pender.pending['profile/GET_USER_DIAGNOSIS_LIST'],
+    // contents: state.profile.get('contents')
+    diagnosisList: state.profile.get('diagnosisList'),
+    medicineList: state.profile.get('medicineList'),
+    symptomList: state.profile.get('symptomList')
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

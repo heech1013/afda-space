@@ -120,7 +120,14 @@ const Content = ({
   )
 }
 
-const ProfileContentList = ({contents, updatable, onDelete, onModal, updateContentId, location}) => {
+const ProfileContentList = ({
+  diagnosisList, medicineList, symptomList,
+  updatable, onDelete, onModal, updateContentId, location
+}) => {
+  const contents = (location.pathname.split('/')[3] === 'diagnosis') ? diagnosisList
+    : (location.pathname.split('/')[3] === 'medicine') ? medicineList
+    : (location.pathname.split('/')[3] === 'symptom') ? symptomList : [];
+
   const contentList = contents.map((content) => {
     const {
       id,  // data 자체의 id(PK)
