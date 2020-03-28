@@ -16,11 +16,18 @@ class ProfileUpdateModalContainer extends Component {
     BaseActions.hideModal('profileCardUpdate');
   }
 
-  handleSubmit = async ({nick, introduction}) => {
+  handleSubmit = async ({
+    // nick,
+    introduction
+  }) => {
     const { userId: id } = this.props;
     const { ProfileActions, BaseActions } = this.props;
     try {
-      await ProfileActions.updateProfileCard(id, nick, introduction);
+      await ProfileActions.updateProfileCard(
+        id,
+        // nick,
+        introduction
+      );
       BaseActions.hideModal('profileCardUpdate');
       this.getProfile();
     } catch (e) {}

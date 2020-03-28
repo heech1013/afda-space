@@ -6,7 +6,7 @@ const index = async (req, res, next) => {
     const uncleanedContents = await DiagnosisData.findAll({
       attributes: ['id', 'firstNoticeYear', 'firstNoticeMonth', 'firstNoticeDay', 'firstNoticeUnaware', 'firstNoticeUnknown', 'firstDiagnosedYear', 'firstDiagnosedMonth', 'firstDiagnosedDay', 'firstDiagnosedUnaware', 'firstDiagnosedUnknown'],
       where: { fkUserId: id },
-      include: [{ model: Diagnosis, attributes: ['nameKr'] }]
+      include: [{ model: Diagnosis, attributes: ['id', 'nameKr'] }]
     });
 
     if (!uncleanedContents) return res.json({ contents: [] });  // []
@@ -26,7 +26,8 @@ const index = async (req, res, next) => {
                 firstDiagnosedMonth ? `${firstDiagnosedYear}년 ${firstDiagnosedMonth}월}` :
                   firstDiagnosedYear ? `${firstDiagnosedYear}년` : '-';
         return {
-          id,
+          id,  // diagnosisData의 PK id
+          contentId: content.diagnosis.id,  // diagnosis의 PK id
           diagnosisName: content.diagnosis.nameKr,
           dateAtFirstSymptom,
           dateAtFirstDiagnosed

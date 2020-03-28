@@ -13,7 +13,7 @@ const SpecItem = ({
   let item = null;
   if (type === 'diagnosis') {
     item = <div>
-      <div className={cx('profile-spec-item-link-wrapper')}><Link className={cx('profile-spec-item-link')} to={`/${type}/${contentId}`}>{nameKr}</Link></div>
+      <div className={cx('profile-spec-item-link-wrapper')}><Link className={cx('profile-spec-item-link')} to={`/${type}/${contentId}/summary`}>{nameKr}</Link></div>
       {
         (dateAtFirstSymptom || dateAtFirstDiagnosed ) ?
           <div className={cx('profile-spec-item-detail-wrapper')}>
@@ -24,7 +24,7 @@ const SpecItem = ({
     </div>;
   } else if (type === 'medicine') {
     item = <div>
-      <div className={cx('profile-spec-item-link-wrapper')}><Link className={cx('profile-spec-item-link')} to={`/${type}/${contentId}`}>{nameKr}</Link></div>
+      <div className={cx('profile-spec-item-link-wrapper')}><Link className={cx('profile-spec-item-link')} to={`/${type}/${contentId}/summary`}>{nameKr}</Link></div>
       { dosage ? <div className={cx('profile-spec-item-detail-wrapper')}>{dosage}</div> : null }
     </div>;
   } else if (type === 'symptom') {
@@ -42,12 +42,12 @@ const ProfileSpec = ({
   diagnosisList, medicineList, symptomList
 }) => {
   const diagnosisItemList = diagnosisList.map((diagnosis, index) => {
-    const { id, diagnosisName, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null } = diagnosis.toJS();
+    const { contentId, diagnosisName, dateAtFirstSymptom = null, dateAtFirstDiagnosed = null } = diagnosis.toJS();
     return (
       <div className={cx('profile-spec-item-wrapper')} key={index}>
         <SpecItem
           type={'diagnosis'}
-          contentId={id}
+          contentId={contentId}  // content(diagnosis, medicine)의 PK id
           nameKr={diagnosisName}
           dateAtFirstSymptom={dateAtFirstSymptom}
           dateAtFirstDiagnosed={dateAtFirstDiagnosed}
@@ -56,12 +56,12 @@ const ProfileSpec = ({
     )
   });
   const medicineItemList = medicineList.map((medicine, index) => {
-    const { id, medicineName, dosage = null } = medicine.toJS();
+    const { contentId, medicineName, dosage = null } = medicine.toJS();
     return (
       <div className={cx('profile-spec-item-wrapper')} key={index}>
         <SpecItem
           type={'medicine'}
-          contentId={id}
+          contentId={contentId}
           nameKr={medicineName}
           dosage={dosage}
         />
@@ -69,12 +69,11 @@ const ProfileSpec = ({
     )
   });
   const symptomItemList = symptomList.map((symptom, index) => {
-    const { id, symptomName } = symptom.toJS();
+    const { symptomName } = symptom.toJS();
     return (
       <div className={cx('profile-spec-item-wrapper', 'symptom')} key={index}>
         <SpecItem
           type={'symptom'}
-          contentId={id}
           nameKr={symptomName}
         />
       </div>
