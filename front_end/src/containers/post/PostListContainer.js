@@ -28,8 +28,8 @@ class PostListContainer extends Component {
 
 export default connect(
   (state) => ({
-    loading: state.pender.pending['postList/GET_POST_LIST'],
-    posts: state.postList.get('posts')
+    loading: state.pender.pending['post/GET_POST_LIST'],
+    posts: state.post.get('posts')
   }),
   (dispatch) => ({
     PostListActions: bindActionCreators(postListActions, dispatch)

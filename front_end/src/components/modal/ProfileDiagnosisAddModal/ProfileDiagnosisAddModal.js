@@ -22,7 +22,8 @@ class ProfileDiagnosisAddModal extends Component {
     },
     firstDiagnosedYear: '',
     firstDiagnosedMonth: '',
-    firstDiagnosedDay: ''
+    firstDiagnosedDay: '',
+    frontError: ''
   }
 
   handleDiagnosisChange = (e) => {
@@ -111,7 +112,7 @@ class ProfileDiagnosisAddModal extends Component {
   }
 
   render() {
-    const { diagnosisId, FNRadioGroup, firstNoticeYear, firstNoticeMonth, firstNoticeDay, FDRadioGroup, firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay } = this.state;
+    const { diagnosisId, FNRadioGroup, firstNoticeYear, firstNoticeMonth, firstNoticeDay, FDRadioGroup, firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay, frontError } = this.state;
     const { visible, diagnosisList, onCancel, onSubmit, error } = this.props;
     const { state, handleDiagnosisChange, handleRadioChange, handleDateChange } = this;
 
@@ -151,10 +152,25 @@ class ProfileDiagnosisAddModal extends Component {
           {/* radio group: Unaware, Unknown */}
           <br/><input type="radio" name="FDRadioGroup" value="firstDiagnosedUnaware" checked={FDRadioGroup['firstDiagnosedUnaware']} onChange={handleRadioChange}/>진단을 받은 적은 없지만, 제 생각엔 해당 증상명을 가지고 있는 것 같습니다.
           <br/><input type="radio" name="FDRadioGroup" value="firstDiagnosedUnknown" checked={FDRadioGroup['firstDiagnosedUnknown']} onChange={handleRadioChange}/>잘 모르겠습니다.
+          {/** front단 에러 */}
+          { frontError && <div className={cx('error')}>{frontError}</div>}
           {/* 에러 처리: 이미 추가한 진단명일 때 */}
           { error && <div className={cx('error')}>{error}</div>}
           <div>
-            <br/><Button onClick={() => onSubmit({ state })}>저장</Button>
+            <br/><Button onClick={() => {
+              if (
+                !(firstNoticeYear || FNRadioGroup.firstNoticeUnaware || FNRadioGroup.firstNoticeUnknown)
+                || !(firstDiagnosedYear || FDRadioGroup.firstDiagnosedUnaware || FDRadioGroup.firstDiagnosedUnknown)
+              ) this.setState({ frontError: '답변을 모두 입력해주세요.' })
+              else {
+                onSubmit({ state });
+                this.setState({
+                  diagnosisId: 1, FNRadioGroup: { firstNoticeUnaware: false, firstNoticeUnknown: false }, firstNoticeYear: '', firstNoticeMonth: '', firstNoticeDay: '',
+                  FDRadioGroup: { firstDiagnosedUnaware: false, firstDiagnosedUnknown: false }, firstDiagnosedYear: '', firstDiagnosedMonth: '', firstDiagnosedDay: '',
+                  frontError: ''
+                });
+              }
+            }}>저장</Button>
           </div>
         </div>
       </ModalWrapper>

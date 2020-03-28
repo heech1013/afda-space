@@ -18,7 +18,7 @@ class ProfileSymptomAddModalContainer extends Component {
    */
   getUserSymptomList = () => {
     const { userId: id, ProfileActions } = this.props;
-    ProfileActions.getUserContentList('symptom', id);
+    ProfileActions.getUserSymptomList(id);
   }
 
   handleCancel = () => {

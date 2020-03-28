@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
   MainPage,
-  // NewsPeedPage,
+  NewsPeedPage,
   LoginPage, JoinPage,
   ProfilePage, ProfileDiagnosisPage, ProfileSymptomPage, ProfileMedicinePage,
   DiagnosisPage, DiagnosisSummaryPage, DiagnosisSymptomPage, DiagnosisMedicinePage, DiagnosisNewsPeedPage,
@@ -20,6 +20,8 @@ const App = () => {
 
         <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/join" component={JoinPage}/>
+
+        <Route exact path="/newspeed" component={NewsPeedPage}/>
 
         <Route exact path="/profile/:id" component={ProfilePage}/>
         <Route exact path="/profile/:id/diagnosis" component={ProfileDiagnosisPage}/>
@@ -43,9 +45,6 @@ const App = () => {
         
         <Route exact path="/station" component={StationPage}/>
         <Route exact path="/station/:id" component={StationPostPage}/>
-
-        <Route exact path="/newspeed" component={ClosedPage}/>
-
       </Switch>
     </div>
   );

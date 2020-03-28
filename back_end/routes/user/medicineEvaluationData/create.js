@@ -1,4 +1,4 @@
-const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData } = require('../../../models');
+const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData, ActivityLog } = require('../../../models');
 const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 // const radioHandler = require('../../../middleware/maker/radioHandler');
 // const CustomError = require('../../../middleware/errorHandler/CustomError');
@@ -77,6 +77,8 @@ const create = async (req, res, next) => {
           startNoticingWhenStartTaking, startNoticingYear, startNoticingMonth, startNoticingDay
         }, { transaction });
       }
+
+      await ActivityLog.create({ type: 'REGISTER_MEDICINE_EVALUATION', target: fkMedicineId, fkUserId });
 
       await transaction.commit();
       return res.json({ success: true });

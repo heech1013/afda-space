@@ -18,7 +18,7 @@ class ProfileDiagnosisAddModalContainer extends Component {
    */
   getUserDiagnosisList = () => {
     const { userId, ProfileActions } = this.props;
-    ProfileActions.getUserContentList('diagnosis', userId);
+    ProfileActions.getUserDiagnosisList(userId);
   }
 
   handleCancel = () => {
