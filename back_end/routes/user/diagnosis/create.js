@@ -40,7 +40,7 @@ const create = async (req, res, next) => {
         firstNoticeYear, firstNoticeMonth, firstNoticeDay, firstNoticeUnaware, firstNoticeUnknown,
         firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay, firstDiagnosedUnaware, firstDiagnosedUnknown
       });
-      await ActivityLog.create({ type: 'REGISTER_DIAGNOSIS', target: fkDiagnosisId, fkUserId });
+      await ActivityLog.create({ type: 'REGISTER_DIAGNOSIS', fkDiagnosisId, fkUserId });
       return res.json({ success: true });
     }
   } catch (e) {

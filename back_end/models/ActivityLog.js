@@ -3,10 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    target: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     }
   }, {
     timestamps: true,

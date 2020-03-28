@@ -52,7 +52,7 @@ const create = async (req, res, next) => {
     }, {
       include: [{ model: ReasonOfStop }]
     });
-    await ActivityLog.create({ type: 'REGISTER_MEDICINE_DOSAGE', target: fkMedicineId, fkUserId });
+    await ActivityLog.create({ type: 'REGISTER_MEDICINE_DOSAGE', fkMedicineId, fkUserId });
 
     return res.json({ success: true });
   } catch (e) {

@@ -11,7 +11,7 @@ const create = async (req, res, next) => {
     
     else {
       await SymptomData.create({ fkUserId, fkSymptomId });
-      await ActivityLog.create({ type: 'REGISTER_SYMPTOM', target: fkSymptomId, fkUserId });
+      await ActivityLog.create({ type: 'REGISTER_SYMPTOM', fkSymptomId, fkUserId });
       return res.json({ success: true});
     }
   } catch (e) {

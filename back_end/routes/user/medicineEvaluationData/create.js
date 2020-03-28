@@ -78,7 +78,7 @@ const create = async (req, res, next) => {
         }, { transaction });
       }
 
-      await ActivityLog.create({ type: 'REGISTER_MEDICINE_EVALUATION', target: fkMedicineId, fkUserId });
+      await ActivityLog.create({ type: 'REGISTER_MEDICINE_EVALUATION', fkMedicineId, fkUserId });
 
       await transaction.commit();
       return res.json({ success: true });
