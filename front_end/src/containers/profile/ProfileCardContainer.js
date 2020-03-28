@@ -13,8 +13,7 @@ class ProfileCardContainer extends Component {
   }
   
   componentDidMount() {
-    const { logged } = this.props;
-    if (logged) this.getProfile();
+    this.getProfile();
   }
 
   handleEdit = () => {
