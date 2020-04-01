@@ -8,9 +8,20 @@ export const join = (authId, nick, sex, birthDate) => axios.post(`/api/auth/join
 export const checkJWT = (token) => axios.post(`/api/auth/checkJWT`, {token});
 
 export const getProfile = (id) => axios.get(`/api/user/${id}/profile`);
-export const updateProfileCard = (id, nick, introduction) => axios.patch(`/api/user/${id}/profile`, { nick, introduction });
+export const updateProfileCard = (
+  id,
+  // nick,
+  introduction
+) => axios.patch(`/api/user/${id}/profile`, {
+  // nick,
+  introduction
+});
 
-export const getUserContentList = (type, id) => axios.get(`/api/user/${id}/${type}`);
+// export const getUserContentList = (type, id) => axios.get(`/api/user/${id}/${type}`);
+export const getUserDiagnosisList = (id) => axios.get(`/api/user/${id}/diagnosis`);
+export const getUserMedicineList = (id) => axios.get(`/api/user/${id}/medicine`);
+export const getUserSymptomList = (id) => axios.get(`/api/user/${id}/symptom`);
+
 export const postUserDiagnosis = (id, data) => axios.post(`/api/user/${id}/diagnosis`, { data });
 export const postUserSymptom = (id, symptomId) => axios.post(`/api/user/${id}/symptom`, { symptomId });
 export const postUserMedicine = (id, medicineId) => axios.post(`/api/user/${id}/medicine`, { medicineId });
@@ -39,4 +50,5 @@ export const postStation = (data) => axios.post(`/api/station`, { data });
 export const getStationCommentList = (id) => axios.get(`/api/station/${id}/comment`);
 export const postStationComment = (state) => axios.post(`/api/station/comment`, { state });
 
-export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
+// export const getPostList = (userId) => axios.get(`/api/post?userId=${userId}`);
+export const getActivities = (type, userId) => axios.get(`/api/activityLog?type=${type}&userId=${userId}`);

@@ -1,0 +1,43 @@
+.profile-spec {
+  border: 1px solid #707070;
+  border-radius: 1.5rem;
+  margin: 0 auto;
+  width: 65rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  .profile-spec-title {
+    &.top {  // 최상단 title (진단명)
+      margin-top: 0;
+    }
+    font-weight: bold;
+    margin-top: 2rem;
+  }
+  .profile-spec-hr {
+    border-bottom: 0;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+  .profile-spec-item-list-wrapper {
+    margin: 0 auto;
+    width: 63rem;
+    .profile-spec-item-wrapper {
+      &.symptom {
+        display: inline-block;
+        margin-top: 1rem;
+      }
+      .profile-spec-item-link-wrapper{
+        margin-top: 1rem;
+        .profile-spec-item-link {
+          text-decoration: none;
+          font-weight: bold;
+          color: #2C3F77;
+        }
+      }
+      .profile-spec-item-detail-wrapper {
+        margin: 0 auto;
+        width: 62.5rem;
+        margin-top: 0.3rem;
+      }
+      }
+  }
+}

@@ -31,6 +31,7 @@ db.ReasonOfStop = require('./ReasonOfStop')(sequelize, Sequelize);
 db.MedicinePurposeData = require('./MedicinePurposeData')(sequelize, Sequelize);
 db.MedicineEvaluationData = require('./MedicineEvaluationData')(sequelize, Sequelize);
 db.MedicineSideEffectsData = require('./MedicineSideEffectsData')(sequelize, Sequelize);
+db.ActivityLog = require('./ActivityLog')(sequelize, Sequelize);
 
 /* User:Profile = 1:1 */
 db.User.hasOne(db.Profile, { foreignKey: 'fkUserId' });
@@ -146,5 +147,13 @@ db.MedicineSideEffectsData.belongsTo(db.Symptom, { foreignKey: 'fkSymptomId' });
 db.User.hasMany(db.MedicineSideEffectsData, { foreignKey: 'fkUserId' });
 db.MedicineSideEffectsData.belongsTo(db.User, { foreignKey: 'fkUserId' });
 
+db.User.hasMany(db.ActivityLog, { foreignKey: 'fkUserId' });
+db.ActivityLog.belongsTo(db.User, { foreignKey: 'fkUserId' });
+db.Diagnosis.hasMany(db.ActivityLog, { foreignKey: 'fkDiagnosisId' });
+db.ActivityLog.belongsTo(db.Diagnosis, { foreignKey: 'fkDiagnosisId' });
+db.Medicine.hasMany(db.ActivityLog, { foreignKey: 'fkMedicineId' });
+db.ActivityLog.belongsTo(db.Medicine, { foreignKey: 'fkMedicineId' });
+db.Symptom.hasMany(db.ActivityLog, { foreignKey: 'fkSymptomId' });
+db.ActivityLog.belongsTo(db.Symptom, { foreignKey: 'fkSymptomId' });
 
 module.exports = db;

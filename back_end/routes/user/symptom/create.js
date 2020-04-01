@@ -1,4 +1,4 @@
-const { SymptomData } = require('../../../models');
+const { SymptomData, ActivityLog } = require('../../../models');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 
 const create = async (req, res, next) => {
@@ -11,6 +11,7 @@ const create = async (req, res, next) => {
     
     else {
       await SymptomData.create({ fkUserId, fkSymptomId });
+      await ActivityLog.create({ type: 'REGISTER_SYMPTOM', fkSymptomId, fkUserId });
       return res.json({ success: true});
     }
   } catch (e) {

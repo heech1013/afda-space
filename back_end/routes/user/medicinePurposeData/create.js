@@ -1,4 +1,4 @@
-const { MedicinePurposeData } = require('../../../models');
+const { MedicinePurposeData, ActivityLog } = require('../../../models');
 
 const create = async (req, res, next) => {
   try {
@@ -16,7 +16,8 @@ const create = async (req, res, next) => {
 
     await MedicinePurposeData.create({
       fkUserId, fkMedicineId, fkSymptomId, fkDiagnosisId
-    })
+    });
+    await ActivityLog.create({ type: 'REGISTER_MEDICINE_PURPOSE', fkMedicineId, fkUserId });
 
     return res.json({ success: true });
   } catch (e) {

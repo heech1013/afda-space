@@ -8,7 +8,12 @@ import * as api from 'lib/api';
 /* action types */
 const GET_PROFILE = 'profile/GET_PROFILE';
 const UPDATE_PROFILE_CARD = 'profile/UPDATE_PROFILE_CARD';
-const GET_USER_CONTENT_LIST = 'profile/GET_USER_CONTENT_LIST';
+
+// const GET_USER_CONTENT_LIST = 'profile/GET_USER_CONTENT_LIST';
+const GET_USER_DIAGNOSIS_LIST = 'profile/GET_USER_DIAGNOSIS_LIST';
+const GET_USER_MEDICINE_LIST = 'profile/GET_USER_MEDICINE_LIST';
+const GET_USER_SYMPTOM_LIST = 'profile/GET_USER_SYMPTOM_LIST';
+
 const UPDATE_CONTENT_ID = 'profile/UPDATE_CONTENT_ID';
 const POST_USER_DIAGNOSIS = 'profile/POST_USER_DIAGNOSIS';
 const POST_USER_SYMPTOM = 'profile/POST_USER_SYMPTOM';
@@ -20,7 +25,12 @@ const POST_USER_MEDICINE_EVALUATION = 'profile/POST_USER_MEDICINE_EVALUATION';
 /* action creators */
 export const getProfile = createAction(GET_PROFILE, api.getProfile);
 export const updateProfileCard = createAction(UPDATE_PROFILE_CARD, api.updateProfileCard);
-export const getUserContentList = createAction(GET_USER_CONTENT_LIST, api.getUserContentList);
+
+// export const getUserContentList = createAction(GET_USER_CONTENT_LIST, api.getUserContentList);
+export const getUserDiagnosisList = createAction(GET_USER_DIAGNOSIS_LIST, api.getUserDiagnosisList);
+export const getUserMedicineList = createAction(GET_USER_MEDICINE_LIST, api.getUserMedicineList);
+export const getUserSymptomList = createAction(GET_USER_SYMPTOM_LIST, api.getUserSymptomList);
+
 export const updateContentId = createAction(UPDATE_CONTENT_ID);
 export const postUserDiagnosis = createAction(POST_USER_DIAGNOSIS, api.postUserDiagnosis);
 export const postUserSymptom = createAction(POST_USER_SYMPTOM, api.postUserSymptom);
@@ -32,7 +42,10 @@ export const postUserMedicineEvaluation = createAction(POST_USER_MEDICINE_EVALUA
 /* initial state */
 const initialState = Map({
   profile: Map(),
-  contents: List(),
+  // contents: List(),
+  diagnosisList: List(),
+  medicineList: List(),
+  symptomList: List(),
   contentId: '',
   error: Map({
     profileCardUpdate: null,
@@ -64,10 +77,24 @@ export default handleActions({
     }
   }),
   ...pender({
-    type: GET_USER_CONTENT_LIST,
+    type: GET_USER_DIAGNOSIS_LIST,
     onSuccess: (state, action) => {
       const { contents } = action.payload.data;
-      return state.set('contents', fromJS(contents));
+      return state.set('diagnosisList', fromJS(contents));
+    }
+  }),
+  ...pender({
+    type: GET_USER_MEDICINE_LIST,
+    onSuccess: (state, action) => {
+      const { contents } = action.payload.data;
+      return state.set('medicineList', fromJS(contents));
+    }
+  }),
+  ...pender({
+    type: GET_USER_SYMPTOM_LIST,
+    onSuccess: (state, action) => {
+      const { contents } = action.payload.data;
+      return state.set('symptomList', fromJS(contents));
     }
   }),
   [UPDATE_CONTENT_ID]: (state, action) => {

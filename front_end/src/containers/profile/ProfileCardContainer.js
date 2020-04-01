@@ -13,8 +13,7 @@ class ProfileCardContainer extends Component {
   }
   
   componentDidMount() {
-    const { logged } = this.props;
-    if (logged) this.getProfile();
+    this.getProfile();
   }
 
   handleEdit = () => {
@@ -23,11 +22,15 @@ class ProfileCardContainer extends Component {
   }
 
   render() {
-    const { userId, storeId, loading, profile } = this.props;
+    const { userId, storeId, logged, loading, profile } = this.props;
     const { handleEdit } = this;
+    
     if (loading) return null;
-    // eslint-disable-next-line eqeqeq
-    const updatable = userId == storeId;
+    
+    const updatable =
+      (parseInt(userId) === parseInt(storeId))  // 접근한 주소의 param id와 리덕스 상 id가 일치하고
+      && logged;  // 리덕스 상으로 logged 되어 있을 때
+
     return (
       <div>
         <ProfileCard
