@@ -35,10 +35,9 @@ export const hideModal = createAction(HIDE_MODAL);
 
 /* initial state */
 const initialState =  Map({
+  joinType: 'LOCAL',
   logged: false,
   id: null,
-  // logged: true,  // 임시
-  // id: 5,  // 임시
   auth: Map({
     token: null,
     authId: null
@@ -51,10 +50,10 @@ const initialState =  Map({
     profileMedicineDosageAdd: false,
     profileMedicinePurposeAdd: false,
     profileMedicineEvaluationAdd: false,
-
     stationAdd: false
   }),
   error: Map({
+    login: null,
     join: null
   })
 });
@@ -64,10 +63,14 @@ export default handleActions({
   ...pender({
     type: LOGIN,
     onSuccess: (state, action) => {
-      const { logged, id, auth } = action.payload.data;
-      return state.set('logged', logged)
+      const { joinType, logged, id, auth } = action.payload.data;
+      return state.set('joinType', joinType)
+                  .set('logged', logged)
                   .set('id', id)
                   .set('auth', fromJS(auth));
+    },
+    onError: (state, action) => {
+      return state.setIn(['error', 'login'], action.payload.response.data.message);
     }
   }),
   [LOGOUT]: (state, action) => {

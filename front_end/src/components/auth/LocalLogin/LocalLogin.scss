@@ -1,0 +1,37 @@
+.local-login {
+  color: #707070;
+  margin: 2rem auto;
+  width: 32rem;
+  .local-login-or {
+    text-align: center;
+  }
+  .local-login-form-wrapper {
+    border: 1px solid #707070;
+    margin-top: 1rem;
+    padding: 2rem;
+    .local-login-form {
+      width: 27rem;
+      height: 1.3rem;
+      margin-top: 0.3rem;
+      &.email {
+        margin-bottom: 0.7rem;
+      }
+    }
+    .local-login-button-wrapper {
+      margin-top: 2rem;
+      text-align: center;
+      .local-login-error {
+        color: red;
+        margin-top: 0.3rem;
+      }
+    }
+    .local-login-link-wrapper {
+      text-align: center;
+      margin-top: 0.5rem;
+      .local-login-link {
+        text-decoration: none;
+        color: royalblue;
+      }
+    }
+  }
+}

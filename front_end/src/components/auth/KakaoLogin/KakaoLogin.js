@@ -14,7 +14,7 @@ class KakaoLogin extends Component {
 
   loginOrJoin = async (authId) => {
     const { BaseActions, history } = this.props;
-    await BaseActions.login(authId);
+    await BaseActions.login('KAKAO', authId, null);
     const { logged, auth } = this.props;
     const { token } = auth.toJS();
     /* 회원가입 */

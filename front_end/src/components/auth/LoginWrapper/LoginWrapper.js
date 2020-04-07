@@ -16,7 +16,7 @@ const LoginWrapper = ({children}) => {
           </Link>
         </div>
         <div className={cx('border')}>
-          {children}
+          {children} {/** for KaKao Login */}
         </div>
       </div>
   )
