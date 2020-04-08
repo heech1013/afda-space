@@ -12,14 +12,20 @@ const index = async (req, res, next) => {
             include: [
               {
                 model: MedicinePurposeData, attributes: ['id', 'perceivedEffectiveness'],
+                /** required: true -> (ex: 부프로피온)과 연결된 purposeData를 함께 찾는 과정에서 해당하는 fkUserId를 가진 purposeData가 없으면 상위 Medicine 데이터도 뽑히지 않게 된다(inner join). */
+                where: { fkUserId: id }, required: false,
                 include: [
                   { model: Diagnosis, attributes: ['nameKr']},
                   { model: Symptom, attributes: ['nameKr']},
                 ]
               },
-              { model: MedicineEvaluationData, attributes: ['sideEffects', 'fkMedicineId']},
+              {
+                model: MedicineEvaluationData, attributes: ['sideEffects', 'fkMedicineId'],
+                where: { fkUserId: id }, required: false
+              },
               {
                 model: MedicineSideEffectsData, attributes: ['id'],
+                where: { fkUserId: id }, required: false,
                 include: [{ model: Symptom, attributes: ['nameKr']}]
               },
               {
@@ -28,13 +34,14 @@ const index = async (req, res, next) => {
                   'takingStatus',
                   'recentTakingYear', 'recentTakingMonth', 'recentTakingDay', 'dosageCount', 'dosageMg', 'dosageFrequency', 'additionalDosage',
                   'stopTakingYear', 'stopTakingMonth', 'stopTakingDay',
-                ]
+                ],
+                where: { fkUserId: id }, required: false
               }
             ]
         }]
       }]
     });
-
+    
     const contents = uncleanedMedicineData.medicineData.map((obj) => {
       const { id } = obj;
       const contentId = obj.medicine.id;  // medicineId
@@ -154,67 +161,3 @@ const index = async (req, res, next) => {
 };
 
 module.exports = index;
-
-/*
-uncleanedMedicineData = {
-  "id": 1,
-  "RegistereingMedicineData": [  // 배열, map 처리
-    {  // 첫 번째 배열 원소이자 obj
-      "id": 1,  // contents[0].id
-      "RegisteredMedicineData": {
-        "nameKr": "부프로피온",  // contents[0].medicineName
-        "RegisteredMedicinePurposeData": [  // purposeData(변수)
-          // 처방 목적이 여러 개 등록될 수 있지만(최종설계 상, DB 설계 상: 1대 다) mvp에서는 기능상 한 개만 등록할 수 있다.
-          {
-            "id": 1,
-            "perceivedEffectiveness": "3",
-            "UsedMedicineForDiagnosis": {
-              "nameKr": "주요 우울증"
-            },
-            "UsedMEdicineForSymptom": {}
-          },
-          { ... }
-        ],
-        "RegisteredMedicineEvaluationData": [
-          // 특정 purpose에 대해 종속하는 평가 데이터(DB 설계 상으로는 그렇지 않지만 기능상으로는 그렇다).
-          // 따라서 1대다(하나의 처방약 데이터에 대해 여러 개의 평가가 있을 수 있음. 목적이 여러 개가 있을 수 있음에 따라.)
-          {
-            "sideEffects": 3
-            "fkMedicineId": 5  // 어디에 쓰이나?
-          },
-          { ... }
-        ]
-    },
-    
-    {  // 두 번째 배열 원소이자 obj
-      "id": 2,
-      "RegisteredMedicineData": {
-        ...
-    }
-
-  }
-}
-*/
-
-// {
-//   "id":1,
-//   "RegisteredMedicineData":{
-//     "id":1,
-//     "nameKr":"부프로피온",
-//     "RegisteredMedicinePurposeData":[
-//       {
-//         "id":5,"perceivedEffectiveness":1,"UsedMedicineForDiagnosis":{"nameKr":"우울증"},"UsedMedicineForSymptom":null
-//       }
-//     ],
-//     "RegisteredMedicineEvaluationData":[
-//       {"sideEffects":1,"fkMedicineId":1}
-//     ],
-//     "RegisteredMedicineSideEffectsData":[
-//       {"id":1,"SymptomOfSideEffects":{"nameKr":"우울한 기분"}},
-//       {"id":2,"SymptomOfSideEffects":{"nameKr":"수면 장애"}}
-//     ],
-//     "RegisteredMedicineDosageData":[
-//       {"id":7,"takingStatus":false,"recentTakingYear":1904,"recentTakingMonth":1,"recentTakingDay":1,"dosageCount":1,"dosageMg":2,"dosageFrequency":1,"additionalDosage":2,"stopTakingYear":1907,"stopTakingMonth":2,"stopTakingDay":1}
-//     ]
-//   }
-// }
