@@ -29,7 +29,8 @@
     margin-bottom: 0;
   }
   .column {
-    white-space: pre;  // 엔터 등의 공백이 그대로 표시된다.
+    width: 65rem;
+    white-space: pre-line;  // 엔터 등의 공백이 그대로 표시된다.
     margin-left: 2rem;
     margin-right: 2rem;
     margin-top: 1.5rem;
