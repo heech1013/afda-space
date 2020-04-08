@@ -36,7 +36,7 @@ const showMedicineSummary = async (req, res, next) => {
       include: [{ model: Diagnosis, attributes: ['id', 'nameKr'] }],
       group: ['fkDiagnosisId'],
       order: [[Sequelize.fn('COUNT', Sequelize.col('fkDiagnosisId')), 'DESC']]
-    });
+    }); console.log(JSON.stringify(val_2));
     
     for (let i = 0; i < 5; i++) {
       if (!val_2[i]) break;  // (결과 배열 요소가 없을 경우 탈출. 5개 이하일 경우를 대비)
@@ -62,13 +62,13 @@ const showMedicineSummary = async (req, res, next) => {
         for(let id of diagnosisIdArr) {
           countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 5 }});
           chartData["effectMajorArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 4 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 4 }});
           chartData["effectModerateArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 3 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 3 }});
           chartData["effectSlightArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 2 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 2 }});
           chartData["effectNoneArr"].push(countVal);
-          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 1 }});
+          countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': medicineId, 'perceivedEffectiveness': 1 }});
           chartData["effectCanNotTellArr"].push(countVal);
         }
         resolve();
@@ -149,6 +149,7 @@ const showMedicineSummary = async (req, res, next) => {
     /** cost */
     const val_11_1 = await MedicineEvaluationData.count({
       where: {
+        fkMedicineId: medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -165,6 +166,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_11_2 = await MedicineEvaluationData.count({
       where: {
+        fkMedicineId: medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -181,6 +183,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_11_3 = await MedicineEvaluationData.count({
       where: {
+        fkMedicineId: medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -197,6 +200,7 @@ const showMedicineSummary = async (req, res, next) => {
 
     const val_11_4 = await MedicineEvaluationData.count({
       where: {
+        fkMedicineId: medicineId,
         [Op.or]: [
           {[Op.and]: [
             { 'costDateUnit': 1 },  // monthly
@@ -216,15 +220,20 @@ const showMedicineSummary = async (req, res, next) => {
      */
     const switchFromIdArr = [];  // medicine의 id만 따로 담는 배열
 
+    /** switchFrom
+     * switchTo는 medicineDosageData의 attribute 중 하나.
+     * 특정 medicine에 대해 dosageData가 존재하고 그 attributes 중 하나인 switchTo가 null인 경우 {"switchTo": null, "count":0} 으로 뽑힘: where문으로 배제(switchTo가 null이 아닌 데이터로 한정)
+     * val_13(switchTo)는 해당 x. 애초에 switchTo를 where 조건으로 뽑기 떄문.
+     */
     const val_12 = await MedicineDosageData.findAll({
       attributes: ['switchTo', [Sequelize.fn('COUNT', Sequelize.col('switchTo')), 'count']],
-      where: { fkMedicineId: medicineId },
+      where: { fkMedicineId: medicineId, switchTo: { [Op.ne]: null }},
       group: ['switchTo'],
       order: [[Sequelize.fn('COUNT', Sequelize.col('switchTo')), 'DESC']]
-    });
+    }); console.log(JSON.stringify(val_12));
 
     for (let i = 0; i < 5; i++) {
-      if (!val_12[i].count) break;  // 배열 요소가 5개 이하일 경우를 대비 ( 여기서는 데이터가 없을 때 결과가 []이 아니라 [{"switchTo":null, "count":0}] 으로 출력됨. )
+      if (!val_12[i]) break;  // 배열 요소가 5개 이하일 경우를 대비
       else {
         chartData['switchFromCountArr'].push(val_12[i].dataValues.count);
         switchFromIdArr.push(val_12[i].dataValues.switchTo);
