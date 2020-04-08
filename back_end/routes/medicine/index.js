@@ -17,7 +17,6 @@ const index = async (req, res, next) => {
         group: ['id', 'nameKr', 'nameEn'],
         order: [[Sequelize.fn("COUNT", Sequelize.col("medicineData.id")), 'DESC']]
       });
-    console.log(JSON.stringify(contentList));
 
     return res.status(200).json({ contentList });
   } catch (e) {
