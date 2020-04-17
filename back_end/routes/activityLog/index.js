@@ -18,7 +18,8 @@ const index = async (req, res, next) => {
         { model: Symptom, attributes: ['id', 'nameKr']}
       ],
       where: whereObj,
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
+      limit: 100
     });
 
     let activities = [];

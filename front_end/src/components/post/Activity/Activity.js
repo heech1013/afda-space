@@ -72,7 +72,7 @@ const Activity = ({title, activities}) => {
 
   return (
     <div className={cx('activity')}>
-      <div className={cx('activity-title')}>{'최근 활동 둘러보기'}</div>
+      <div className={cx('activity-title')}>{'최근 활동 둘러보기(최신순 100건)'}</div>
       {activityList}
     </div>
   )
