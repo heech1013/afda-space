@@ -15,7 +15,7 @@ const show = async (req, res, next) => {
     const station = {
       "title": stationBefore["title"],
       "body": stationBefore["body"],
-      "createdAt": format(stationBefore["createdAt"], "yyyy-MM-dd HH:mm"),
+      "createdAt": format(stationBefore["createdAt"], "yyyy-MM-dd"),  //  HH:mm
       "user": stationBefore["user"]
     };
 

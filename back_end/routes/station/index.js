@@ -23,8 +23,8 @@ const index = async (req, res, next) => {
           stationList.push({
             "id": obj["id"],
             "title": skippedTitle,
-            "createdAt": format(obj["createdAt"], "yyyy-MM-dd HH:mm"),
-            "count": obj.dataValues["count"]  // 왠지 모르겠다 왜 dataValues를 거치지 않고 접근하면 undefined로 뜨는지..
+            "createdAt": format(obj["createdAt"], "yyyy-MM-dd"),  //  HH:mm
+            "count": obj.dataValues["count"]
           });
         }
         resolve();

@@ -29,7 +29,7 @@ const ForumCommentList = ({type, comments}) => {
           key={id}
           userId={userId}
           nick={nick}
-          createdAt={format(createdAt, 'YYYY.MM.DD HH:mm')}
+          createdAt={format(createdAt, 'YYYY.MM.DD')}
           body={body}
         />
         <hr className={cx('hr')}/>
