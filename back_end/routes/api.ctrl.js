@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 router.use('/auth', require('./auth/auth.ctrl'));
 router.use('/user', require('./user/user.ctrl'));
-router.use('/activityLog', require('./activityLog/activityLog.ctrl'));
+router.use('/newspeed', require('./newspeed/newspeed.ctrl'));
 router.use('/diagnosis', require('./diagnosis/diagnosis.ctrl'));
 router.use('/diagnosisData', require('./diagnosisData/diagnosisData.ctrl'));
 router.use('/symptom', require('./symptom/symptom.ctrl'));
