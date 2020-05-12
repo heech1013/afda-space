@@ -1,4 +1,4 @@
-const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData, ActivityLog } = require('../../../models');
+const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData } = require('../../../models');
 const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 // const radioHandler = require('../../../middleware/maker/radioHandler');
 // const CustomError = require('../../../middleware/errorHandler/CustomError');
@@ -78,7 +78,9 @@ const create = async (req, res, next) => {
         }, { transaction });
       }
 
+      /* activityLog 폐지
       await ActivityLog.create({ type: 'REGISTER_MEDICINE_EVALUATION', fkMedicineId, fkUserId });
+      */
 
       await transaction.commit();
       return res.json({ success: true });

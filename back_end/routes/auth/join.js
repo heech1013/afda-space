@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const CustomError = require('../../middleware/errorHandler/CustomError');
 
-const { User, Profile, ActivityLog } = require('../../models');
+const { User, Profile } = require('../../models');
 
 const join = async (req, res, next) => {
   try {
@@ -41,7 +41,9 @@ const join = async (req, res, next) => {
           issuer: '아프다스페이스.com'
         }
       );
+      /* activityLog 폐지
       await ActivityLog.create({ type: 'USER_JOIN', fkUserId: user.id });
+      */
       return res.status(201).json({ logged: true, id: user.id, auth: { authId: null, token }});
     }
   } catch (e) {

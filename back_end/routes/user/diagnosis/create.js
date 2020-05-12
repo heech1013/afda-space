@@ -1,4 +1,4 @@
-const { DiagnosisData, ActivityLog } = require('../../../models');
+const { DiagnosisData } = require('../../../models');
 const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 
@@ -40,7 +40,9 @@ const create = async (req, res, next) => {
         firstNoticeYear, firstNoticeMonth, firstNoticeDay, firstNoticeUnaware, firstNoticeUnknown,
         firstDiagnosedYear, firstDiagnosedMonth, firstDiagnosedDay, firstDiagnosedUnaware, firstDiagnosedUnknown
       });
+      /* activityLog 폐지
       await ActivityLog.create({ type: 'REGISTER_DIAGNOSIS', fkDiagnosisId, fkUserId });
+      */
       return res.json({ success: true });
     }
   } catch (e) {

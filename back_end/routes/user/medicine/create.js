@@ -1,4 +1,4 @@
-const { MedicineData, ActivityLog } = require('../../../models');
+const { MedicineData } = require('../../../models');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 
 const create = async (req, res, next) => {
@@ -11,7 +11,9 @@ const create = async (req, res, next) => {
 
     else {
       await MedicineData.create({ fkUserId, fkMedicineId });
+      /* activityLog 폐지
       await ActivityLog.create({ type: 'REGISTER_MEDICINE', fkMedicineId, fkUserId });
+      */
       return res.json({ success: true });
     }    
   } catch (e) {
