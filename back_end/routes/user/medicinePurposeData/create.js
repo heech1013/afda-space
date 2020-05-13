@@ -17,9 +17,8 @@ const create = async (req, res, next) => {
     await MedicinePurposeData.create({
       fkUserId, fkMedicineId, fkSymptomId, fkDiagnosisId
     });
-    /* activityLog 폐지
+    
     await ActivityLog.create({ type: 'REGISTER_MEDICINE_PURPOSE', fkMedicineId, fkUserId });
-    */
 
     return res.json({ success: true });
   } catch (e) {

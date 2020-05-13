@@ -41,9 +41,9 @@ const join = async (req, res, next) => {
           issuer: '아프다스페이스.com'
         }
       );
-      /* activityLog 폐지
+      
       await ActivityLog.create({ type: 'USER_JOIN', fkUserId: user.id });
-      */
+      
       return res.status(201).json({ logged: true, id: user.id, auth: { authId: null, token }});
     }
   } catch (e) {
