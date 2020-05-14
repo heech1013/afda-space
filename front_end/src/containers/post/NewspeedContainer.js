@@ -11,10 +11,13 @@ class ActivityContainer extends Component {
   getActivities = async () => {
     const {
       PostActions,
-      type,  // 'newspeed' / 'profile'
-      userId = null,  // type이 'profile'인 경우 전달 받음.
+      userId = null,  // 특정 유저 profile의 newspeed일 경우 전달 받음
     } = this.props;
-    await PostActions.getActivities(type, userId);
+    
+    userId ?
+      await PostActions.getActivities(userId)
+      :
+      await PostActions.getNewspeed();
   }
 
   componentDidMount() {
