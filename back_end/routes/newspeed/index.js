@@ -56,13 +56,12 @@ const index = async (req, res, next) => {
       () => new Promise(async (resolve, reject) => {
         // post handling
         for (let obj of post) {
-          console.log(JSON.stringify(obj));
           newspeed.push({
             "peedType": "POST",
             "userId": obj.user.id,
             "nick": obj.user.profile.nick,
             "body": obj.body,
-            "postComment": obj.postComment,  // comment array
+            "postComments": obj.postComments,  // comment array
             "createdAt": format(obj["createdAt"], "yyyy-MM-dd HH:mm")
           });
         }

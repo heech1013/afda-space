@@ -5,43 +5,123 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const ActivityItem = ({
-  type, target, targetId, userId, nick, createdAt
-}) => {
+const PostCommentItem = ({}) => {
+
+}
+
+const PostItem = ({ userId, nick, createdAt, body, postComments }) => {
+  const postCommentList = postComments.map((obj) => {
+
+  })
+
+  return (
+    <div className={cx('post-item')}>
+      <Link className={cx('post-item-link')} to={`/profile/${userId}`}>
+        {nick}
+      </Link>
+      <div className={cx('post-item-date')}>{createdAt}</div>
+      <p className={cx('post-item-body')}>
+        {body}
+      </p>
+      <hr className={cx('post-item-hr')}/>
+      <div className={cx('post-comment-list')}>
+        {postCommentList}
+      </div>
+    </div>
+  )
+}
+
+const ActivityItem = ({ userId, nick, createdAt, logType, target, targetId }) => {
   let itemDetail = null;
-  if (type === 'USER_JOIN') {
+  if (logType === 'USER_JOIN') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 새로 가입했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 새로 가입했습니다.
     </div>
   }
-  else if (type === 'REGISTER_DIAGNOSIS') {
+  else if (logType === 'REGISTER_DIAGNOSIS') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 프로필에 <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/diagnosis/${targetId}/summary`}>{target}</Link></div>을(를) 새로 추가했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 프로필에
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/diagnosis/${targetId}/summary`}>
+          {target}
+        </Link>
+      </div>을(를) 새로 추가했습니다.
     </div>
   }
-  else if (type === 'REGISTER_MEDICINE') {
+  else if (logType === 'REGISTER_MEDICINE') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 프로필에 <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>{target}</Link></div>을(를) 새로 추가했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 프로필에 
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>
+          {target}
+        </Link>
+      </div>을(를) 새로 추가했습니다.
     </div>
   }
-  else if (type === 'REGISTER_MEDICINE_DOSAGE') {
+  else if (logType === 'REGISTER_MEDICINE_DOSAGE') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 프로필에 <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>{target}</Link></div>에 대한 용량 정보를 새로 추가했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 프로필에 
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>
+          {target}
+        </Link>
+      </div>에 대한 용량 정보를 새로 추가했습니다.
     </div>
   }
-  else if (type === 'REGISTER_MEDICINE_PURPOSE') {
+  else if (logType === 'REGISTER_MEDICINE_PURPOSE') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 프로필에 <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>{target}</Link></div>에 대한 처방목적을 새로 추가했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 프로필에 
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>
+          {target}
+        </Link>
+      </div>에 대한 처방목적을 새로 추가했습니다.
     </div>
   }
-  else if (type === 'REGISTER_MEDICINE_EVALUATION') {
+  else if (logType === 'REGISTER_MEDICINE_EVALUATION') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 프로필에 <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>{target}</Link></div>에 대한 평가를 새로 추가했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 프로필에 
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/medicine/${targetId}/summary`}>
+          {target}
+        </Link>
+      </div>에 대한 평가를 새로 추가했습니다.
     </div>
   }
-  else if (type === 'REGISTER_SYMPTOM') {
+  else if (logType === 'REGISTER_SYMPTOM') {
     itemDetail = <div className={cx('activity-item-detail')}>
-      <div className={cx('activity-item-link-wrapper')}><Link className={cx('activity-item-link')} to={`/profile/${userId}`}>{nick}</Link></div>님이 프로필에 <div className={cx('activity-item-link-wrapper')}>{target}</div>을(를) 새로 추가했습니다.
+      <div className={cx('activity-item-link-wrapper')}>
+        <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+      </div>님이 프로필에 
+      <div className={cx('activity-item-link-wrapper')}>
+        {target}
+      </div>을(를) 새로 추가했습니다.
     </div>
   }
 
@@ -53,29 +133,47 @@ const ActivityItem = ({
   )
 }
 
-const Activity = ({title, activities}) => {
-  const activityList = activities.map((activity, index) => {
-    const { type, target, targetId, userId, nick, createdAt } = activity.toJS();
+const Newspeed = ({ newspeed }) => {
+  const newspeedList = newspeed.map((obj, index) => {
+    const { 
+      /** common */
+      peedType, userId, nick, createdAt,
+      /** type == POST */
+      body, postComments,
+      /** type == ACTIVITY_LOG */
+      logType, target, targetId
+    } = obj.toJS();
+
     return (
-      <div key={index}>
-        <ActivityItem
-          type={type}
-          target={target}
-          targetId={targetId}
-          userId={userId}
-          nick={nick}
-          createdAt={createdAt}
-        />
-      </div>
+      peedType === "POST" ?
+        <div key={index}>
+          <PostItem
+            userId={userId}
+            nick={nick}
+            createdAt={createdAt}
+            body={body}
+            postComments={postComments}
+          />
+        </div>
+        : peedType === "ACTIVITY_LOG" ?
+          <div key={index}>
+            <ActivityItem
+              userId={userId}
+              nick={nick}
+              createdAt={createdAt}
+              logType={logType}
+              target={target}
+              targetId={targetId}
+            />
+          </div> : null
     )
   });
 
   return (
-    <div className={cx('activity')}>
-      <div className={cx('activity-title')}>{'최근 활동 둘러보기(최신순 100건)'}</div>
-      {activityList}
+    <div className={cx('newspeed')}>
+      {newspeedList}
     </div>
   )
 };
 
-export default Activity;
+export default Newspeed;
