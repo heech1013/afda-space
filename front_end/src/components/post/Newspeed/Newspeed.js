@@ -5,13 +5,26 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const PostCommentItem = ({}) => {
-
-}
+const PostCommentItem = ({body, createdAt, userId, nick}) => (
+  <div className={cx('')}>
+    <Link className={cx('')} to={`/profile/?${userId}`}>{nick}</Link>
+    <div className={cx('')}>{createdAt}</div>
+    <div className={cx('')}>{body}</div>
+  </div>
+)
 
 const PostItem = ({ userId, nick, createdAt, body, postComments }) => {
-  const postCommentList = postComments.map((obj) => {
-
+  const postCommentList = postComments.map((obj, index) => {
+    const { body, user } = obj;
+    return (
+      <PostCommentItem
+        key={index}
+        body={body}
+        createdAt={createdAt}
+        userId={user.id}
+        nick={user.profile.nick}
+      />
+    )
   })
 
   return (

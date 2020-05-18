@@ -22,7 +22,7 @@ const index = async (req, res, next) => {
           include: [{ model: Profile, attributes: ['nick'] }]
         },
         {
-          model: PostComment, attributes: ['body'],
+          model: PostComment, attributes: ['body', 'createdAt'],
           include: [{
               model: User, attributes: ['id'],
               include: [{ model: Profile, attributes: ['nick'] }]
