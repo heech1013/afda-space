@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Activity.scss';
+import styles from './Newspeed.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 

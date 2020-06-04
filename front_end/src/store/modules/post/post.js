@@ -11,7 +11,7 @@ const GET_ACTIVITIES = 'post/GET_ACTIVITIES';
 
 /* action creators */
 // export const getPostList = createAction(GET_POST_LIST, api.getPostList);
-export const getActivities = createAction(GET_ACTIVITIES, api.getActivities);
+// export const getActivities = createAction(GET_ACTIVITIES, api.getActivities);
 
 /* initial state */
 const initialState = Map({

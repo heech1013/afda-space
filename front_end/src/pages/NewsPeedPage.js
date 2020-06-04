@@ -1,12 +1,15 @@
 import React from 'react';
 
 import PageTemplate from 'components/common/PageTemplate';
-import NewpeedContainer from 'containers/post/NewspeedContainer';
+import NewspeedContainer from 'containers/post/NewspeedContainer';
 
-const NewsPeedPage = () => {
+const NewsPeedPage = ({match}) => {
+  const { id } = match.params;  // App.js에서 설정한 params 변수명: id
   return (
     <PageTemplate>
-      <NewpeedContainer />
+      <NewspeedContainer
+        userId={id}
+      />
     </PageTemplate>
   )
 }

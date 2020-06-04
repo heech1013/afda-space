@@ -1,37 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as baseActions from 'store/modules/base/base';
-import * as profileActions from 'store/modules/profile/profile';
+// import * as baseActions from 'store/modules/base/base';
+// import * as profileActions from 'store/modules/profile/profile';
 import * as postActions from 'store/modules/post/post';
 
-import Activity from 'components/post/Activity';
+import Newspeed from 'components/post/Newspeed';
 
-class ActivityContainer extends Component {
-  getActivities = async () => {
+class NewspeedContainer extends Component {
+  
+  getNewspeed = async () => {
     const {
       PostActions,
-      userId = null,  // 특정 유저 profile의 newspeed일 경우 전달 받음
+      userId,  // 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 빈 값
     } = this.props;
     
-    userId ?
-      await PostActions.getActivities(userId)
-      :
-      await PostActions.getNewspeed();
+    /** getNewspeed()
+     * @param userId : 빈 값을 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
+     */
+    await PostActions.getNewspeed(userId);
   }
 
   componentDidMount() {
-    this.getActivities();
+    this.getNewspeed();
   }
   
   render() {
     const {
-      activities
+      newspeed
     } = this.props;
     
     return (
-      <Activity
-        activities={activities}
+      <Newspeed
       />
     )
   }
@@ -42,8 +42,8 @@ export default connect(
     activities: state.post.get('activities')
   }),
   (dispatch) => ({
-    BaseActions: bindActionCreators(baseActions, dispatch),
-    ProfileActions: bindActionCreators(profileActions, dispatch),
+    // BaseActions: bindActionCreators(baseActions, dispatch),
+    // ProfileActions: bindActionCreators(profileActions, dispatch),
     PostActions: bindActionCreators(postActions, dispatch)
   })
-)(ActivityContainer);
+)(NewspeedContainer);

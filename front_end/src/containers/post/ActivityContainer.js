@@ -14,7 +14,7 @@ class ActivityContainer extends Component {
       type,  // 'newspeed' / 'profile'
       userId = null,  // type이 'profile'인 경우 전달 받음.
     } = this.props;
-    await PostActions.getActivities(type, userId);
+    // await PostActions.getActivities(type, userId);
   }
 
   componentDidMount() {
