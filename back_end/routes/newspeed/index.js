@@ -4,7 +4,7 @@ const compareDesc = require('date-fns/compareDesc');
 
 const index = async (req, res, next) => {
   const { userId } = req.query;  // empty value if for default newspeed, otherwise(user profile newspeed) userId integer
-  const whereObj = userId ? { fkUserId: userId } : {};
+  const whereObj = (userId === 'undefined') ? {} : { fkUserId: userId };
 
   try {
     const post = await Post.findAll({

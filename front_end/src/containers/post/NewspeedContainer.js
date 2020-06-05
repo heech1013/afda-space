@@ -12,11 +12,11 @@ class NewspeedContainer extends Component {
   getNewspeed = async () => {
     const {
       PostActions,
-      userId,  // 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 빈 값
+      userId,  // 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 'undefined'(string)
     } = this.props;
     
     /** getNewspeed()
-     * @param userId : 빈 값을 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
+     * @param userId : 'undefined'를 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
      */
     await PostActions.getNewspeed(userId);
   }
@@ -32,6 +32,7 @@ class NewspeedContainer extends Component {
     
     return (
       <Newspeed
+        newspeed={newspeed}
       />
     )
   }
@@ -39,7 +40,7 @@ class NewspeedContainer extends Component {
 
 export default connect(
   (state) => ({
-    activities: state.post.get('activities')
+    newspeed: state.post.get('newspeed')
   }),
   (dispatch) => ({
     // BaseActions: bindActionCreators(baseActions, dispatch),

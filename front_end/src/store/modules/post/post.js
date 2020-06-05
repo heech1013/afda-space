@@ -7,16 +7,19 @@ import * as api from 'lib/api';
 
 /* action types */
 // const GET_POST_LIST = 'postList/GET_POST_LIST';
-const GET_ACTIVITIES = 'post/GET_ACTIVITIES';
+// const GET_ACTIVITIES = 'post/GET_ACTIVITIES';
+const GET_NEWSPEED = 'post/GET_NEWSPEED';
 
 /* action creators */
 // export const getPostList = createAction(GET_POST_LIST, api.getPostList);
 // export const getActivities = createAction(GET_ACTIVITIES, api.getActivities);
+export const getNewspeed = createAction(GET_NEWSPEED, api.getNewspeed);
 
 /* initial state */
 const initialState = Map({
   // posts: List()
-  activities: List()
+  // activities: List()
+  newspeed: List()
 });
 
 /* reducer */
@@ -28,11 +31,18 @@ export default handleActions({
   //     return state.set('posts', fromJS(posts));
   //   }
   // })
+  // ...pender({
+  //   type: GET_ACTIVITIES,
+  //   onSuccess: (state, action) => {
+  //     const { activities } = action.payload.data;
+  //     return state.set('activities', fromJS(activities));
+  //   }
+  // })
   ...pender({
-    type: GET_ACTIVITIES,
+    type: GET_NEWSPEED,
     onSuccess: (state, action) => {
-      const { activities } = action.payload.data;
-      return state.set('activities', fromJS(activities));
+      const { newspeed } = action.payload.data;
+      return state.set('newspeed', fromJS(newspeed));
     }
   })
 }, initialState);

@@ -1,17 +1,21 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import PageTemplate from 'components/common/PageTemplate';
 import NewspeedContainer from 'containers/post/NewspeedContainer';
 
-const NewsPeedPage = ({match}) => {
-  const { id } = match.params;  // App.js에서 설정한 params 변수명: id
+const NewsPeedPage = ({location}) => {
+  const query = queryString.parse(location.search);
+  const { userId } = query;
+
   return (
     <PageTemplate>
       <NewspeedContainer
-        userId={id}
+        userId={userId}
       />
     </PageTemplate>
   )
 }
 
-export default NewsPeedPage;
+export default withRouter(NewsPeedPage);
