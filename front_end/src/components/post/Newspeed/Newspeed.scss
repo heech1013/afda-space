@@ -1,15 +1,15 @@
 .newspeed {
   .activity-item {
     margin: 0 auto;
-    width: 67rem;
+    width: 50rem;
     border: 1px solid #707070;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     padding: 1rem;
     background-color: white;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
     .activity-item-detail { 
       display: inline-block;
-      width: 56rem;
+      width: 39rem;
       margin-right: 2rem;
       .activity-item-link-wrapper {
         display: inline-block;
@@ -26,20 +26,49 @@
     }
   }
   .post-item {
+    margin: 0 auto;
+    width: 50rem;
+    border: 1px solid #707070;
+    padding: 1rem;
+    background-color: white;
+    margin-bottom: 2rem;
     .post-item-link {
-
+      display: inline-block;
+      text-decoration: none;
+      color: #2C3F77;
+      font-weight: bold;
+      width: 39rem;
+      margin-right: 2rem;
     }
     .post-item-date {
-
+      display: inline-block;
     }
     .post-item-body {
-
+      
+      margin-bottom: 2rem;
     }
     .post-item-hr {
 
     }
     .post-comment-list {
-      
+      .post-comment-item {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        .post-comment-item-link {
+          display: inline-block;
+          text-decoration: none;
+          color: #2C3F77;
+          font-weight: bold;
+          width: 39rem;
+          margin-right: 2rem;
+        }
+        .post-comment-item-date {
+          display: inline-block;
+        }
+        .post-comment-item-body {
+          margin-top: 0.5rem;
+        }
+      } 
     }
   }
 }

@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const PostCommentItem = ({body, createdAt, userId, nick}) => (
-  <div className={cx('')}>
-    <Link className={cx('')} to={`/profile/?${userId}`}>{nick}</Link>
-    <div className={cx('')}>{createdAt}</div>
-    <div className={cx('')}>{body}</div>
+  <div className={cx('post-comment-item')}>
+    <Link className={cx('post-comment-item-link')} to={`/profile/?${userId}`}>{nick}</Link>
+    <div className={cx('post-comment-item-date')}>{createdAt}</div>
+    <div className={cx('post-comment-item-body')}>{body}</div>
   </div>
 )
 
@@ -61,7 +61,7 @@ const ActivityItem = ({ userId, nick, createdAt, logType, target, targetId }) =>
         <Link className={cx('activity-item-link')} to={`/profile/${userId}`}>
           {nick}
         </Link>
-      </div>님이 프로필에
+      </div>님이 프로필에 
       <div className={cx('activity-item-link-wrapper')}>
         <Link className={cx('activity-item-link')} to={`/diagnosis/${targetId}/summary`}>
           {target}
