@@ -1,17 +1,28 @@
 .writer {
   background: #FFFFFF;
-  border: 1px solid #707070;
   padding-right: 2rem;
   padding-left: 2rem;
   padding-top: 1.5rem;
   padding-bottom: 4rem;
   margin: 0 auto;
-  width: 65rem;
-  border-radius: 1.5rem;
-  .writer-input {
-    width: 64rem;
-    height: 4rem;
+  border: 1px solid #707070;
+  &.newspeed {
+    width: 48rem;
+    margin-bottom: 2rem;
+    .writer-input {
+      width: 47rem;
+      height: 4rem;
+    }
   }
+  &.station {
+    width: 65rem;
+    border-radius: 1.5rem;
+    .writer-input {
+      width: 64rem;
+      height: 4rem;
+    }
+  }
+  
   .writer-button {
     float: right;
     margin-top: 1rem;

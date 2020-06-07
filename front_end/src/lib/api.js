@@ -42,3 +42,4 @@ export const getStationCommentList = (id) => axios.get(`/api/station/${id}/comme
 export const postStationComment = (state) => axios.post(`/api/station/comment`, { state });
 
 export const getNewspeed = (userId) => axios.get(`/api/newspeed?userId=${userId}`);
+export const postPost = (state) => axios.post(`/api/post`, { state });

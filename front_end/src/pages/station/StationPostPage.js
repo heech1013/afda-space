@@ -16,6 +16,7 @@ const StationPostPage = ({match}) => {
         type={'station'}
         id={id}/>
       <WriterContainer
+        type={'station'}
         id={id}/>
     </PageTemplate>
   )

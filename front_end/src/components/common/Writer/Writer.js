@@ -20,11 +20,11 @@ class Writer extends Component {
 
   render() {
     const { state, handleInputChange } = this;
-    const { logged, onSubmit } = this.props;
+    const { type, logged, onSubmit } = this.props;
     const { body, frontError } = state;
 
     return (
-      <div className={cx('writer')}>
+      <div className={cx('writer', type)}>
         <textarea className={cx('writer-input')} name={'body'} type='text' value={body} onChange={handleInputChange}/>
         
         {/** front단 에러 */}
@@ -32,13 +32,16 @@ class Writer extends Component {
 
         <div className={cx('writer-button')}>
           <Button onClick={() => {
-            if (!logged) this.setState({ frontError: '답변을 작성하기 위해서는 로그인이 필요합니다.'})
-            else if (body === '') this.setState({ frontError: '내용을 입력해주세요.' })
+            if (!logged) this.setState({ frontError: '로그인이 필요합니다.'});
+            else if (body === '') this.setState({ frontError: '내용을 입력해주세요.' });
             else {
               onSubmit({state});
               this.setState({ body: '', frontError: '' });
             }
-          }}>답변 작성하기</Button>
+          }}>{
+            (type === 'station') ? '답변 작성하기'
+              : (type === 'newspeed') ? '글 작성하기' : null
+          }</Button>
         </div>
       </div>
     )

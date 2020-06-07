@@ -9,11 +9,13 @@ import * as api from 'lib/api';
 // const GET_POST_LIST = 'postList/GET_POST_LIST';
 // const GET_ACTIVITIES = 'post/GET_ACTIVITIES';
 const GET_NEWSPEED = 'post/GET_NEWSPEED';
+const POST_POST = 'post/POST_POST';
 
 /* action creators */
 // export const getPostList = createAction(GET_POST_LIST, api.getPostList);
 // export const getActivities = createAction(GET_ACTIVITIES, api.getActivities);
 export const getNewspeed = createAction(GET_NEWSPEED, api.getNewspeed);
+export const postPost = createAction(POST_POST, api.postPost);
 
 /* initial state */
 const initialState = Map({

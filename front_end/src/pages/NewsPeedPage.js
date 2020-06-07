@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
 import PageTemplate from 'components/common/PageTemplate';
+import WriterContainer from 'containers/common/WriterContainer';
 import NewspeedContainer from 'containers/post/NewspeedContainer';
 
 const NewsPeedPage = ({location}) => {
@@ -11,8 +12,11 @@ const NewsPeedPage = ({location}) => {
 
   return (
     <PageTemplate>
+      <WriterContainer
+        type={'newspeed'}
+      />
       <NewspeedContainer
-        userId={userId}
+        userId={userId}  // used for filtering
       />
     </PageTemplate>
   )
