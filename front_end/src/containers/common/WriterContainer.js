@@ -25,7 +25,8 @@ class WriterContainer extends Component {
     const {
       type,
       ForumActions, userId, id: stationId,
-      PostActions
+      PostActions,
+      postId  // postPostComment()
     } = this.props;
 
     state.userId = userId;
@@ -38,6 +39,11 @@ class WriterContainer extends Component {
 
     else if (type === 'newspeed') {
       await PostActions.postPost(state);
+      this.getNewspeed();
+    }
+
+    else if (type === 'post-comment') {
+      await PostActions.postPostComment(postId, state);
       this.getNewspeed();
     }
   }

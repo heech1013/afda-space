@@ -15,7 +15,7 @@ const index = async (req, res, next) => {
        * (reference at bottom of source code)
        */
       subQuery: false,
-      attributes: ['body', 'createdAt'],
+      attributes: ['id', 'body', 'createdAt'],
       include: [
         {
           model: User, attributes: ['id'],
@@ -58,6 +58,7 @@ const index = async (req, res, next) => {
         for (let obj of post) {
           newspeed.push({
             "peedType": "POST",
+            "postId": obj.id,
             "userId": obj.user.id,
             "nick": obj.user.profile.nick,
             "body": obj.body,

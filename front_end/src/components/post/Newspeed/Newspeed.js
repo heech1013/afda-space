@@ -3,6 +3,8 @@ import styles from './Newspeed.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
+import WriterContainer from 'containers/common/WriterContainer';
+
 const cx = classNames.bind(styles);
 
 const PostCommentItem = ({body, createdAt, userId, nick}) => (
@@ -13,7 +15,7 @@ const PostCommentItem = ({body, createdAt, userId, nick}) => (
   </div>
 )
 
-const PostItem = ({ userId, nick, createdAt, body, postComments }) => {
+const PostItem = ({ postId, userId, nick, createdAt, body, postComments }) => {
   const postCommentList = postComments.map((obj, index) => {
     const { body, user } = obj;
     return (
@@ -28,18 +30,24 @@ const PostItem = ({ userId, nick, createdAt, body, postComments }) => {
   })
 
   return (
-    <div className={cx('post-item')}>
-      <Link className={cx('post-item-link')} to={`/profile/${userId}`}>
-        {nick}
-      </Link>
-      <div className={cx('post-item-date')}>{createdAt}</div>
-      <p className={cx('post-item-body')}>
-        {body}
-      </p>
-      <hr className={cx('post-item-hr')}/>
-      <div className={cx('post-comment-list')}>
-        {postCommentList}
+    <div className={cx('post-wrapper')}>
+      <div className={cx('post-item')}>
+        <Link className={cx('post-item-link')} to={`/profile/${userId}`}>
+          {nick}
+        </Link>
+        <div className={cx('post-item-date')}>{createdAt}</div>
+        <p className={cx('post-item-body')}>
+          {body}
+        </p>
+        { (postCommentList.length) ? <hr/> : null } {/** 댓글이 존재하는 경우에만 글과 댓글 사이에 줄 치기 */}
+        <div className={cx('post-comment-list')}>
+          {postCommentList}
+        </div>
       </div>
+      <WriterContainer
+        type={'post-comment'}
+        postId={postId}
+      />
     </div>
   )
 }
@@ -152,7 +160,7 @@ const Newspeed = ({ newspeed }) => {
       /** common */
       peedType, userId, nick, createdAt,
       /** type == POST */
-      body, postComments,
+      postId, body, postComments,
       /** type == ACTIVITY_LOG */
       logType, target, targetId
     } = obj.toJS();
@@ -161,6 +169,7 @@ const Newspeed = ({ newspeed }) => {
       peedType === "POST" ?
         <div key={index}>
           <PostItem
+            postId={postId}
             userId={userId}
             nick={nick}
             createdAt={createdAt}

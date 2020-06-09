@@ -23,9 +23,11 @@ class Writer extends Component {
     const { type, logged, onSubmit } = this.props;
     const { body, frontError } = state;
 
+    const placeholder = (type === 'post-comment') ? '댓글 달기..' : null;
+
     return (
       <div className={cx('writer', type)}>
-        <textarea className={cx('writer-input')} name={'body'} type='text' value={body} onChange={handleInputChange}/>
+        <textarea className={cx('writer-input')} name={'body'} type='text' placeholder={placeholder} value={body} onChange={handleInputChange}/>
         
         {/** front단 에러 */}
         { frontError && <div className={cx('error')}>{frontError}</div> }
@@ -40,7 +42,8 @@ class Writer extends Component {
             }
           }}>{
             (type === 'station') ? '답변 작성하기'
-              : (type === 'newspeed') ? '글 작성하기' : null
+              : (type === 'newspeed') ? '글 작성하기'
+                : (type === 'post-comment') ? '작성' : null
           }</Button>
         </div>
       </div>
