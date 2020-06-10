@@ -7,17 +7,24 @@ import * as api from 'lib/api';
 
 /* action types */
 const GET_NEWSPEED = 'post/GET_NEWSPEED';
+const GET_MORE_NEWSPEED = 'post/GET_MORE_NEWSPEED';  // used for infinite scroll
 const POST_POST = 'post/POST_POST';
 const POST_POST_COMMENT = 'post/POST_POST_COMMENT';
 
 /* action creators */
 export const getNewspeed = createAction(GET_NEWSPEED, api.getNewspeed);
+export const getMoreNewspeed = createAction(GET_MORE_NEWSPEED, api.getMoreNewspeed);
 export const postPost = createAction(POST_POST, api.postPost);
 export const postPostComment = createAction(POST_POST_COMMENT, api.postPostComment);
 
 /* initial state */
 const initialState = Map({
-  newspeed: List()
+  newspeed: List(),
+  // moreLoadedNewspeed: List(),
+  isLoading: false,
+  isLast: false,
+  // error: Map({
+  // })
 });
 
 /* reducer */
@@ -27,6 +34,16 @@ export default handleActions({
     onSuccess: (state, action) => {
       const { newspeed } = action.payload.data;
       return state.set('newspeed', fromJS(newspeed));
+    }
+  }),
+  ...pender({
+    type: GET_MORE_NEWSPEED,
+    onSuccess: (state, action) => {
+      const { moreLoadedNewspeed, isLast } = action.payload.data;
+      return (
+        state.push('newspeed', fromJS(moreLoadedNewspeed)),
+        state.set('isLast', isLast)
+      )
     }
   })
 }, initialState);

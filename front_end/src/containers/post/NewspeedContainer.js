@@ -21,18 +21,37 @@ class NewspeedContainer extends Component {
     await PostActions.getNewspeed(userId);
   }
 
+  handleScroll = () => {
+    const { innerHeight } = window;
+    const { scrollHeight } = document.body;
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||  // IE에서는 document.documentElement를 사용
+      document.body.scrollTop;
+
+      // 스크롤링 했을 때, 브라우저의 가장 밑에서 100정도 높이가 남았을 때에 실행된다.
+      if (scrollHeight - innerHeight - scrollTop < 100) {
+        console.log("Almost Bottom of this browser");
+      }
+  }
+
   componentDidMount() {
     this.getNewspeed();
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
   
   render() {
     const {
-      newspeed
+      loading_GET_MORE_NEWSPEED, newspeed
     } = this.props;
     
     return (
       <Newspeed
         newspeed={newspeed}
+        isLoading={loading_GET_MORE_NEWSPEED}
       />
     )
   }
@@ -40,6 +59,7 @@ class NewspeedContainer extends Component {
 
 export default connect(
   (state) => ({
+    loading_GET_MORE_NEWSPEED: state.pender.pending['post/GET_MORE_NEWSPEED'],
     newspeed: state.post.get('newspeed')
   }),
   (dispatch) => ({
