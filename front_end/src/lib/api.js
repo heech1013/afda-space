@@ -41,6 +41,6 @@ export const postStation = (data) => axios.post(`/api/station`, { data });
 export const getStationCommentList = (id) => axios.get(`/api/station/${id}/comment`);
 export const postStationComment = (state) => axios.post(`/api/station/comment`, { state });
 
-export const getNewspeed = (userId) => axios.get(`/api/newspeed?userId=${userId}`);
+export const getNewspeed = (userId, lastPostId, lastActivityId) => axios.get(`/api/newspeed?userId=${userId}&lastPostId=${lastPostId}&lastActivityId=${lastActivityId}`);
 export const postPost = (state) => axios.post(`/api/post`, { state });
 export const postPostComment = (postId, state) => axios.post(`/api/post/${ postId }/comment`, { state });

@@ -1,10 +1,39 @@
-const { Post, PostComment, ActivityLog, User, Profile, Diagnosis, Medicine, Symptom } = require('../../models');
+const { Sequelize, Post, PostComment, ActivityLog, User, Profile, Diagnosis, Medicine, Symptom } = require('../../models');
 const format = require('date-fns/format');
 const compareDesc = require('date-fns/compareDesc');
 
 const index = async (req, res, next) => {
-  const { userId } = req.query;  // empty value if for default newspeed, otherwise(user profile newspeed) userId integer
-  const whereObj = (userId === 'undefined') ? {} : { fkUserId: userId };
+  const { Op } = Sequelize;
+  /**
+   * @userId : 'undefined' if for default newspeed, otherwise(user profile newspeed) userId integer
+   * @lastPostId @lastActivityId : 'null' when loading newspeed at first, after then have some id value.
+   */
+  const { userId, lastPostId, lastActivityId } = req.query;
+  
+  let postWhereObj = {}, activityWhereObj = {};
+  
+  (userId !== 'undefined') && (
+    postWhereObj["fkUserId"] = userId,
+    activityWhereObj["fkUserId"] = userId
+  );
+  (lastPostId !== 'null') && (
+    postWhereObj["id"] = {
+      [Op.lt] : lastPostId
+    }
+  );
+  (lastActivityId !== 'null') && (
+    activityWhereObj["id"] = {
+      [Op.lt] : lastActivityId
+    }
+  );
+
+  console.log(`
+    postWhereObj:
+    ${JSON.stringify(postWhereObj)}
+    ===
+    activityWhereObj:
+    ${JSON.stringify(activityWhereObj)}
+  `)
 
   try {
     const post = await Post.findAll({
@@ -29,13 +58,13 @@ const index = async (req, res, next) => {
           }]
         }
       ],
-      where: whereObj,
+      where: postWhereObj,
       order: [['createdAt', 'DESC']],
       limit: 8  // test need
     });
 
     const activityLog = await ActivityLog.findAll({
-      attributes: ['type', 'createdAt'],
+      attributes: ['id', 'type', 'createdAt'],
       include: [
         {
           model: User, attributes: ['id'],
@@ -45,7 +74,7 @@ const index = async (req, res, next) => {
         { model: Medicine, attributes: ['id', 'nameKr']},
         { model: Symptom, attributes: ['id', 'nameKr']}
       ],
-      where: whereObj,
+      where: activityWhereObj,
       order: [['createdAt', 'DESC']],
       limit: 15  // test need
     });
@@ -82,6 +111,7 @@ const index = async (req, res, next) => {
 
           newspeed.push({
             "peedType": "ACTIVITY_LOG",
+            "activityId" : obj.id,
             "userId": obj.user.id,
             "nick": obj.user.profile.nick,
             "logType": obj.type,
@@ -95,12 +125,16 @@ const index = async (req, res, next) => {
       })
     )()
 
+    const isLast = newspeed.length ? false : true;
+    const lastPostId = post && post[post.length - 1].id;
+    const lastActivityId = activityLog && activityLog[activityLog.length - 1].id;
+
     // synchronized sort
     newspeed.sort((preObj, postObj) => {
       return compareDesc(new Date(preObj.createdAt), new Date(postObj.createdAt));
     })
 
-    return res.status(200).json({ newspeed });
+    return res.status(200).json({ newspeed, isLast, lastPostId, lastActivityId });
   } catch (e) {
     next(e);
   }
