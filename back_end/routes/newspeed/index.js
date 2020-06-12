@@ -27,13 +27,13 @@ const index = async (req, res, next) => {
     }
   );
 
-  console.log(`
-    postWhereObj:
-    ${JSON.stringify(postWhereObj)}
-    ===
-    activityWhereObj:
-    ${JSON.stringify(activityWhereObj)}
-  `)
+  // console.log(`
+  //   postWhereObj:
+  //   ${JSON.stringify(postWhereObj)}
+  //   ===
+  //   activityWhereObj:
+  //   ${JSON.stringify(activityWhereObj)}
+  // `)
 
   try {
     const post = await Post.findAll({
@@ -123,11 +123,15 @@ const index = async (req, res, next) => {
 
         resolve();
       })
-    )()
+    )();
 
+    /**
+     * 조건에 부합하는 게시물이 없을 때 post와 activityLog는 [], 또는 undefined의 형태를 띄지만
+       []나 undefined와의 일치여부를 검사하면 제대로 동작하지 않음. (post.length === 0)의 조건을 활용해야 함.
+     */
     const isLast = newspeed.length ? false : true;
-    const lastPostId = post && post[post.length - 1].id;
-    const lastActivityId = activityLog && activityLog[activityLog.length - 1].id;
+    const lastPostId = post.length && post[post.length - 1].id;
+    const lastActivityId = activityLog.length && activityLog[activityLog.length - 1].id;
 
     // synchronized sort
     newspeed.sort((preObj, postObj) => {

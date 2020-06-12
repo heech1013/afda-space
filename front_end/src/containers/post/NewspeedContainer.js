@@ -45,13 +45,13 @@ class NewspeedContainer extends Component {
   
   render() {
     const {
-      loading_GET_MORE_NEWSPEED, newspeed
+      loading_GET_NEWSPEED, newspeed
     } = this.props;
     
     return (
       <Newspeed
         newspeed={newspeed}
-        isLoading={loading_GET_MORE_NEWSPEED}
+        isLoading={loading_GET_NEWSPEED}
       />
     )
   }

@@ -31,13 +31,13 @@ export default handleActions({
   ...pender({
     type: GET_NEWSPEED,
     onSuccess: (state, action) => {
+      const stateNewspeed = state.get('newspeed');
       const { newspeed, isLast, lastPostId, lastActivityId } = action.payload.data;
-      return (
-        state.set('newspeed', fromJS(newspeed)),
-        state.set('isLast', isLast),
-        state.set('lastPostId', lastPostId),
-        state.set('lastActivityId', lastActivityId)
-      )
+      return state.set('newspeed', stateNewspeed.concat(fromJS(newspeed)))
+                  .set('isLast', isLast)
+                  .set('lastPostId', lastPostId)
+                  .set('lastActivityId', lastActivityId);
+      
     }
   }),
   // ...pender({
