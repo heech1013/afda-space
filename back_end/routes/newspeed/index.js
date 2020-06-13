@@ -138,7 +138,10 @@ const index = async (req, res, next) => {
       return compareDesc(new Date(preObj.createdAt), new Date(postObj.createdAt));
     })
 
-    return res.status(200).json({ newspeed, isLast, lastPostId, lastActivityId });
+    return setTimeout(
+      () => res.status(200).json({ newspeed, isLast, lastPostId, lastActivityId }),
+      750
+    );
   } catch (e) {
     next(e);
   }

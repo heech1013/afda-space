@@ -21,7 +21,7 @@ class NewspeedContainer extends Component {
   }
 
   handleScroll = () => {
-    const { isLast } = this.props;
+    const { isLast, loading_GET_NEWSPEED } = this.props;
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
     const scrollTop =
@@ -30,7 +30,7 @@ class NewspeedContainer extends Component {
 
       // 스크롤링 했을 때, 브라우저의 가장 밑에서 100정도 높이가 남았을 때에 실행된다.
       if (scrollHeight - innerHeight - scrollTop < 100) {
-        !isLast && this.getNewspeed();
+        !isLast && !loading_GET_NEWSPEED && this.getNewspeed();
       }
   }
 
@@ -45,13 +45,14 @@ class NewspeedContainer extends Component {
   
   render() {
     const {
-      loading_GET_NEWSPEED, newspeed
+      newspeed, loading_GET_NEWSPEED, isLast
     } = this.props;
     
     return (
       <Newspeed
         newspeed={newspeed}
         isLoading={loading_GET_NEWSPEED}
+        isLast={isLast}
       />
     )
   }

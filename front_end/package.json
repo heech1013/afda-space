@@ -5,6 +5,7 @@
   "dependencies": {
     "@toast-ui/react-chart": "^1.0.2",
     "axios": "^0.18.0",
+    "better-react-spinkit": "^2.0.4",
     "classnames": "^2.2.6",
     "cross-env": "^5.2.0",
     "date-fns": "^1.30.1",

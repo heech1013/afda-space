@@ -3,6 +3,7 @@ import styles from './Newspeed.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
+import LoadingView from 'components/common/LoadingView';
 import WriterContainer from 'containers/common/WriterContainer';
 
 const cx = classNames.bind(styles);
@@ -154,7 +155,7 @@ const ActivityItem = ({ userId, nick, createdAt, logType, target, targetId }) =>
   )
 }
 
-const Newspeed = ({ newspeed }) => {
+const Newspeed = ({ newspeed, isLoading, isLast }) => {
   const newspeedList = newspeed.map((obj, index) => {
     const { 
       /** common */
@@ -194,6 +195,10 @@ const Newspeed = ({ newspeed }) => {
   return (
     <div className={cx('newspeed')}>
       {newspeedList}
+      { isLast && <div className={cx('newspeed-is-last')}>더 이상 게시물이 존재하지 않습니다.</div> }
+      <LoadingView
+        isLoading={isLoading}
+      />
     </div>
   )
 };
