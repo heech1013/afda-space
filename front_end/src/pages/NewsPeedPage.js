@@ -14,6 +14,7 @@ const NewsPeedPage = ({location}) => {
     <PageTemplate>
       <WriterContainer
         type={'newspeed'}
+        filteringUserId={userId}
       />
       <NewspeedContainer
         userId={userId}  // used for filtering

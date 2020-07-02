@@ -10,13 +10,13 @@ const cx = classNames.bind(styles);
 
 const PostCommentItem = ({body, createdAt, userId, nick}) => (
   <div className={cx('post-comment-item')}>
-    <Link className={cx('post-comment-item-link')} to={`/profile/?${userId}`}>{nick}</Link>
+    <Link className={cx('post-comment-item-link')} to={`/profile/${userId}`}>{nick}</Link>
     <div className={cx('post-comment-item-date')}>{createdAt}</div>
     <div className={cx('post-comment-item-body')}>{body}</div>
   </div>
 )
 
-const PostItem = ({ postId, userId, nick, createdAt, body, postComments }) => {
+const PostItem = ({ postId, userId, nick, createdAt, body, postComments, filteringUserId }) => {
   const postCommentList = postComments.map((obj, index) => {
     const { body, user } = obj;
     return (
@@ -48,6 +48,7 @@ const PostItem = ({ postId, userId, nick, createdAt, body, postComments }) => {
       <WriterContainer
         type={'post-comment'}
         postId={postId}
+        filteringUserId={filteringUserId}
       />
     </div>
   )
@@ -155,7 +156,7 @@ const ActivityItem = ({ userId, nick, createdAt, logType, target, targetId }) =>
   )
 }
 
-const Newspeed = ({ newspeed, isLoading, isLast }) => {
+const Newspeed = ({ newspeed, isLoading, isLast, filteringUserId }) => {
   const newspeedList = newspeed.map((obj, index) => {
     const { 
       /** common */
@@ -176,6 +177,7 @@ const Newspeed = ({ newspeed, isLoading, isLast }) => {
             createdAt={createdAt}
             body={body}
             postComments={postComments}
+            filteringUserId={filteringUserId}
           />
         </div>
         : peedType === "ACTIVITY_LOG" ?

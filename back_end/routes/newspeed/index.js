@@ -140,7 +140,7 @@ const index = async (req, res, next) => {
 
     return setTimeout(
       () => res.status(200).json({ newspeed, isLast, lastPostId, lastActivityId }),
-      750
+      500
     );
   } catch (e) {
     next(e);

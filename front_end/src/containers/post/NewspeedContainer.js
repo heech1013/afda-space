@@ -7,13 +7,18 @@ import Newspeed from 'components/post/Newspeed';
 
 class NewspeedContainer extends Component {
   
+  initializeNewspeed = async () => {
+    const { PostActions } = this.props;
+    await PostActions.initializeNewspeed();
+  }
+
   getNewspeed = async () => {
     const {
       PostActions,
       userId,  // 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 'undefined'(string)
       lastPostId, lastActivityId
     } = this.props;
-    
+
     /** getNewspeed()
      * @param userId : 'undefined'를 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
      */
@@ -28,14 +33,19 @@ class NewspeedContainer extends Component {
       (document.documentElement && document.documentElement.scrollTop) ||  // IE에서는 document.documentElement를 사용
       document.body.scrollTop;
 
-      // 스크롤링 했을 때, 브라우저의 가장 밑에서 100정도 높이가 남았을 때에 실행된다.
-      if (scrollHeight - innerHeight - scrollTop < 100) {
-        !isLast && !loading_GET_NEWSPEED && this.getNewspeed();
-      }
+    // 스크롤링 했을 때, 브라우저의 가장 밑에서 100정도 높이가 남았을 때에 실행된다.
+    if (scrollHeight - innerHeight - scrollTop < 100) {
+      !isLast && !loading_GET_NEWSPEED && this.getNewspeed();
+    }
   }
 
   componentDidMount() {
-    this.getNewspeed();
+    /** initializeNewspeed() -> getNewspeed() 순으로 실행되지 않기 때문에 getNewspeed() 내부에서 받는 state가 초기화된 state 이전의 state이다.
+      이를 방지하기 위해 promise chaining으로 순서를 강제한다.
+      initializeNewspeed()와 getNewspeed()는 각각 Promise를 리턴하는 함수이다.
+    */
+    this.initializeNewspeed()
+      .then(() => this.getNewspeed());
     window.addEventListener("scroll", this.handleScroll);
   }
 
@@ -45,7 +55,8 @@ class NewspeedContainer extends Component {
   
   render() {
     const {
-      newspeed, loading_GET_NEWSPEED, isLast
+      newspeed, loading_GET_NEWSPEED, isLast,
+      userId
     } = this.props;
     
     return (
@@ -53,6 +64,7 @@ class NewspeedContainer extends Component {
         newspeed={newspeed}
         isLoading={loading_GET_NEWSPEED}
         isLast={isLast}
+        filteringUserId={userId}
       />
     )
   }

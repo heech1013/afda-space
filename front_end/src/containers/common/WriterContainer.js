@@ -14,22 +14,47 @@ class WriterContainer extends Component {
     await ForumActions.getStationCommentList(id);
   }
 
-  /** type === 'newspeed'
+  /** type === 'newspeed' or 'post-comment'
    * 포스트 작성 이후 뉴스피드 재로딩 */
-  getNewspeed = async () => {
-    const { PostActions } = this.props;
-    await PostActions.getNewspeed();
+  initializeNewspeed = async () => {
+    return new Promise( async (resolve, reject) => {
+      const { PostActions } = this.props;
+      await PostActions.initializeNewspeed();
+      const {lastPostId, lastActivityId} = this.props;
+      console.log(`initNP : ${lastPostId}, ${lastActivityId}`);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+      resolve();
+    })
+    
+  }
+  
+  getNewspeed = () => {
+    const {
+      PostActions,
+      lastPostId, lastActivityId,
+      /** 
+       * 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 'undefined'(string)
+       * newspeedPage -> newspeedContainer -> newspeed -> WriterContainer
+       * WriterContainer in newspeedPage 의 경우 newspeedPage로부터 바로 주입
+       */
+      filteringUserId
+    } = this.props;
+    console.log(`getId : ${lastPostId}, ${lastActivityId}`);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    /** getNewspeed()
+     * @param filteringUserId : 'undefined'를 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
+     */
+    PostActions.getNewspeed(filteringUserId, lastPostId, lastActivityId);
   }
 
   handleSubmit = async({ state }) => {
     const {
       type,
-      ForumActions, userId, id: stationId,
+      ForumActions, loggedUserId, id: stationId,
       PostActions,
-      postId  // postPostComment()
+      postId  // type = 'post-comment', postPostComment()
     } = this.props;
 
-    state.userId = userId;
+    state.userId = loggedUserId;
 
     if (type === 'station') {
       state.stationId = stationId;
@@ -39,12 +64,18 @@ class WriterContainer extends Component {
 
     else if (type === 'newspeed') {
       await PostActions.postPost(state);
-      this.getNewspeed();
+      this.initializeNewspeed()
+        .then(() => {
+          this.getNewspeed();
+        });
     }
 
     else if (type === 'post-comment') {
       await PostActions.postPostComment(postId, state);
-      this.getNewspeed();
+      this.initializeNewspeed()
+        .then(() => {
+          this.getNewspeed();
+        });
     }
   }
 
@@ -52,8 +83,8 @@ class WriterContainer extends Component {
     const { handleSubmit } = this;
     /** type: 'station', 'newspeed'
      */
-    const { type, userId, logged } = this.props;
-    const isLogged = (userId && logged);  // true or false
+    const { type, loggedUserId, logged } = this.props;
+    const isLogged = (loggedUserId && logged);  // true or false
     
     return (
       <div>
@@ -69,8 +100,14 @@ class WriterContainer extends Component {
 
 export default connect(
   (state) => ({
-    userId: state.base.get('id'),
-    logged: state.base.get('logged')
+    loggedUserId: state.base.get('id'),
+    logged: state.base.get('logged'),
+
+    loading_GET_NEWSPEED: state.pender.pending['post/GET_NEWSPEED'],
+    newspeed: state.post.get('newspeed'),
+    isLast: state.post.get('isLast'),
+    lastPostId: state.post.get('lastPostId'),
+    lastActivityId: state.post.get('lastActivityId')
   }),
   (dispatch) => ({
     PostActions: bindActionCreators(postActions, dispatch),
