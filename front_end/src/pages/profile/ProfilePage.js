@@ -4,7 +4,7 @@ import PageTemplate from 'components/common/PageTemplate';
 import ProfileCardContainer from 'containers/profile/ProfileCardContainer';
 import MiniMenuContainer from 'containers/common/MiniMenuContainer';
 import ProfileSpecContainer from 'containers/profile/ProfileSpecContainer';
-import NewspeedContainer from 'containers/post/NewspeedContainer';
+// import NewspeedContainer from 'containers/post/NewspeedContainer';
 import ProfileUpdateModalContainer from 'containers/modal/ProfileUpdateModalContainer';
 
 const ProfilePage = ({match}) => {
@@ -17,9 +17,6 @@ const ProfilePage = ({match}) => {
         userId={id}/>
       <ProfileSpecContainer
         userId={id}/>
-      <NewspeedContainer
-        userId={id}
-      />
       <ProfileUpdateModalContainer
         userId={id}/>
     </PageTemplate>

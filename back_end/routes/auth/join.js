@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const CustomError = require('../../middleware/errorHandler/CustomError');
 
-const { User, Profile } = require('../../models');
+const { User, Profile, ActivityLog } = require('../../models');
 
 const join = async (req, res, next) => {
   try {

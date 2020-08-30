@@ -1,4 +1,4 @@
-const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData } = require('../../../models');
+const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffectsData, ActivityLog } = require('../../../models');
 const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 // const radioHandler = require('../../../middleware/maker/radioHandler');
 // const CustomError = require('../../../middleware/errorHandler/CustomError');

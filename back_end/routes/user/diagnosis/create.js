@@ -1,4 +1,4 @@
-const { DiagnosisData } = require('../../../models');
+const { DiagnosisData, ActivityLog } = require('../../../models');
 const nullStringHandler = require('../../../middleware/maker/nullStringHandler');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 

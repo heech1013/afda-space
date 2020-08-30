@@ -1,4 +1,4 @@
-const { MedicinePurposeData } = require('../../../models');
+const { MedicinePurposeData, ActivityLog } = require('../../../models');
 
 const create = async (req, res, next) => {
   try {

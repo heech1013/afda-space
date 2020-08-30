@@ -12,7 +12,7 @@ const LoginWrapper = ({children}) => {
       <div className={cx('login-wrapper')}>
         <div className={cx('logo')}>
           <Link to='/'>
-            <img src={logo} width={250} height={47.16} alt={'아프다 스페이스'}/>
+            <img src={logo} width={250} height={80} alt={'아픔모아'}/>
           </Link>
         </div>
         <div className={cx('border')}>

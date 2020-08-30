@@ -20,8 +20,6 @@ class WriterContainer extends Component {
     return new Promise( async (resolve, reject) => {
       const { PostActions } = this.props;
       await PostActions.initializeNewspeed();
-      const {lastPostId, lastActivityId} = this.props;
-      console.log(`initNP : ${lastPostId}, ${lastActivityId}`);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
       resolve();
     })
     
@@ -38,12 +36,14 @@ class WriterContainer extends Component {
        */
       filteringUserId
     } = this.props;
-    console.log(`getId : ${lastPostId}, ${lastActivityId}`);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    console.log(`WriterContainer - getNP | lastPostId: ${lastPostId} | lastActivityId: ${lastActivityId}`)
 
     /** getNewspeed()
      * @param filteringUserId : 'undefined'를 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
      */
-    PostActions.getNewspeed(filteringUserId, lastPostId, lastActivityId);
+    // PostActions.getNewspeed(filteringUserId, lastPostId, lastActivityId);
+    PostActions.getNewspeed(filteringUserId, null, null);
   }
 
   handleSubmit = async({ state }) => {

@@ -1,4 +1,4 @@
-const { MedicineData } = require('../../../models');
+const { MedicineData, ActivityLog } = require('../../../models');
 const CustomError = require('../../../middleware/errorHandler/CustomError');
 
 const create = async (req, res, next) => {
