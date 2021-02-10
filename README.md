@@ -1,6 +1,8 @@
 # AFDA SPACE
 AFDA SPACE is mental health data sharing community. I struggled almost about 1 year: Apr, 2019 ~ Apr, 2020.
 
+(Detailed explanation/retrospection here: https://www.notion.so/project-AFDA-SPACE-mental-health-data-sharing-community-c75fd75f95a64656a3e76dbcc36bc5e3)
+
 ## Why I built this project? Problems I pointed:
 - Difficulty: People had hard time to find information about mental illness on the Internet.
 - Confusion: Especially in case of mental illness, effectiveness and side effects of medicine are very different among people.
