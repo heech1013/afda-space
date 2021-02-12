@@ -27,14 +27,6 @@ const index = async (req, res, next) => {
     }
   );
 
-  // console.log(`
-  //   postWhereObj:
-  //   ${JSON.stringify(postWhereObj)}
-  //   ===
-  //   activityWhereObj:
-  //   ${JSON.stringify(activityWhereObj)}
-  // `)
-
   try {
     const post = await Post.findAll({
       /** subQuery option
