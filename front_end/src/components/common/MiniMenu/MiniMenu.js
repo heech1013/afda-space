@@ -11,7 +11,7 @@ const routeObj = {
   "진단명": "/diagnosis",
   "증상": "/symptom",
   "처방약": "/medicine",
-  // "뉴스피드": "/newspeed"
+  "뉴스피드": "/newspeed"
 }
 
 const MiniMenu = ({buttonArr, location}) => {

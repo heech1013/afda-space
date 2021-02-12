@@ -28,7 +28,6 @@ class WriterContainer extends Component {
   getNewspeed = () => {
     const {
       PostActions,
-      lastPostId, lastActivityId,
       /** 
        * 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 'undefined'(string)
        * newspeedPage -> newspeedContainer -> newspeed -> WriterContainer
@@ -36,8 +35,6 @@ class WriterContainer extends Component {
        */
       filteringUserId
     } = this.props;
-
-    console.log(`WriterContainer - getNP | lastPostId: ${lastPostId} | lastActivityId: ${lastActivityId}`)
 
     /** getNewspeed()
      * @param filteringUserId : 'undefined'를 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
