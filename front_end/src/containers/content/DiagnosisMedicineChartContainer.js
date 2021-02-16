@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as contentActions from 'store/modules/content/content';
+import * as contentActions from 'store/modules/content';
 import DiagnosisMedicineChart from 'components/content/DiagnosisMedicineChart';
 
 class DiagnosisMedicineChartContainer extends Component {

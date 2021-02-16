@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as baseActions from 'store/modules/base/base';
-import * as profileActions from 'store/modules/profile/profile';
-import * as postActions from 'store/modules/post/post';
+import * as baseActions from 'store/modules/base';
+import * as profileActions from 'store/modules/profile';
+import * as postActions from 'store/modules/post';
 
 import Activity from 'components/post/Activity';
 

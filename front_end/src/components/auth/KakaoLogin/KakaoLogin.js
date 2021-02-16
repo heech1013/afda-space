@@ -4,7 +4,7 @@ import styles from './KakaoLogin.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import * as baseActions from 'store/modules/base/base';
+import * as baseActions from 'store/modules/base';
 import dotenv from 'dotenv';
 
 const cx = classNames.bind(styles);

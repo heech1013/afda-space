@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as forumActions from 'store/modules/forum/forum';
-import * as baseActions from 'store/modules/base/base';
+import * as forumActions from 'store/modules/forum';
+import * as baseActions from 'store/modules/base';
 
 import ForumList from 'components/forum/ForumList';
 

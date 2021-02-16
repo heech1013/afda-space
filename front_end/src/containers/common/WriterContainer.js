@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as forumActions from 'store/modules/forum/forum';
-import * as postActions from 'store/modules/post/post';
+import * as forumActions from 'store/modules/forum';
+import * as postActions from 'store/modules/post';
 
 import Writer from 'components/common/Writer';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import * as baseActions from 'store/modules/base/base';
+import * as baseActions from 'store/modules/base';
 
 import JoinForm from 'components/auth/JoinForm';
 

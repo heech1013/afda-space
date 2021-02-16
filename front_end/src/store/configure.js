@@ -1,4 +1,3 @@
-// store 생성 함수. 추후 SSR 시 서버에서 호출하기 위해 함수를 따로 만든다.
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import penderMiddleware from 'redux-pender';
 import * as modules from './modules';

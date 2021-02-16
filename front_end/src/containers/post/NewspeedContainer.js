@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as postActions from 'store/modules/post/post';
+import * as postActions from 'store/modules/post';
 
 import Newspeed from 'components/post/Newspeed';
 
