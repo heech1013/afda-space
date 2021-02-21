@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import queryString from 'query-string';
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://api.afdaspace.com:443' : 'http://localhost:3000';
 
@@ -42,9 +41,5 @@ export const getStationCommentList = (id) => axios.get(`/api/station/${id}/comme
 export const postStationComment = (state) => axios.post(`/api/station/comment`, { state });
 
 export const getNewspeed = (userId, lastPostId, lastActivityId) => axios.get(`/api/newspeed?userId=${userId}&lastPostId=${lastPostId}&lastActivityId=${lastActivityId}`);
-// export const getNewspeed = (userId, lastPostId, lastActivityId) => setTimeout(
-//   () => axios.get(`/api/newspeed?userId=${userId}&lastPostId=${lastPostId}&lastActivityId=${lastActivityId}`),
-//   750
-// ) ;
 export const postPost = (state) => axios.post(`/api/post`, { state });
 export const postPostComment = (postId, state) => axios.post(`/api/post/${ postId }/comment`, { state });

@@ -115,13 +115,11 @@ const showMedicineSummary = async (req, res, next) => {
       if (!val_4[i]) break;  // (결과 배열 요소 개수가 5개 이하일 수 있으므로) 해당 배열 요소가 존재하지 않을 경우 반복문을 탈출.
       else {
         chartData["sideEffectRankArr"].push(val_4[i].symptom.nameKr);
-        /* 알 수 없는 이유로 val_4[i].count 로 접근할 시 undefined가 뜸(다른 곳에서도 같은 현상).
-          때문에 dataValues(sequelize가 리턴하는 특정 형식의 object 내부로 직접 접근..) */
         chartData["sideEffectRankCountArr"].push(val_4[i].dataValues.count);
       }
     }
 
-    /** dosage : 어떻게 짜야할 지.. 모르겠다. */
+    /** dosage */
 
     /** reasonOfStop */
     const val_6_1 = await ReasonOfStop.count({ where: { 'fkMedicineId': medicineId, 'noEffect': true }});
@@ -139,9 +137,9 @@ const showMedicineSummary = async (req, res, next) => {
     const val_6_7 = await ReasonOfStop.count({ where: { 'fkMedicineId': medicineId, 'other': true }});
     chartData["reasonOfStopArr"].push(val_6_7);
 
-    /** duration now: 날짜 조작 까다로워서 우선 pass.. */
+    /** duration now */
 
-    /** duration ex: 날짜 조작 까다로워서 우선 pass.. */
+    /** duration ex */
 
     /** adherence */
     const val_9_1 = await MedicineEvaluationData.count({ where: { 'fkMedicineId': medicineId, 'adherence': 5 }});

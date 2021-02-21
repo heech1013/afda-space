@@ -10,7 +10,6 @@ import ProfileContentList from 'components/profile/ProfileContentList';
 class ProfileContentListContainer extends Component {
   getContentList = async() => {
     const { type, ProfileActions, userId: id } = this.props;
-    // if (type === 'diagnosis' || type === 'medicine' || type === 'symptom') ProfileActions.getUserContentList(type, id);
     if (type === 'diagnosis') await ProfileActions.getUserDiagnosisList(id);
     else if (type === 'medicine') await ProfileActions.getUserMedicineList(id);
     else if (type === 'symptom') await ProfileActions.getUserSymptomList(id);
@@ -70,17 +69,13 @@ class ProfileContentListContainer extends Component {
   render() {
     const {
       userId, storeId,
-      // loading,
       diagnosisList = null, medicineList = null, symptomList = null
     } = this.props;
     const { handleDelete, handleModal, updateContentId } = this;
-    // if (loading) return null;
-    // eslint-disable-next-line eqeqeq
-    const updatable = userId == storeId;
+    const updatable = String(userId) === String(storeId);
     return (
       <div>
         <ProfileContentList
-          // contents={contents}
           diagnosisList={diagnosisList}
           medicineList={medicineList}
           symptomList={symptomList}
@@ -98,8 +93,6 @@ export default connect(
   (state) => ({
     logged: state.base.get('logged'),
     storeId: state.base.get('id'),
-    // loading: state.pender.pending['profile/GET_USER_DIAGNOSIS_LIST'],
-    // contents: state.profile.get('contents')
     diagnosisList: state.profile.get('diagnosisList'),
     medicineList: state.profile.get('medicineList'),
     symptomList: state.profile.get('symptomList')

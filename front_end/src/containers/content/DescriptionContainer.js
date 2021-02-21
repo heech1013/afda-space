@@ -8,7 +8,9 @@ import Description from 'components/content/Description';
 class DescriptionContainer extends Component {
   getContent = () => {
     const { ContentActions, type, id } = this.props;
-    ContentActions.getContent(type, id);
+    if (type && id) {
+      ContentActions.getContent(type, id);
+    }
   }
 
   componentDidMount() {

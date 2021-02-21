@@ -7,9 +7,11 @@ import * as contentActions from 'store/modules/content';
 import ContentTitle from 'components/content/ContentTitle';
 
 class ContentTitleContainer extends Component {
-  getContent = async() => {
+  getContent = async () => {
     const { ContentActions, type, id } = this.props;
-    await ContentActions.getContent(type, id);
+    if (type && id) {
+      await ContentActions.getContent(type, id);
+    }
   }
 
   handleModal = () => {
