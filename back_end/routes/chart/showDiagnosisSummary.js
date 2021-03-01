@@ -38,7 +38,7 @@ const showDiagnosisSummary = async (req, res, next) => {
     chartData["ageArr"] = [];
 
     /** eager loading
-     * the use of 'include' only when you are calling 'find' of 'findAll' (근데 findAndCountAll도 되네.)
+     * the use of 'include' only when you are calling 'find' of 'findAll'
      */
     const val_3_1 = await DiagnosisData.findAndCountAll({
       attributes: ['id'],
@@ -65,11 +65,11 @@ const showDiagnosisSummary = async (req, res, next) => {
       include: [{
         model: User,
         attributes: ['id'],
-        required: true,  // inner join(null인 경우 포함되지 않음, profile의 where과 합쳐져서 where birthDate 조건에 맞지 않는 (profile을 가지는) user는 포함되지 않는다.)
+        required: true,
         include: [{
           model: Profile,
           attributes: ['id'],
-          where: { birthDate: {  // where clause - 자동으로 'required: true' -> inner join(null인 경우 포함되지 않음)
+          where: { birthDate: {
             [Op.lt]: birthYear19,  //  > 19(살) (< YYYY-01-01)
             [Op.gte]: birthYear29  // <= 29(살) (>= YYYY-01-01)
           }}
@@ -85,11 +85,11 @@ const showDiagnosisSummary = async (req, res, next) => {
       include: [{
         model: User,
         attributes: ['id'],
-        required: true,  // inner join(null인 경우 포함되지 않음, profile의 where과 합쳐져서 where birthDate 조건에 맞지 않는 (profile을 가지는) user는 포함되지 않는다.)
+        required: true,
         include: [{
           model: Profile,
           attributes: ['id'],
-          where: { birthDate: {  // where clause - 자동으로 'required: true' -> inner join(null인 경우 포함되지 않음)
+          where: { birthDate: {
             [Op.lt]: birthYear39,  //  > 39(살) (< YYYY-01-01)
             [Op.gte]: birthYear49  // <= 49(살) (>= YYYY-01-01)
           }}
@@ -105,11 +105,11 @@ const showDiagnosisSummary = async (req, res, next) => {
       include: [{
         model: User,
         attributes: ['id'],
-        required: true,  // inner join(null인 경우 포함되지 않음, profile의 where과 합쳐져서 where birthDate 조건에 맞지 않는 (profile을 가지는) user는 포함되지 않는다.)
+        required: true,
         include: [{
           model: Profile,
           attributes: ['id'],
-          where: { birthDate: {  // where clause - 자동으로 'required: true' -> inner join(null인 경우 포함되지 않음)
+          where: { birthDate: {
             [Op.lt]: birthYear49,  //  > 49(살) (< YYYY-01-01)
             [Op.gte]: birthYear59  // <= 59(살) (>= YYYY-01-01)
           }}
@@ -125,11 +125,11 @@ const showDiagnosisSummary = async (req, res, next) => {
       include: [{
         model: User,
         attributes: ['id'],
-        required: true,  // inner join(null인 경우 포함되지 않음, profile의 where과 합쳐져서 where birthDate 조건에 맞지 않는 (profile을 가지는) user는 포함되지 않는다.)
+        required: true,
         include: [{
           model: Profile,
           attributes: ['id'],
-          where: { birthDate: {  // where clause - 자동으로 'required: true' -> inner join(null인 경우 포함되지 않음)
+          where: { birthDate: {
             [Op.lt]: birthYear59,  //  > 59(살) (< YYYY-01-01)
             [Op.gte]: birthYear69  // <= 69(살) (>= YYYY-01-01)
           }}
@@ -145,11 +145,11 @@ const showDiagnosisSummary = async (req, res, next) => {
       include: [{
         model: User,
         attributes: ['id'],
-        required: true,  // inner join(null인 경우 포함되지 않음, profile의 where과 합쳐져서 where birthDate 조건에 맞지 않는 (profile을 가지는) user는 포함되지 않는다.)
+        required: true,
         include: [{
           model: Profile,
           attributes: ['id'],
-          where: { birthDate: {  // where clause - 자동으로 'required: true' -> inner join(null인 경우 포함되지 않음)
+          where: { birthDate: {
             [Op.lt]: birthYear69  //  > 69(살) (< YYYY-01-01)
           }}
         }]
@@ -158,7 +158,7 @@ const showDiagnosisSummary = async (req, res, next) => {
      
     chartData["ageArr"].push(val_3_6.count);
 
-    // ageAtFirstSymptomArr - 생략. 어떻게 해야 할 지 감도 안온다.
+    /** ageAtFirstSymptomArr */
 
     /** menVal */
     const val_4_1 = await DiagnosisData.findAndCountAll({

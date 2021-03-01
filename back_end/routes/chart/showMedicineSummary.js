@@ -65,12 +65,6 @@ const showMedicineSummary = async (req, res, next) => {
 
     /**
      * 뽑히는 수만큼만 자료를 추출해야 한다. 5개 이하로 뽑힐 수 있으므로 추출 개수를 딱 5개로 정해놓으면 안된다. 
-     * 함수 정의 시 async를 붙여야만 내부에서 await을 쓸 수 있다(try catch를 꼭 써야 하는 것은 아니다)
-     * 즉시 실행 함수 : ( function() {} )()
-     * 배열 반복문 for...of는 for each와 다르게 병렬(?)로 처리를 할 수 있게 해준다고 한다.
-      비동기 처리(모든 배열에 값을 다 집어 넣은 후에 return)를 위해 도입.
-     * for ...of 문이 끝난 직후 즉시실행 함수 내에서 return하지 않기 위해 Promise를 리턴하도록 재구성,
-      반복문이 모두 끝난 후 resolve()하며 즉시실행 함수에 await을 붙여 비동기 진행.
     */
     let countVal;
 

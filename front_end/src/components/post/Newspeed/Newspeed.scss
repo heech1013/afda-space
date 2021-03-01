@@ -6,15 +6,16 @@
     padding: 1rem;
     background-color: white;
     margin-bottom: 2rem;
-    .activity-item-detail { 
+    .activity-item-detail {
       display: inline-block;
       width: 39rem;
       margin-right: 2rem;
       .activity-item-link-wrapper {
         display: inline-block;
         .activity-item-link {
+          margin-left: 0.3rem;
           text-decoration: none;
-          color: #2C3F77;
+          color: #2c3f77;
           font-weight: bold;
         }
       }
@@ -33,7 +34,7 @@
     .post-item-link {
       display: inline-block;
       text-decoration: none;
-      color: #2C3F77;
+      color: #2c3f77;
       font-weight: bold;
       width: 39rem;
       margin-right: 2rem;
@@ -52,7 +53,7 @@
         .post-comment-item-link {
           display: inline-block;
           text-decoration: none;
-          color: #2C3F77;
+          color: #2c3f77;
           font-weight: bold;
           width: 39rem;
           margin-right: 2rem;
@@ -64,7 +65,7 @@
           white-space: pre-line;
           margin-top: 0.5rem;
         }
-      } 
+      }
     }
   }
   .newspeed-is-last {

@@ -52,12 +52,6 @@ const showDiagnosisMedicine = async (req, res, next) => {
     /* 뽑히는 수만큼만 자료를 추출해야 한다. 10개 이하로 뽑힐 수 있으므로 추출 개수를 딱 10개로 정해놓으면 안된다. */
     let countVal;
 
-    /** 
-     * 함수 정의 시 async를 붙여야만 내부에서 await을 쓸 수 있다(try catch를 꼭 써야 하는 것은 아니다)
-     * 즉시 실행 함수 : ( function() {} )()
-     * 배열 반복문 for...of는 for each와 다르게 병렬(?)로 처리를 할 수 있게 해준다고 한다.
-      비동기 처리(모든 배열에 값을 다 집어 넣은 후에 return)를 위해 도입.
-    */
     (async () => {
       for (let id of medicineIdArr) {
         countVal = await MedicinePurposeData.count({ where: {'fkMedicineId': id, 'perceivedEffectiveness': 5 }});

@@ -22,7 +22,7 @@ const DiagnosisSummaryChart = ({chartData}) => {
     }]
   };
 
-  /** 첫 증상을 경험한 나이: 데이터 조작 미숙으로 패스. */
+  /** 첫 증상을 경험한 나이. */
   // const ageAtFirstSymptomData = {
   //   categories: ['0-19살', '20-29살', '30-30살', '40-49살', '50-59살', '60-69살', '70살 이상'],
   //   series: [{
