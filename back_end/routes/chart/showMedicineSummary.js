@@ -1,8 +1,16 @@
 const { Sequelize, Medicine, MedicinePurposeData, MedicineDosageData, MedicineEvaluationData, MedicineSideEffectsData, ReasonOfStop, Diagnosis, Symptom } = require('../../models');
+const Cache = require('../../middleware/implementation/cacheConstructor');
 
 const showMedicineSummary = async (req, res, next) => {
   try {
     const { medicineId } = req.query;
+
+    /** caching */
+    const cachedData = Cache.getItem(medicineId);
+    if (cachedData) {
+      return res.status(200).json({ chartData: cachedData });
+    }
+
     const { Op } = Sequelize;
 
     let chartData = {
@@ -290,6 +298,9 @@ const showMedicineSummary = async (req, res, next) => {
         resolve();
       })
     )();
+
+    /** new cache */
+    Cache.setItem(medicineId, chartData);
 
     return res.status(200).json({ chartData });
   } catch (e) {
