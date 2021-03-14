@@ -38,7 +38,6 @@ const showDiagnosisMedicine = async (req, res, next) => {
       }],
       group: ['id', 'nameKr'],
       order: [[Sequelize.fn('COUNT', Sequelize.col('medicinePurposeData.id')), 'DESC']],
-      // limit: 10  // 복잡한 SQL문 상 오류 발생
     });
 
     for (let i = 0; i < 10; i++) {  // val_2 배열의 0 ~ 9번째 요소에 대하여
@@ -73,7 +72,7 @@ const showDiagnosisMedicine = async (req, res, next) => {
         countVal = await MedicineEvaluationData.count({ where: {'fkMedicineId': id, 'sideEffects': 2 }});
         chartData["sideEffectNoneArr"].push(countVal);
       }
-      return res.status(200).json({ chartData });  // 밖으로 빼고 싶으면 showMedicineSummary.js 참고
+      return res.status(200).json({ chartData });
     })();
   } catch (e) {
     next(e);
