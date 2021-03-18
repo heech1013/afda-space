@@ -29,10 +29,10 @@ const MedicineSummaryChart = ({chartData}) => {
     categories: purposeArr,  // ex: ['A', 'B', 'C', 'D', 'E']
     series: [
       { name: '크다',      data: effectMajorArr },  // ex: [12, 64, 34, 52, 8]
-      { name: '보통',      data: effectModerateArr },  // ex: [34,63,23,12,54]
-      { name: '약간 있다', data: effectSlightArr },  // ex: [16,35,86,46,8]e
-      { name: '없다',      data: effectNoneArr },  // ex: [4,35,2,76,3]
-      { name: '모르겠다',  data: effectCanNotTellArr },  // ex: [1,5,7,4,12]
+      { name: '보통',      data: effectModerateArr },
+      { name: '약간 있다', data: effectSlightArr },
+      { name: '없다',      data: effectNoneArr },
+      { name: '모르겠다',  data: effectCanNotTellArr },
     ]
   };
   const purposeOptions = {

@@ -6,13 +6,12 @@ import * as postActions from 'store/modules/post';
 import Newspeed from 'components/post/Newspeed';
 
 class NewspeedContainer extends Component {
-  
-  initializeNewspeed = async () => {
+  initializeNewspeed = () => {
     const { PostActions } = this.props;
-    await PostActions.initializeNewspeed();
+    PostActions.initializeNewspeed();
   }
 
-  getNewspeed = async () => {
+  getNewspeed = () => {
     const {
       PostActions,
       userId,  // 특정 유저 profile의 newspeed일 경우 전달 받음, 메인 페이지 newspeed일 경우 'undefined'(string)
@@ -22,7 +21,7 @@ class NewspeedContainer extends Component {
     /** getNewspeed()
      * @param userId : 'undefined'를 넘겨줄 경우 where 조건문 없이 퀴리문을 작성.
      */
-    await PostActions.getNewspeed(userId, lastPostId, lastActivityId);
+    PostActions.getNewspeed(userId, lastPostId, lastActivityId);
   }
 
   handleScroll = () => {
@@ -40,12 +39,8 @@ class NewspeedContainer extends Component {
   }
 
   componentDidMount() {
-    /** initializeNewspeed() -> getNewspeed() 순으로 실행되지 않기 때문에 getNewspeed() 내부에서 받는 state가 초기화된 state 이전의 state이다.
-      이를 방지하기 위해 promise chaining으로 순서를 강제한다.
-      initializeNewspeed()와 getNewspeed()는 각각 Promise를 리턴하는 함수이다.
-    */
     this.initializeNewspeed()
-      .then(() => this.getNewspeed());
+    this.getNewspeed();
     window.addEventListener("scroll", this.handleScroll);
   }
 

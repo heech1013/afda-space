@@ -43,10 +43,7 @@ const DiagnosisSummaryChart = ({chartData}) => {
   const barTheme = { series: { colors: ['#FFB341']}}
   TuiChart.registerTheme('barTheme', barTheme);
 
-  /** PieChart
-   * barChart와 다르게 데이터를 받아오기 전 undefined가 전달되면 map을 돌리다가 오류가 남.
-   * 이를 방지하기 위해 데이터를 받아오는 동안은 0을 전달. 데이터가 전달되고 나면 정상 생성됨.
-   */
+  /** PieChart */
   /** 성별 */
   const sexData = {
     categories: ['성별'],

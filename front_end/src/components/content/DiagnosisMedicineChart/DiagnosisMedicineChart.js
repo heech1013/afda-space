@@ -15,14 +15,14 @@ const DiagnosisMedicineChart = ({chartData}) => {
     categories: medicineArr,  // 상위 10개 항목: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
     series: [
       { name: '효과 - 크다',        stack: '효과',   data: effectMajorArr },  // ex: [12, 64, 32, 25, 34, 52, 8, 34, 52, 11]
-      { name: '부작용 - 심각하다',  stack: '부작용', data: sideEffectSevereArr },  // ex: [12, 53, 75, 23, 65, 2, 56, 7, 4, 12]
-      { name: '효과 - 보통',        stack: '효과',   data: effectModerateArr },  // ex: [34, 65, 74, 24, 86, 43, 12, 54, 76, 2]
-      { name: '부작용 - 보통',      stack: '부작용', data: sideEffectModerateArr },  // ex: [12, 54, 85, 97, 65, 45, 3, 23, 43, 65]
-      { name: '효과 - 약간 있다',   stack: '효과',   data: effectSlightArr },  // ex: [12, 54, 75, 34, 45, 74, 23, 65, 86, 25]
-      { name: '부작용 - 약간 있다', stack: '부작용', data: sideEffectMildArr },  // ex: [3, 65, 76, 34, 65, 23, 76, 95, 70, 34]
-      { name: '효과 - 없다',        stack: '효과',   data: effectNoneArr },  // ex: [65, 54, 34, 26, 86, 23, 56, 83, 36, 54]
-      { name: '부작용 - 없다',      stack: '부작용', data: sideEffectNoneArr },  // ex: [56, 74, 23, 23, 76, 34, 6, 3, 45, 34]
-      { name: '효과 - 모르겠다',    stack: '효과',   data: effectCanNotTellArr },  // ex: [65, 76, 34, 24, 65, 23, 12, 65, 86, 34]
+      { name: '부작용 - 심각하다',  stack: '부작용', data: sideEffectSevereArr },
+      { name: '효과 - 보통',        stack: '효과',   data: effectModerateArr },
+      { name: '부작용 - 보통',      stack: '부작용', data: sideEffectModerateArr },
+      { name: '효과 - 약간 있다',   stack: '효과',   data: effectSlightArr },
+      { name: '부작용 - 약간 있다', stack: '부작용', data: sideEffectMildArr },
+      { name: '효과 - 없다',        stack: '효과',   data: effectNoneArr },
+      { name: '부작용 - 없다',      stack: '부작용', data: sideEffectNoneArr },
+      { name: '효과 - 모르겠다',    stack: '효과',   data: effectCanNotTellArr },
     ]
   };
  
