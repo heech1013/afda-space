@@ -29,17 +29,15 @@ class ProfileMedicinePurposeAddModalContainer extends Component {
 
   handleSubmit = async ({ state: data }) => {
     const { userId: id, contentId, ProfileActions, BaseActions } = this.props;
-    try {
-      /** 제출 직전 ProfileMedicinePurposeAddModal로부터 넘어온 state의 contentId 값을 업데이트.
-       * contentId 전달 경로: ProfileContentListContainer의 contents의 contentId 
-        -> ProfileContentList의 <Content>의 <Button>의 onClick에서 contentId를 store(profile)에 업데이트
-        -> ProfileMedicineDosageAddModalContainer에서 contentId를 store로부터 props로 전달받아 제출(onSubmit) 직전에 data(Modal로부터의 state)를 업데이트
-      */
-      data.contentId = contentId;
-      await ProfileActions.postUserMedicinePurpose(id, data);
-      BaseActions.hideModal('profileMedicinePurposeAdd');
-      this.getUserMedicineList();
-    } catch (e) {}
+    /** 제출 직전 ProfileMedicinePurposeAddModal로부터 넘어온 state의 contentId 값을 업데이트.
+     * contentId 전달 경로: ProfileContentListContainer의 contents의 contentId 
+      -> ProfileContentList의 <Content>의 <Button>의 onClick에서 contentId를 store(profile)에 업데이트
+      -> ProfileMedicineDosageAddModalContainer에서 contentId를 store로부터 props로 전달받아 제출(onSubmit) 직전에 data(Modal로부터의 state)를 업데이트
+    */
+    data.contentId = contentId;
+    await ProfileActions.postUserMedicinePurpose(id, data);
+    BaseActions.hideModal('profileMedicinePurposeAdd');
+    this.getUserMedicineList();
   }
 
   componentDidMount() {

@@ -5,10 +5,10 @@ import * as contentActions from 'store/modules/content';
 import DiagnosisSummaryChart from 'components/content/DiagnosisSummaryChart';
 
 class DiagnosisSummaryChartContainer extends Component {
-  getChartData = async () => { try {
+  getChartData = async () => {
     const { ContentActions, id } = this.props;  // diagnosis의 PK id
     await ContentActions.getDiagnosisSummaryChartData(id);
-  } catch (e) {} }
+  }
 
   componentDidMount() {
     this.getChartData();

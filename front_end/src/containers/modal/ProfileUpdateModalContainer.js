@@ -22,15 +22,13 @@ class ProfileUpdateModalContainer extends Component {
   }) => {
     const { userId: id } = this.props;
     const { ProfileActions, BaseActions } = this.props;
-    try {
-      await ProfileActions.updateProfileCard(
-        id,
-        // nick,
-        introduction
-      );
-      BaseActions.hideModal('profileCardUpdate');
-      this.getProfile();
-    } catch (e) {}
+    await ProfileActions.updateProfileCard(
+      id,
+      // nick,
+      introduction
+    );
+    BaseActions.hideModal('profileCardUpdate');
+    this.getProfile();
   }
   
   render() {

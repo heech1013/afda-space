@@ -28,11 +28,9 @@ class ProfileDiagnosisAddModalContainer extends Component {
 
   handleSubmit = async ({state: data}) => {
     const { userId: id, ProfileActions, BaseActions } = this.props;  // userId: ProfileDiagnosisPage.js에서 전달 받음.
-    try {
-      await ProfileActions.postUserDiagnosis(id, data);
-      BaseActions.hideModal('profileDiagnosisAdd');
-      this.getUserDiagnosisList();
-    } catch (e) {}
+    await ProfileActions.postUserDiagnosis(id, data);
+    BaseActions.hideModal('profileDiagnosisAdd');
+    this.getUserDiagnosisList();
   }
 
   componentDidMount() {

@@ -28,11 +28,9 @@ class ProfileSymptomAddModalContainer extends Component {
 
   handleSubmit = async (symptomId) => {
     const { userId: id, ProfileActions, BaseActions } = this.props;
-    try {
-      await ProfileActions.postUserSymptom(id, symptomId);
-      BaseActions.hideModal('profileSymptomAdd');
-      this.getUserSymptomList();
-    } catch (e) {}
+    await ProfileActions.postUserSymptom(id, symptomId);
+    BaseActions.hideModal('profileSymptomAdd');
+    this.getUserSymptomList();
   }
 
   componentDidMount() {

@@ -28,11 +28,9 @@ class ProfileMedicineAddModalContainer extends Component {
 
   handleSubmit = async ({ medicineId }) => {
     const { userId: id, ProfileActions, BaseActions } = this.props;
-    try {
-      await ProfileActions.postUserMedicine(id, medicineId);
-      BaseActions.hideModal('profileMedicineAdd');
-      this.getUserMedicineList();
-    } catch (e) {}
+    await ProfileActions.postUserMedicine(id, medicineId);
+    BaseActions.hideModal('profileMedicineAdd');
+    this.getUserMedicineList();
   }
 
   componentDidMount() {

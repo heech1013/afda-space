@@ -17,42 +17,38 @@ class ProfileContentListContainer extends Component {
 
   updateContentId = async (contentId) => {
     const { ProfileActions } = this.props;
-    try {
-      await ProfileActions.updateContentId(contentId);
-    } catch (e) {}
+    await ProfileActions.updateContentId(contentId);
   }
 
   handleDelete = async (contentId, subType = null) => {
     const { type, ContentActions } = this.props;
-    try {
-      switch (type) {
-        case 'diagnosis':  // 진단명 - 삭제하기
-          await ContentActions.deleteContent('diagnosisData', contentId);
-          break;
-        case 'symptom':  // 증상명 - 삭제하기
-          await ContentActions.deleteContent('symptomData', contentId);
-          break;
-        case 'medicine':
-            switch (subType) {
-              case null:  // 처방약 - 삭제하기
-                await ContentActions.deleteContent('medicineData', contentId);
-                break;
-              case 'dosage':  // 처방약 - 용량 삭제하기
-                await ContentActions.deleteContent('medicineDosageData', contentId);
-                break;
-              case 'purpose':  // 처방약 - 처방목적 삭제하기
-                await ContentActions.deleteContent('medicinePurposeData', contentId);
-                break;
-              case 'evaluation':  // 처방약 - 평가 삭제하기
-                await ContentActions.deleteContent('medicineEvaluationData', contentId);
-                break;
-              default:
-            }
-          break;
-        default:
-          break;
-      }
-    } catch (e) {}
+    switch (type) {
+      case 'diagnosis':  // 진단명 - 삭제하기
+        await ContentActions.deleteContent('diagnosisData', contentId);
+        break;
+      case 'symptom':  // 증상명 - 삭제하기
+        await ContentActions.deleteContent('symptomData', contentId);
+        break;
+      case 'medicine':
+          switch (subType) {
+            case null:  // 처방약 - 삭제하기
+              await ContentActions.deleteContent('medicineData', contentId);
+              break;
+            case 'dosage':  // 처방약 - 용량 삭제하기
+              await ContentActions.deleteContent('medicineDosageData', contentId);
+              break;
+            case 'purpose':  // 처방약 - 처방목적 삭제하기
+              await ContentActions.deleteContent('medicinePurposeData', contentId);
+              break;
+            case 'evaluation':  // 처방약 - 평가 삭제하기
+              await ContentActions.deleteContent('medicineEvaluationData', contentId);
+              break;
+            default:
+          }
+        break;
+      default:
+        break;
+    }
     this.getContentList();
   }
 
