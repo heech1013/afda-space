@@ -8,8 +8,7 @@ const create = async (req, res, next) => {
     const { id: fkUserId } = req.params;
     let { data } = req.body;
 
-    /** ''을 null로 바꾸는 작업 */
-    await nullStringHandler(data);
+    nullStringHandler(data);
 
     let {
       contentId: fkMedicineId, takingStatus, recentTakingYear, recentTakingMonth, recentTakingDay, dosageCount, dosageMg, dosageFrequency, additionalDosage, additionalDosageCount, switchRadio, switchTo, dosageDifferRadio, firstTakingYear, firstTakingMonth, firstTakingDay, initialDosageCount, initialDosageMg, initialDosageFrequency, stopTakingYear, stopTakingMonth, stopTakingDay, noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other, reasonText

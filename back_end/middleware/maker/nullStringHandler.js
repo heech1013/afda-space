@@ -1,10 +1,9 @@
 const nullStringHandler = (data) => {
-  return new Promise((resolve, reject) => {
-    for (let key in data) {
-      if (data[key] === '') data[key] = null;
+  for (let [key, value] of Object.entries(data)) {
+    if (value === '') {
+      data[key] = null
     }
-    resolve();
-  })
+  }
 }
 
-module.exports = nullStringHandler;
+module.exports = nullStringHandler

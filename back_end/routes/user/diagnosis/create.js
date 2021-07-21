@@ -15,7 +15,7 @@ const create = async (req, res, next) => {
      * DiagnosisData model의 날짜 type은 INTEGER로, ''를 insert할 수 없다. 따라서 모두 null로 바꿔준다.
      * profileDiagnosisAddModal의 initial state의 날짜 항목 default를 null로 설정할 수는 없다. input tag의 value 값을 null로 설정할 수 없기 때문이다.
      */
-    await nullStringHandler(data);
+    nullStringHandler(data);
 
     const {
       diagnosisId: fkDiagnosisId,

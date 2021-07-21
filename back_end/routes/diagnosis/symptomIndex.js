@@ -9,17 +9,7 @@ const symptomIndex = async (req, res, next) => {
       where: { 'fkDiagnosisId': id }
     });
 
-    const userIdArrMaker = (objArr) => {
-      return new Promise((resolve, reject) => {
-        let idArr = [];
-        objArr.map((obj) => {
-          idArr.push(obj.fkUserId);
-        });
-        resolve(idArr);
-      });
-    };
-
-    const userIdArr = await userIdArrMaker(diagnosedUserList);  
+    const userIdArr = diagnosedUserList.map(user => user.fkUserId)
 
     const contentSymptomList = await Symptom.findAll({
       attributes: ['id', 'nameKr', [Sequelize.fn("COUNT", Sequelize.col("symptomData.id")), "count"]],

@@ -71,51 +71,67 @@ const index = async (req, res, next) => {
       limit: 15  // test need
     });
 
-    let newspeed = [];
-    
-    await (  // Promise 리턴 함수 + 즉시 실행 + await 비동기 처리
-      () => new Promise(async (resolve, reject) => {
-        // post handling
-        for (let obj of post) {
-          newspeed.push({
-            "peedType": "POST",
-            "postId": obj.id,
-            "userId": obj.user.id,
-            "nick": obj.user.profile.nick,
-            "body": obj.body,
-            "postComments": obj.postComments,  // comment array
-            "createdAt": format(obj["createdAt"], "yyyy-MM-dd HH:mm")
-          });
+    const newspeed = [...post, ...activityLog].map(obj => {
+      const {
+        // common fields
+        id,
+        user,
+        createdAt,
+        // fields of post
+        body,
+        postComments,
+        // fields of activityLog
+        type,
+        diagnosis,
+        medicine,
+        symptom,
+      } = obj
+
+      if (obj.type) { // activityLog have `type` field
+        return {
+          peedType: "POST",
+          postId: id,
+          userId: user.id,
+          nick: user.profile.nick,
+          body,
+          postComments,
+          createdAt: format(createdAt, "yyyy-MM-dd HH:mm")
+        }
+      } else {
+        let target, targetId
+
+        switch (type) {
+          case 'REGISTER_DIAGNOSIS':
+            target = diagnosis.nameKr
+            targetId = diagnosis.id
+            break
+          case 'REGISTER_MEDICINE':
+          case 'REGISTER_MEDICINE_DOSAGE':
+          case 'REGISTER_MEDICINE_PURPOSE':
+          case 'REGISTER_MEDICINE_EVALUATION':
+            target = medicine.nameKr
+            targetId = medicine.id
+            break
+          case 'REGISTER_SYMPTOM':
+            target = symptom.nameKr
+            targetId = symptom.id
+            break
+          default:
+            break
         }
 
-        // activityLog handling
-        for (let obj of activityLog) {
-          const target
-            = (obj.type === 'REGISTER_DIAGNOSIS') ? obj.diagnosis.nameKr
-            : ((obj.type === 'REGISTER_MEDICINE') || (obj.type === 'REGISTER_MEDICINE_DOSAGE') || (obj.type === 'REGISTER_MEDICINE_PURPOSE') || (obj.type === 'REGISTER_MEDICINE_EVALUATION')) ? obj.medicine.nameKr
-            : (obj.type === 'REGISTER_SYMPTOM') ? obj.symptom.nameKr
-            : null;  // USER_JOIN
-          const targetId
-            = (obj.type === 'REGISTER_DIAGNOSIS') ? obj.diagnosis.id
-              : ((obj.type === 'REGISTER_MEDICINE') || (obj.type === 'REGISTER_MEDICINE_DOSAGE') || (obj.type === 'REGISTER_MEDICINE_PURPOSE') || (obj.type === 'REGISTER_MEDICINE_EVALUATION')) ? obj.medicine.id
-              : (obj.type === 'REGISTER_SYMPTOM') ? obj.symptom.id
-              : null;  // USER_JOIN
-
-          newspeed.push({
-            "peedType": "ACTIVITY_LOG",
-            "activityId" : obj.id,
-            "userId": obj.user.id,
-            "nick": obj.user.profile.nick,
-            "logType": obj.type,
-            "target": target,
-            "targetId": targetId,
-            "createdAt": format(obj["createdAt"], "yyyy-MM-dd HH:mm"),
-          });
+        return {
+          peedType: "ACTIVITY_LOG",
+          activityId : id,
+          userId: user.id,
+          nick: user.profile.nick,
+          logType: type,
+          target,
+          targetId,
+          createdAt: format(createdAt, "yyyy-MM-dd HH:mm"),
         }
-
-        resolve();
-      })
-    )();
+      }
+    })
 
     /**
      * 조건에 부합하는 게시물이 없을 때 post와 activityLog는 [], 또는 undefined의 형태를 띄지만
