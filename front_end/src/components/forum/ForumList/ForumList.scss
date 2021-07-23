@@ -12,14 +12,11 @@
     margin-top: 1rem;
     margin: 0 auto;
     width: 69rem;
-    background: #FFFFFF;
+    background: #ffffff;
     .row {
       font-weight: bold;
       margin: 0.8rem auto;
       width: 65rem;
-      .row-area {
-
-      }
       .row-center-name {
         margin-left: 8rem;
       }
@@ -29,12 +26,11 @@
       .row-eval-count {
         margin-left: 7rem;
       }
-      .row-subject {
-      }
-      // .row-helpful-count {
-      //   margin-left: 32rem;
-      // }
       .row-title {
+        text-overflow: ellipsis;
+        width: 40rem;
+        overflow: hidden;
+        white-space: nowrap;
       }
       .row-answer-count {
         margin-left: 46rem;
@@ -53,17 +49,17 @@
       margin: 1rem auto;
       width: 65rem;
       .content-title-block {
-      display: inline-block;
-      width: 46.5rem;
-      margin-right: 4rem;
-      .content-link {
-        text-decoration: none;
-        .title {
-          color: #2C3F77;
-          font-weight: bold;    
+        display: inline-block;
+        width: 46.5rem;
+        margin-right: 4rem;
+        .content-link {
+          text-decoration: none;
+          .title {
+            color: #2c3f77;
+            font-weight: bold;
+          }
         }
       }
-    }
       .answer-count {
         display: inline-block;
       }
@@ -71,30 +67,27 @@
         display: inline-block;
         margin-left: 4.5rem;
       }
-          
-          .area {
-            color: #2C3F77;
-            font-weight: bold;
-            margin-left: 2rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-          }
-          .center-name {
-            color: #2C3F77;
-            font-weight: bold;
-            margin-left: 3.5rem;
-          }
-          .doctor-name {
-            color: #2C3F77;
-            font-weight: bold;
-            margin-left: 5rem;
-          }
-          .eval-count {
-            margin-left: 16rem;
-          }
-          
-        
-      
+
+      .area {
+        color: #2c3f77;
+        font-weight: bold;
+        margin-left: 2rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+      .center-name {
+        color: #2c3f77;
+        font-weight: bold;
+        margin-left: 3.5rem;
+      }
+      .doctor-name {
+        color: #2c3f77;
+        font-weight: bold;
+        margin-left: 5rem;
+      }
+      .eval-count {
+        margin-left: 16rem;
+      }
     }
     .content-hr {
       border-bottom: 0;

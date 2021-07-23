@@ -4,6 +4,12 @@
 
 `아프다 스페이스`는 **헬스 데이터**를 공유할 수 있는 **커뮤니티** 서비스입니다.
 
+## 리팩토링(2021.07 ~ 진행 중)
+
+- update promises process in parallel
+- eliminate useless promises
+  - `commit 5d50e5a`
+
 ## 진행 기간
 
 ![README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/schedule.png](README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/schedule.png)
