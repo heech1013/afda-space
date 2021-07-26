@@ -12,8 +12,9 @@
 
 - update promises process in parallel
 - eliminate useless promises
-  - `commit 5d50e5`
-  - `commit 050592`
+  - `commit 5d50e`
+  - `commit 05059`
+  - `commit 8acdd`
 
 ## 진행 기간
 
