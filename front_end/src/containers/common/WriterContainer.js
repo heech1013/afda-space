@@ -16,13 +16,9 @@ class WriterContainer extends Component {
 
   /** type === 'newspeed' or 'post-comment'
    * 포스트 작성 이후 뉴스피드 재로딩 */
-  initializeNewspeed = async () => {
-    return new Promise( async (resolve, reject) => {
-      const { PostActions } = this.props;
-      await PostActions.initializeNewspeed();
-      resolve();
-    })
-    
+  initializeNewspeed = () => {
+    const { PostActions } = this.props;
+    PostActions.initializeNewspeed();
   }
   
   getNewspeed = () => {
