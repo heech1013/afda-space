@@ -170,7 +170,7 @@ const showMedicineSummary = async (req, res, next) => {
     }
 
     /** sideEffect */
-    chartData.sideEffectArr = await Promise.all([
+    const sideEffectPromiseArr = [
       MedicineEvaluationData.count({
         where: {
           'fkMedicineId': medicineId,
@@ -195,7 +195,9 @@ const showMedicineSummary = async (req, res, next) => {
           'sideEffects': 2 
         }
       }),
-    ])
+    ]
+
+    chartData.sideEffectArr = await Promise.all(sideEffectPromiseArr)
 
     /** sideEffect rank */
     const medicineSideEffectsData = await MedicineSideEffectsData.findAll({
@@ -223,7 +225,7 @@ const showMedicineSummary = async (req, res, next) => {
     chartData.sideEffectRankCountArr = medicineSideEffectsData.slice(0, 5).map(obj => obj.dataValues.count)
 
     /** reasonOfStop */
-    chartData.reasonOfStopArr = await Promise.all([
+    const reasonOfStopPromiseArr = [
       ReasonOfStop.count({
         where: {
           'fkMedicineId': medicineId,
@@ -266,10 +268,12 @@ const showMedicineSummary = async (req, res, next) => {
           'other': true
         },
       }),
-    ])
+    ]
+
+    chartData.reasonOfStopArr = await Promise.all(reasonOfStopPromiseArr)
 
     /** adherence */
-    chartData.adherenceCountArr = await Promise.all([
+    const adherenceCountPromiseArr = [
       MedicineEvaluationData.count({
         where: {
           'fkMedicineId': medicineId,
@@ -294,10 +298,12 @@ const showMedicineSummary = async (req, res, next) => {
           'adherence': 2
         },
       }),
-    ])
+    ]
+
+    chartData.adherenceCountArr = await Promise.all(adherenceCountPromiseArr)
 
     /** burden */
-    chartData.burdenCountArr = await Promise.all([
+    const burdenCountPromiseArr = [
       MedicineEvaluationData.count({
         where: {
           'fkMedicineId': medicineId,
@@ -322,10 +328,12 @@ const showMedicineSummary = async (req, res, next) => {
           'burden': 2
         },
       }),
-    ])
+    ]
+
+    chartData.burdenCountArr = await Promise.all(burdenCountPromiseArr)
 
     /** cost */
-    chartData.costCountArr = await Promise.all([
+    const costCountPromiseArr = [
       MedicineEvaluationData.count({
         where: {
           'fkMedicineId': medicineId,
@@ -386,7 +394,9 @@ const showMedicineSummary = async (req, res, next) => {
           ]
         }
       }),
-    ])
+    ]
+
+    chartData.costCountArr = await Promise.all(costCountPromiseArr)
 
     /** switchFrom */
     const medicineSwitchFromData = await MedicineDosageData.findAll({

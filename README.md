@@ -11,6 +11,7 @@
 (2021.07 ~ 진행 중)
 
 - update promises process in parallel
+  - `commit 2a533`
 - eliminate useless promises
   - `commit 5d50e`
   - `commit 05059`
