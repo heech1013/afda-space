@@ -4,14 +4,20 @@
 
 `아프다 스페이스`는 **헬스 데이터**를 공유할 수 있는 **커뮤니티** 서비스입니다.
 
+<br>
+
 ---
+
+<br>
 
 ## UPDATE: 리팩토링
 
 (2021.07 ~ 진행 중)
 
+- use meaningful and pronounceable variable names
 - update promises process in parallel
   - `commit 2a533`
+  - `commit b9930`
 - eliminate useless promises
   - `commit 5d50e`
   - `commit 05059`
@@ -120,15 +126,3 @@
 ![README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/Untitled%207.png](README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/Untitled%207.png)
 
 - 이메일 또는 카카오 계정으로 서비스를 사용할 수 있습니다.
-
-## 디자인
-
-**로고 디자인**
-
-![README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/Untitled%2012.png](README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/Untitled%2012.png)
-
-**웹 디자인**
-
-![README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/Untitled%2013.png](README%20md%20-%20AFDA%20SPACE%2080a0740178ef4db49f6859bc26cc9317/Untitled%2013.png)
-
-- tool: Adobe XD
