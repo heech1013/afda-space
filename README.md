@@ -15,6 +15,7 @@
 (2021.07 ~ 진행 중)
 
 - use meaningful and pronounceable variable names
+  - `commit 5b5d9`
 - update promises process in parallel
   - `commit 2a533`
   - `commit b9930`
