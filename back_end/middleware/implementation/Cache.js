@@ -16,32 +16,25 @@ class Cache {
     getItem(key) {
         const node = this.HashMap.get(key);
 
-        /** caching */
-        if (node) {
-            /** update order of doubly linked list */
-            /** pass if the node is already tail */
-            if (node.back) {
-                /** case the node is middle of other nodes */
-                if (node.front) {
-                    node.front.back = node.back;
-                }
-                /** case the node is head */
-                else {
-                    this.head = node.back;
-                }
-                node.back.front = node.front;
+        // case: there is no cached data
+        if (!node) return null
 
-                this.tail.back = node;
-                node.front = tail;
-                node.back = null;
-                tail = node;
-            }
+        // update LRU order of the node
+        // case: the node is tail
+        if (!node.back) return node.value
 
-            return node.value;
-        }
+        // case: the node is head
+        if (!node.front) this.head = node.back;
+        // case: the node is in middle among others
+        else node.front.back = node.back; 
+        
+        node.back.front = node.front;
+        this.tail.back = node;
+        node.front = tail;
+        node.back = null;
+        tail = node;
 
-        /** there is no cache */
-        return null;
+        return node.value;
     }
 
     setItem(key, newData) {
@@ -50,13 +43,13 @@ class Cache {
             value: newData,
         });
 
-        /** case the first node addition */
+        // case: the first node
         if (!this.head) {
             this.head = newNode;
             this.tail = newNode;
         }
+        // case: the node is in middle among others
         else {
-            /** make link between tail node & new node */
             this.tail.back = newNode;
             newNode.front = this.tail;
             this.tail = newNode;
@@ -65,7 +58,7 @@ class Cache {
         this.size++;
         this.HashMap.set(key, newNode);
 
-        /** restrict cache size */
+        // delete LRU node if the size is over
         if (this.size > this.MAX_SIZE) {
             this.head = this.head.back;
             this.head.front = null;

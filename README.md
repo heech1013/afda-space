@@ -14,8 +14,10 @@
 
 (2021.07 ~ 진행 중)
 
+- update cache replacement policy
 - use meaningful and pronounceable variable names
   - `commit 5b5d9`
+  - `commit be10b`
 - update promises process in parallel
   - `commit 2a533`
   - `commit b9930`

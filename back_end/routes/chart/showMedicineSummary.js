@@ -10,13 +10,16 @@ const {
   Symptom
 } = require('../../models')
 const Cache = require('../../middleware/implementation/cacheConstructor');
+const format = require('date-fns/format');
 
 const showMedicineSummary = async (req, res, next) => {
   try {
     const { medicineId } = req.query;
 
     /** caching */
-    const cachedData = Cache.getItem(medicineId);
+    const cacheKey = `${medicineId}_${format(new Date(), 'yyyymmdd')}`
+    const cachedData = Cache.getItem(cacheKey);
+    
     if (cachedData) {
       return res.status(200).json({ chartData: cachedData });
     }
@@ -468,7 +471,7 @@ const showMedicineSummary = async (req, res, next) => {
     chartData.switchToArr = (await Promise.all(switchToPromiseArr)).map(obj => obj.nameKr)
 
     /** new cache */
-    Cache.setItem(medicineId, chartData);
+    Cache.setItem(cacheKey, chartData);
 
     return res.status(200).json({ chartData });
   } catch (e) {
