@@ -127,9 +127,9 @@ class ProfileMedicineDosageAddModal extends Component {
 
             {/** additional dosage checkbox & input */}
             <input name="additionalDosage" type="checkbox" value={additionalDosage} onChange={handleCheckboxChange}/>필요에 따라 추가로 해당 처방약을 복용합니다.
-            { additionalDosage && '수량: '}  {/** html과 string을 더하면 string이 되어 html 변환을 해야 하므로 input html과 string을 분리한다. */}
+            { additionalDosage && '수량: '}
             { additionalDosage && <input name="additionalDosageCount" autoFocus type="number" min="0" value={additionalDosageCount} onChange={handleInputChange}/>}
-            { additionalDosage && '정(알)씩'}  {/** html과 string을 더하면 string이 되어 html 변환을 해야 하므로 input html과 string을 분리한다. */}
+            { additionalDosage && '정(알)씩'}
 
             <div className={cx('question')}>원래 다른 처방약을 복용하다가 해당 처방약으로 바꾸게 된 것인가요?</div> {/** Did you switch to Bupropion from another treatment(s)? */}
             <input name="switchRadio" type="radio" value="yes" checked={switchRadio.yes} onChange={handleOptionChange}/>예

@@ -40,7 +40,7 @@ const PostItem = ({ postId, userId, nick, createdAt, body, postComments, filteri
         <p className={cx('post-item-body')}>
           {body}
         </p>
-        { (postCommentList.length) ? <hr/> : null } {/** 댓글이 존재하는 경우에만 글과 댓글 사이에 줄 치기 */}
+        { (postCommentList.length) ? <hr/> : null }
         <div className={cx('post-comment-list')}>
           {postCommentList}
         </div>

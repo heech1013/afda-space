@@ -2,10 +2,6 @@ const { sequelize, MedicineEvaluationData, MedicinePurposeData, MedicineSideEffe
 
 const destroy = async (req, res, next) => {
   try {
-    /** REST API와는 맞지 않게 param id가 medicineEvaluation의 PK id가 아님.
-     * ProfileContentList.js로부터 purposeId(MedicinePurposeData의 PK id)를 전달받아
-      fkUserId, fkMedicineId를 조회 후 관련 데이터를 제거/
-     */
     const { id } = req.params;  // MedicinePurposeData의 PK id
 
     /** (mvp) 하나의 처방약에 대해 하나의 처방 목적만 등록 가능하다.

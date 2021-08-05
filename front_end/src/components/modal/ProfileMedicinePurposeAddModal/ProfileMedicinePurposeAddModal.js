@@ -59,7 +59,6 @@ class ProfileMedicinePurposeAddModal extends Component {
           { purposeRadio.symptom ? <select name="symptomId" value={symptomId} onChange={handleInputChange}>{symptomOptionList}</select> : null }
           {/** front단 에러 */}
           { frontError && <div className={cx('error')}>{frontError}</div>}
-          {/* 에러 처리 생략: 목적을 등록할 경우 더 이상의 목적을 등록할 수 없기 때문에 중복 체크 등을 할 필요가 없다. 추후 복수 등록 가능으로 확장 시 필요. */}
           <div>
             <br/><Button onClick={() => {
               if (!purposeRadio.diagnosis && !purposeRadio.symptom) {  // 아무 것도 선택하지 않은 경우

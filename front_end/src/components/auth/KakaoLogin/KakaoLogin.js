@@ -28,7 +28,6 @@ class KakaoLogin extends Component {
   
   componentDidMount() {
     const { history } = this.props;
-    /** public/index.html 내부 <script> 태그 내에서 kakao cdn 로드. window 전역 객체를 통해 Kakao 객체에 접근할 수 있다. */
     window.Kakao.cleanup();  // kakao.init을 두 번 이상 실행(로그인 페이지에 두 번 이상 접속)하면 에러가 나기 때문에, init하기 전 sdk 리소스를 비워준다.
     window.Kakao.init(process.env.REACT_APP_KAKAO_APP_KEY);
     window.Kakao.Auth.createLoginButton({
@@ -58,7 +57,6 @@ class KakaoLogin extends Component {
       <div>
         <div className={cx('kakao-login')}>
           <div id="kakao-login-btn">{""}</div>
-          {/* <a id="kakao-login-btn" href={'/'}>{''}</a> warning 방지를 위해 href와 children에 임시값을 넣어놓았다 */}
         </div>
         <p className={cx('text')}>아프다 스페이스는 이용자 식별을 위해 카카오톡 측에서 제공하는 고유식별 ID만을 활용합니다. 카카오톡에서 [필수] 항목으로 지정한 '프로필 정보(닉네임/프로필 사진)'는 아프다 스페이스 내에서 어떠한 형식으로든 활용되거나 보여지지 않음을 밝힙니다.</p>
       </div>

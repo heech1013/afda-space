@@ -41,7 +41,7 @@ const ForumTitle = ({ forum }) => {
         <div className={cx('row-1')}>{row_1}</div>
         <div className={cx('enroller')}>
           <span>{'등록한 사람 : '}</span>
-          <span className={cx('nick')}>{enrollerNick}</span>  {/* <Link className={cx('nick')} to={`/profile/${enrollerId}`}>{enrollerNick}</Link> */}
+          <span className={cx('nick')}>{enrollerNick}</span>
         </div>
         <div className={cx('createdAt')}>{createdAt}</div>
       </div>

@@ -36,7 +36,6 @@ const PostItem = ({nick, updatedAt, body, comment}) => {
       <Link className={cx('nick')} to={`/profile/?nick=${nick}`}>{nick}</Link>
       <div className={cx('date')}>{format(updatedAt, 'YYYY.MM.DD')}</div>
       <p className={cx('body')}>{body}</p>
-      {/* <Badge theme={theme} checked={checked} number={number} onClick={onClick}/> */}
       <br/><hr className={cx('hr')}/>
       <div className={cx('comment-list')}>
         {CommentList}

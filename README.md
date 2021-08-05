@@ -14,7 +14,9 @@
 
 (2021.07 ~ 진행 중)
 
+- only comment things that have business logic complexity
 - update cache replacement policy
+  - `commit 297ea`
 - use meaningful and pronounceable variable names
   - `commit 5b5d9`
   - `commit be10b`

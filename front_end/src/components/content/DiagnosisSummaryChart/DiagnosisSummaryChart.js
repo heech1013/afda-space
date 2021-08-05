@@ -22,15 +22,6 @@ const DiagnosisSummaryChart = ({chartData}) => {
     }]
   };
 
-  /** 첫 증상을 경험한 나이. */
-  // const ageAtFirstSymptomData = {
-  //   categories: ['0-19살', '20-29살', '30-30살', '40-49살', '50-59살', '60-69살', '70살 이상'],
-  //   series: [{
-  //     name: '사람 수',
-  //     data: ageAtFirstSymptomArr  // ex: [2, 32, 94, 12, 47, 30, 12]
-  //   }]
-  // };
-
   /** bar chart(나이, 첫 증상을 경험한 나이) 용 option, theme */
   const barOptions = {
     chart: { width: 1000, height: 400 },
@@ -85,12 +76,6 @@ const DiagnosisSummaryChart = ({chartData}) => {
   }
   TuiChart.registerTheme('pieTheme', pieTheme);
 
-  /** 막대 클릭 이벤트 등록
-   * series의 allowSelect 활성화 후 'selectSeries' 이벤트 등록(https://github.com/nhn/tui.chart/blob/master/docs/wiki/features-series.md#getting-selection-information-of-series)
-   * react용 tui-chart의 이벤트 등록 방법
-   * other events: selectLegned(https://github.com/nhn/tui.chart/blob/master/docs/wiki/features-legend.md#getting-information-of-legend-when-selecting-legend)
-   */
-
   return (
     <div className={cx('frame')}>
       <div className={cx('main-title')}>아프다 스페이스에서 {nameKr}을(를) 가진 사람들은 어떤 사람들일까요?</div>
@@ -104,11 +89,6 @@ const DiagnosisSummaryChart = ({chartData}) => {
           data={ageData}
           options={barOptions}
         />
-      {/* <div className={cx('title')}>첫 증상을 경험한 나이</div>
-        <BarChart
-          data={ageAtFirstSymptomData}
-          options={barOptions}
-        /> */}
       <div className={cx('title')}>성별</div>
       { 
         (

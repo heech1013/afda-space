@@ -15,13 +15,11 @@ const Header = ({logged, id, onLogout}) => (
         <img className={cx('brand')} src={logo} alt='아프다 스페이스' height='30' width='160'/> {/** 1 : 5.3 */}
       </Link>
       <div className={cx('menu')}>
-        {/* <Button theme={'menu'} to='/'>홈</Button> */}
         <Button theme={'menu'} to='/newspeed'>뉴스피드</Button>
         { logged ? <Button theme={'menu'} to={`/profile/${id}`}>내 프로필</Button> : null }
         <Button theme={'menu'} to='/diagnosis'>진단명</Button>
         <Button theme={'menu'} to='/medicine'>처방약</Button>
         <Button theme={'menu'} to='/station'>정거장</Button>
-        {/* <Button theme={'menu'} to='/center'>치료기관</Button> */}
       </div>
       {logged ?
         <div className={cx('auth')}>
@@ -30,7 +28,6 @@ const Header = ({logged, id, onLogout}) => (
         :
         <div className={cx('auth')}>
           <Button to='/login'>로그인</Button>
-          {/* <Button to='/join'>회원가입</Button> */}
         </div>
       }
       

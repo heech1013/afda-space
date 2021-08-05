@@ -26,7 +26,6 @@ const ContentItem = ({
               <span className={cx('title')}>{title}</span>
             </Link>
           </div>
-          {/* <span className={cx('helpful-count')}>{helpfulCount}</span> */}
           <div className={cx('answer-count')}>{count}</div>
           <div className={cx('content-createdAt')}>{createdAt}</div>
         </div>
@@ -54,7 +53,6 @@ const ForumList = ({contents, location, onModal, buttonString}) => {
       (location.pathname === '/station') ?
         <div className={cx('row')}>
           <span className={cx('row-title')}>{'주제'}</span>
-          {/* <span className={cx('row-helpful-count')}>{'유용해요'}</span> */}
           <span className={cx('row-answer-count')}>{'답변 수'}</span>
           <span className={cx('row-createdAt')}>{'등록 일자'}</span>
         </div> : null;

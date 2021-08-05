@@ -22,7 +22,7 @@ const ContentItem = ({id, nameKr, nameEn, to, count}) => {
 const ContentList = ({row_1, row_2, to, contents}) => {
   const contentList = contents.map((content) => {    
     const {
-      id, nameKr, nameEn = null, /** symptom의 경우 nameEn을 (굳이?) 전달하지 않음 */ count
+      id, nameKr, nameEn = null, count
     } = content.toJS();
 
     return (

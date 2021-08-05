@@ -16,12 +16,10 @@ const create = async (req, res, next) => {
 
     if (!fkMedicineId) return next(CustomError('InternalServerError', 'MedicineId is missing.'));
 
-    /**  data(state) 안에 val = { yes: false, no: false } 꼴의 값을 의미에 맞게 boolean으로 변환 */
     takingStatus = radioHandler(takingStatus);
     switchRadio = radioHandler(switchRadio);
     dosageDifferRadio = radioHandler(dosageDifferRadio);
 
-    /** 응답에 따라 db insert 값을 조정 */
     if (takingStatus) {
       stopTakingYear, stopTakingMonth, stopTakingDay, reasonText = null;
       noEffect, expensive, personalResearch, doctorAdvice, sideEffect, courseDone, other = false;

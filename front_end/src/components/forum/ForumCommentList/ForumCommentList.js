@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 
 const Comment = ({nick, createdAt, body}) => (
   <div className={cx('comment')}>
-    {/* <Link className={cx('nick')} to={`/profile/${nick}`}>{nick}</Link> */}
     <span className={cx('nick')} to={`/profile/${nick}`}>{nick}</span>
     <span className={cx('createdAt')}>{createdAt}</span>
     <div className={cx('body')}>{body}</div>

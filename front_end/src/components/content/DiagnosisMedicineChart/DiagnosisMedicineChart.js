@@ -44,16 +44,6 @@ const DiagnosisMedicineChart = ({chartData}) => {
   }
   TuiChart.registerTheme('barTheme', barTheme);
 
-  /** 막대 클릭 이벤트 등록
-   * series의 allowSelect 활성화 후 'selectSeries' 이벤트 등록(https://github.com/nhn/tui.chart/blob/master/docs/wiki/features-series.md#getting-selection-information-of-series)
-   * react용 tui-chart의 이벤트 등록 방법
-   * other events: selectLegned(https://github.com/nhn/tui.chart/blob/master/docs/wiki/features-legend.md#getting-information-of-legend-when-selecting-legend)
-   */
-  // const handleSelectSeries = (info) => {
-  //   console.log('onSelectSeries works! :', info);
-  // }
-
-
   return (
     <div className={cx('frame')}>
       <div className={cx('main-title')}>{nameKr}을(를) 가진 사람들이 복용하는 처방약 비교</div>

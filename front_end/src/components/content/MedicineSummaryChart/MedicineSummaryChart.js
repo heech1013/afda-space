@@ -209,12 +209,6 @@ const MedicineSummaryChart = ({chartData}) => {
   TuiChart.registerTheme('barTheme', barTheme);
 
   return (
-    /** 등록된 데이터가 존재하지 않는 그래프에 대하여
-     * 카테고리는 정해져 있고 데이터만 없는 경우: 숫자 값(0)이 들어가서 그래프가 정상 생성되므로 문제 없다.
-     * 데이터 순위에 따라 상위 카테고리도 가져오는 경우: Chart 컴포넌트 내에서 map을 돌릴 수 없어 오류가 나므로 그래프를 렌더링하지 않는다.
-     * 
-     * 초반 store로부터 정보를 받아오기 전까지 카테고리에 대한 배열이 존재하지 않아 길이를 읽을 수 없으므로 배열이 존재할 때, 길이를 읽어 렌더링 여부를 판단한다.
-     */
     <div className={cx('frame')}>
       <div className={cx('title')}>처방 목적 & 인지된 효과</div>
       <div className={cx('explanation')}>평가 수 기준 상위 5개 항목</div>
@@ -247,15 +241,6 @@ const MedicineSummaryChart = ({chartData}) => {
         }
       </div>
 
-      {/* <div className={cx('title')}>복용량</div>
-      <div className={cx('explanation')}>현재 복용 중인 사람 수 기준 상위 5개 항목</div>
-      <div className={cx('chart')}>
-        <BarChart
-        data={dosageData}
-        options={dosageOptions}
-          />
-      </div> */}
-
       <div className={cx('title')}>복용을 그만 둔 이유</div>
       <div className={cx('explanation')}>(복수 선택 가능)</div>
       <div className={cx('chart')}>
@@ -264,24 +249,6 @@ const MedicineSummaryChart = ({chartData}) => {
           options={reasonOfStopOptions}
         />
       </div>
-
-      {/* <div className={cx('title')}>복용 기간</div>
-      <div className={cx('explanation')}>현재 복용 중인 사람 수 기준</div>
-      <div className={cx('chart')}>
-          <BarChart
-          data={durationNowData}
-          options={durationNowOptions}
-        />
-      </div>
-
-      <div className={cx('title')}>복용 기간</div>
-      <div className={cx('explanation')}>복용을 그만 둔 사람 수 기준</div>
-      <div className={cx('chart')}>
-          <BarChart
-          data={durationExData}
-          options={durationExOptions}
-        />
-      </div> */}
 
       <div className={cx('title')}>순응도</div>
       <div className={cx('explanation')}>순응도: 전문가/의료진의 권고대로 약을 복용하는 정도</div>

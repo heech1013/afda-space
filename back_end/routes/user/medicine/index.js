@@ -12,7 +12,6 @@ const index = async (req, res, next) => {
             include: [
               {
                 model: MedicinePurposeData, attributes: ['id', 'perceivedEffectiveness'],
-                /** required: true -> (ex: 부프로피온)과 연결된 purposeData를 함께 찾는 과정에서 해당하는 fkUserId를 가진 purposeData가 없으면 상위 Medicine 데이터도 뽑히지 않게 된다(inner join). */
                 where: { fkUserId: id }, required: false,
                 include: [
                   { model: Diagnosis, attributes: ['nameKr']},
@@ -47,10 +46,6 @@ const index = async (req, res, next) => {
       const contentId = obj.medicine.id;  // medicineId
       const medicineName = obj.medicine.nameKr;  // 이름 혹은 null
 
-      /** 하나의 처방약이 여러 개의 처방 목적을 가질 수 있다. 따라서 DB 설계 상 MedicineData:MedicinePurposeData = 1:N
-       * 그러나 mvp 기능상 하나의 처방 목적만 등록할 수 있도록 되어 있다. 그래서 데이터를 첫 번째 원소([0])로 특정한다.
-       * 최종 설계에 따라 추후 여러 개의 처방 목적을 등록/조회할 수 있도록 한다.
-       */
       let purposeData = '';
       let purposeId = '';
       let purposeOfPrescription = '';

@@ -133,10 +133,6 @@ const index = async (req, res, next) => {
       }
     })
 
-    /**
-     * 조건에 부합하는 게시물이 없을 때 post와 activityLog는 [], 또는 undefined의 형태를 띄지만
-       []나 undefined와의 일치여부를 검사하면 제대로 동작하지 않음. (post.length === 0)의 조건을 활용해야 함.
-     */
     const isLast = newspeed.length ? false : true;
     const lastPostId = post.length && post[post.length - 1].id;
     const lastActivityId = activityLog.length && activityLog[activityLog.length - 1].id;
@@ -156,43 +152,3 @@ const index = async (req, res, next) => {
 }
 
 module.exports = index;
-
-/** subQuery: true(default) version query */
-// 'SELECT 
-//   `post`.*, 
-//   `user`.`id` AS `user.id`,
-//   `postComments`.`id` AS `postComments.id`, 
-//   `postComments`.`body` AS `postComments.body`, 
-//   `postComments->user`.`id` AS `postComments.user.id`, 
-//   `postComments->user->profile`.`id` AS `postComments.user.profile.id`, 
-//   `postComments->user->profile`.`nick` AS `postComments.user.profile.nick` 
-// FROM (
-//   SELECT
-//     `post`.`id`, `post`.`body`, `post`.`createdAt` 
-//   FROM `posts` AS `post` 
-//   ORDER BY `post`.`createdAt` DESC LIMIT 8
-// ) AS `post`
-//   LEFT OUTER JOIN `users` AS `user` 
-//     ON `post`.`fkUserId` = `user`.`id`  /* errored point - unknown columns post.fkUserId */
-//   LEFT OUTER JOIN `postComments` AS `postComments`
-//     ON `post`.`id` = `postComments`.`fkPostId`
-//   LEFT OUTER JOIN `users` AS `postComments->user`
-//     ON `postComments`.`fkUserId` = `postComments->user`.`id`
-//   LEFT OUTER JOIN `profiles` AS `postComments->user->profile` 
-//     ON `postComments->user`.`id` = `postComments->user->profile`.`fkUserId` ORDER BY `post`.`createdAt` DESC;'
-
-/** subQuery: false version query */
-// SELECT 
-//   `post`.`id`, `post`.`body`, `post`.`createdAt`, `user`.`id` AS `user.id`, `user->profile`.`id` AS `user.profile.id`, `user->profile`.`nick` AS `user.profile.nick`, `postComments`.`id` AS `postComments.id`, `postComments`.`body` AS `postComments.body`, `postComments->user`.`id` AS `postComments.user.id`, `postComments->user->profile`.`id` AS `postComments.user.profile.id`, `postComments->user->profile`.`nick` AS `postComments.user.profile.nick` 
-// FROM `posts` AS `post` 
-//   LEFT OUTER JOIN `users` AS `user` 
-//     ON `post`.`fkUserId` = `user`.`id` 
-//   LEFT OUTER JOIN `profiles` AS `user->profile` 
-//     ON `user`.`id` = `user->profile`.`fkUserId`
-//   LEFT OUTER JOIN `postComments` AS `postComments`
-//     ON `post`.`id` = `postComments`.`fkPostId` 
-//   LEFT OUTER JOIN `users` AS `postComments->user`
-//     ON `postComments`.`fkUserId` = `postComments->user`.`id`
-//   LEFT OUTER JOIN `profiles` AS `postComments->user->profile` 
-//     ON `postComments->user`.`id` = `postComments->user->profile`.`fkUserId` 
-//   ORDER BY `post`.`createdAt` DESC LIMIT 8;
