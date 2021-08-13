@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Button.scss';
 import classNames from 'classnames/bind';
 import { Link, withRouter } from 'react-router-dom';
