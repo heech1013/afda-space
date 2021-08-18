@@ -10,11 +10,20 @@
 
 <br>
 
-## UPDATE: 리팩토링
+## UPDATE
 
-(2021.07 ~ 진행 중)
+### TypeScript 마이그레이션
+
+(21.08 ~ 진행 중)
+
+- `commit 42676`, `commit bec57`, ...
+
+### 리팩토링
+
+(21.07 ~ 진행 중)
 
 - only comment things that have business logic complexity
+  - `commit 2df2d`
 - update cache replacement policy
   - `commit 297ea`
 - use meaningful and pronounceable variable names

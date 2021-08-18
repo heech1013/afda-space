@@ -17,7 +17,6 @@ interface ButtonProp {
   location?: any;
 }
 
-// const Div = ({ children,...rest }: DivProp): JSX.Element => <div {...rest}>{children}</div>
 const Div: FC<DivProp> = ({ children, ...rest }) => <div {...rest}>{children}</div>
 
 const Button: FC<ButtonProp> = ({
