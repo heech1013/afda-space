@@ -13,8 +13,7 @@
       "esnext"
     ],
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "moduleResolution": "Classic",
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
