@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@toast-ui/react-chart": "^1.0.2",
+    "@types/classnames": "^2.3.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",
     "@types/react": "^17.0.17",
