@@ -3,13 +3,38 @@ import styles from './ContentList.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
+interface DivProps {
+  children: React.ReactNode;
+  rest: any[]
+}
+
+interface ContentItemProps {
+  id: string;
+  nameKr: string;
+  nameEn: string;
+  to: any;
+  count: number;
+}
+
+interface ContentListProps {
+  row_1: any
+  row_2: any
+  to: any
+  contents: any
+}
+
 const cx = classNames.bind(styles);
 
-const Div = ({children, ...rest}) => <div {...rest}>{children}</div>
+function Div({children, ...rest}: DivProps) { 
+  return <div {...rest}>
+    {children}
+  </div>
+}
 
-const ContentItem = ({id, nameKr, nameEn, to, count}) => {
-  const Element = to ? Link : Div;
+function ContentItem({id, nameKr, nameEn, to, count}: ContentItemProps) {
+  const Element: (any | JSX.Element) = to ? Link : Div;
   const nameEnHTML = nameEn ? <div className={cx('en-title')}>({nameEn})</div> : [];
+
   return (
     <div className={cx('content-item')}>
       <Element className={cx('title', { to })} to={`/${to}/${id}/summary`}>{nameKr}</Element>
@@ -19,8 +44,8 @@ const ContentItem = ({id, nameKr, nameEn, to, count}) => {
   )
 };
 
-const ContentList = ({row_1, row_2, to, contents}) => {
-  const contentList = contents.map((content) => {    
+function ContentList({row_1, row_2, to, contents}: ContentListProps) {
+  const contentList = contents.map((content: any) => {    
     const {
       id, nameKr, nameEn = null, count
     } = content.toJS();
