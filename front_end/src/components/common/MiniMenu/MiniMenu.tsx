@@ -1,11 +1,19 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './MiniMenu.scss';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+
+type MiniMenuProps = RouteComponentProps & {
+  buttonArr: string[]
+}
+
+interface RouteObject {
+  readonly [index: string]: string
+}
 
 const cx = classNames.bind(styles);
 
-const routeObj = {
+const routeObj: RouteObject = {
   "프로필": "",
   "개요": "/summary",
   "진단명": "/diagnosis",
@@ -14,7 +22,7 @@ const routeObj = {
   "뉴스피드": "/newspeed"
 }
 
-const MiniMenu = ({buttonArr, location}) => {
+function MiniMenu({buttonArr, location}: MiniMenuProps) {
   const buttonList = buttonArr.map(
     (button, index) => {
       const clicked =
