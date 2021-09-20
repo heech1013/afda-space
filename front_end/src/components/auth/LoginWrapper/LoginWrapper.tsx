@@ -2,12 +2,15 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './LoginWrapper.scss';
 import { Link } from 'react-router-dom';
-
 import logo from 'logo.png';
+
+interface LoginWrapperProps {
+  children: React.ReactNode;
+}
 
 const cx = classNames.bind(styles);
 
-const LoginWrapper = ({children}) => {
+function LoginWrapper({ children }: LoginWrapperProps) {
   return (
       <div className={cx('login-wrapper')}>
         <div className={cx('logo')}>
