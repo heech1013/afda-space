@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
     "@toast-ui/react-chart": "^1.0.2",
     "@types/classnames": "^2.3.1",
     "@types/jest": "^27.0.1",
