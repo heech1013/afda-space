@@ -7,28 +7,16 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "components/*": ["src/components/*"],
-      "pages": ["src/pages"]
-    },
+    "baseUrl": "src",
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
     "strict": true,
+    "resolveJsonModule": true
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "include": [
-    "src"
-  ]
+  "exclude": ["node_modules", "dist"],
+  "include": ["src"]
 }
