@@ -14,13 +14,13 @@
 
 ### TypeScript 마이그레이션
 
-(21.08 ~ 진행 중)
+(21.08 ~ 21.11)
 
 - `commit 42676`, `commit bec57`, ...
 
 ### 리팩토링
 
-(21.07 ~ 진행 중)
+(21.07 ~ 21.11)
 
 - only comment things that have business logic complexity
   - `commit 2df2d`
